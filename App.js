@@ -2,6 +2,8 @@ import {StatusBar} from 'expo-status-bar';
 import React, {useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {getCO2, getRFID} from "./src/api/testAPI";
+import RoomDetail from "./src/components/room-detail/RoomDetail";
+
 export default function App() {
     const [co2Value, setCo2Value] = useState('');
     const [rfidId, setRfidId] = useState('');
@@ -10,12 +12,7 @@ export default function App() {
     getRFID().then((response) => setRfidId(response));
 
     return (
-        <View style={styles.container}>
-            <Text>CoronaCleaner</Text>
-            <Text>CO2 value: {co2Value}</Text>
-            <Text>RFID id: {rfidId}</Text>
-            <StatusBar style="auto"/>
-        </View>
+        <RoomDetail/>
     );
 }
 
