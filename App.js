@@ -1,21 +1,16 @@
+import 'react-native-gesture-handler';
 import {StatusBar} from 'expo-status-bar';
 import React, {useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {getCO2, getRFID} from "./src/api/testAPI";
-export default function App() {
-    const [co2Value, setCo2Value] = useState('');
-    const [rfidId, setRfidId] = useState('');
+import NavigationBar from './src/components/NavigationBar';
+import { NavigationContainer } from '@react-navigation/native';
 
-    getCO2().then((response) => setCo2Value(response));
-    getRFID().then((response) => setRfidId(response));
+export default function App() {
 
     return (
-        <View style={styles.container}>
-            <Text>CoronaCleaner</Text>
-            <Text>CO2 value: {co2Value}</Text>
-            <Text>RFID id: {rfidId}</Text>
-            <StatusBar style="auto"/>
-        </View>
+        <NavigationContainer>
+            <NavigationBar></NavigationBar>
+        </NavigationContainer>
     );
 }
 
