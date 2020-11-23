@@ -1,24 +1,23 @@
-import 'react-native-gesture-handler';
-import {StatusBar} from 'expo-status-bar';
-import React, {useState} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-import NavigationBar from './src/components/NavigationBar';
+import React from 'react';
+import { StatusBar } from 'expo-status-bar';
 import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+
+import Onboarding from './src/components/Onboarding';
+import Home from './src/components/NavigationBar';
+
+const AppStack = createStackNavigator();
 
 export default function App() {
-
-    return (
-        <NavigationContainer>
-            <NavigationBar></NavigationBar>
-        </NavigationContainer>
-    );
+  return (
+    <>
+      <StatusBar style="dark" />
+      <NavigationContainer>
+        <AppStack.Navigator headerMode="none">
+          <AppStack.Screen name="Onboarding" component={Onboarding} />
+          <AppStack.Screen name="Home" component={Home} />
+        </AppStack.Navigator>
+      </NavigationContainer>
+    </>
+  );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-});
