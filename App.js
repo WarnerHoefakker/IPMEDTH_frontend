@@ -5,8 +5,6 @@ import NavigationBar from './src/components/NavigationBar';
 import { NavigationContainer } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import uuid from 'react-native-uuid';
-import {getCO2, getRFID} from "./src/api/testAPI";
-import RoomDetail from "./src/components/room-detail/RoomDetail";
 
 export default function App() {
 
