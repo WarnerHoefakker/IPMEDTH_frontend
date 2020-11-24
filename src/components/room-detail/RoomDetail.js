@@ -1,46 +1,69 @@
 import React from 'react';
-import {StyleSheet, Text, SafeAreaView, View } from 'react-native';
+import {StyleSheet, Text, ScrollView, View} from 'react-native';
 import Gauge from "../charts/Gauge";
+import Prediction from "./Prediction";
+import PeopleAndCO2 from "./PeopleAndCO2";
 
 const RoomDetail = () => {
+    const color = 'green';
+
     return (
-        <SafeAreaView >
+        <ScrollView >
             <View style={styles.detailPage}>
-                <View style={styles.containerHalfWidth}>
-                    <View style={[styles.card, styles.cardLeft]}>
-                        <Text style={styles.cardTitle}>Bezetting</Text>
-                        <Gauge
-                            color={'blue'}
-                            max={60}
-                            value={41}
-                            // showLabel={'text'}
-                        />
+                <View style={styles.twoCards}>
+                    <View style={styles.containerHalfWidth}>
+                        <View style={[styles.card, styles.cardLeft]}>
+                            <Text style={styles.cardTitle}>Bezetting</Text>
+                            <Gauge
+                                color={color}
+                                max={60}
+                                value={41}
+                                // showLabel={'text'}
+                            />
+                        </View>
+                    </View>
+
+                    <View style={styles.containerHalfWidth}>
+                        <View style={[styles.card, styles.cardRight]}>
+                            <Text style={styles.cardTitle}>Luchtkwaliteit</Text>
+                            <Gauge
+                                color={color}
+                                max={100}
+                                value={30}
+                                showLabel={'text'}
+                            />
+                        </View>
                     </View>
                 </View>
 
-                <View style={styles.containerHalfWidth}>
-                    <View style={[styles.card, styles.cardRight]}>
-                        <Text style={styles.cardTitle}>Luchtkwaliteit</Text>
-                        <Gauge
-                            color={'blue'}
-                            max={100}
-                            value={30}
-                            showLabel={'text'}
-                        />
-                    </View>
+
+                <View style={[styles.card]}>
+                    <Text style={styles.cardTitle}>Verwachte bezetting</Text>
+
+                    <Prediction color={color}/>
+                 </View>
+
+                <View style={[styles.card]}>
+                    <Text style={styles.cardTitle}>Bezetting en CO2</Text>
+
+                    <PeopleAndCO2 color={color}/>
                 </View>
             </View>
-        </SafeAreaView>
+        </ScrollView>
     )
 };
 
 const styles = StyleSheet.create({
     detailPage: {
+        padding: 14,
+        display: 'flex',
+        flexDirection: 'column',
+        backgroundColor: '#EFEFEF'
+    },
+    twoCards: {
         justifyContent: 'center',
         flexDirection: 'row',
         flexWrap: 'wrap',
-        flex: 1,
-        padding: 14,
     },
     containerHalfWidth: {
         width: '50%'
@@ -57,18 +80,25 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         borderRadius: 4,
         alignItems: 'center',
-        height: 150
+        marginBottom: 14,
     },
     cardLeft: {
+        height: 150,
        marginRight: 7
     },
     cardRight: {
+        height: 150,
         marginLeft: 7
     },
     cardTitle: {
         fontSize: 20,
         marginTop: 7,
         marginBottom: 7
+    },
+    victoryContainer: {
+        alignItems: 'center',
+        backgroundColor: 'red',
+        flexDirection: "column",
     }
 });
 

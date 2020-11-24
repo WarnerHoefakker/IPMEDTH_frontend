@@ -39,7 +39,12 @@ const Gauge = ({color, value, min, max, showLabel}) => {
                         activeBarColor: colors[color] ? colors[color][2] : '#707070',
                     },
                 ]}
-                labelNoteStyle={[styles.label, showLabel === 'text' ? '' : {display: 'none'}]}
+                labelNoteStyle={{
+                    display: showLabel === 'text' ? 'flex' : 'none',
+                    fontSize: 14,
+                    fontWeight: 'normal',
+                    justifyContent: 'flex-end',
+                }}
                 // labelStyle={[showValue ? '' : {display: 'none'}, {content: 'test', fontSize: 25}]}
                 labelStyle={{display: 'none'}}
                 size={150}

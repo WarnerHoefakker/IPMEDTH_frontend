@@ -12,7 +12,10 @@ export default function App() {
     getRFID().then((response) => setRfidId(response));
 
     return (
-        <RoomDetail/>
+        <View>
+            <RoomDetail/>
+        </View>
+
     );
 }
 
