@@ -1,12 +1,21 @@
 import 'react-native-gesture-handler';
 import React, {useState} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {SafeAreaView, StyleSheet} from 'react-native';
 import NavigationBar from './src/components/NavigationBar';
 import { NavigationContainer } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import uuid from 'react-native-uuid';
 
+import {AppLoading} from "expo";
+import { useFonts } from 'expo-font';
+
+let customFonts = {
+    'Roboto-Regular': require('./src/assets/fonts/Roboto-Regular.ttf')
+};
+
 export default function App() {
+    // Load custom fonts
+    let [fontsLoaded] = useFonts(customFonts);
 
     /* checkForGUID() haalt de guid op uit de storage van een device en slaat deze op in de state 'GUID'.
     Wanneer er geen guid aanwezig is in de lokale storage wordt deze aangemaakt. Dit gebeurd dus bij het voor
@@ -44,18 +53,24 @@ export default function App() {
     checkForGUID();
 
 
-    return (
-        <NavigationContainer>
-            <NavigationBar></NavigationBar>
-        </NavigationContainer>
-    );
+    if(!fontsLoaded) {
+        return <AppLoading/>
+    }
+    else {
+        return (
+            <NavigationContainer>
+                <NavigationBar></NavigationBar>
+            </NavigationContainer>
+        );
+    }
+
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
+        // flex: 1,
+        // backgroundColor: '#fff',
+        // alignItems: 'center',
+        // justifyContent: 'center',
     },
 });

@@ -1,10 +1,11 @@
 import React from 'react';
 import {StyleSheet, View } from 'react-native';
 import {VictoryBar, VictoryChart, VictoryAxis} from "victory-native";
-
+import globalStyles from "../../assets/style/globalStyle";
 import chartStyles from "../../assets/style/chartStyle";
 
-const BarChart = ({data, min, max, yLabels, color, highlight}) => {
+
+const BarChart = ({data, min, max, xLabels, color, highlight}) => {
     return (
         <View style={styles.container}>
             <VictoryChart width={330} height={270} domainPadding={{ x: 20 }} >
@@ -14,7 +15,7 @@ const BarChart = ({data, min, max, yLabels, color, highlight}) => {
                              tickFormat={(t) => t * max}
                 />
 
-                <VictoryAxis tickValues={yLabels}
+                <VictoryAxis tickValues={xLabels}
                              style={chartStyles.xAxisStyle}
                 />
 

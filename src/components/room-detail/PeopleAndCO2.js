@@ -78,7 +78,7 @@ const PeopleAndCO2 = ({color}) => {
                 </TouchableHighlight>
             </View>
 
-            <BarAndLineChart color={color} barData={peopleData[selectedTimeframePeopleCO2]} barMax={peopleData.max} barMin={peopleData.min} lineData={co2Data[selectedTimeframePeopleCO2]} lineMax={co2Data.max} lineMin={co2Data.min} yLabels={yLabels[selectedTimeframePeopleCO2]} />
+            <BarAndLineChart color={color} barData={peopleData[selectedTimeframePeopleCO2]} barMax={peopleData.max} barMin={peopleData.min} lineData={co2Data[selectedTimeframePeopleCO2]} lineMax={co2Data.max} lineMin={co2Data.min} xLabels={yLabels[selectedTimeframePeopleCO2]} />
         </View>
     )
 };

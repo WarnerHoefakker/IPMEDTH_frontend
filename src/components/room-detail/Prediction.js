@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {StyleSheet, Text, TouchableHighlight, View} from 'react-native';
 import BarChart from "../charts/Barchart";
+import globalStyles from "../../assets/style/globalStyle";
 
 const Prediction = ({color}) => {
     // dummy data
@@ -46,19 +47,19 @@ const Prediction = ({color}) => {
             <View style={styles.buttonContainer}>
                 <TouchableHighlight onPress={() => setSelectedPrediction('day')} underlayColor="white">
                     <View style={[styles.buttonSelect, selectedPrediction === 'day' ? styles.buttonSelected : styles.buttonDeselected]}>
-                        <Text style={[styles.buttonTextSelect, selectedPrediction === 'day' ? styles.buttonTextSelected : styles.buttonTextDeselected]}>Dag</Text>
+                        <Text style={[globalStyles.buttonText, styles.buttonTextSelect, selectedPrediction === 'day' ? styles.buttonTextSelected : styles.buttonTextDeselected]}>Dag</Text>
                     </View>
                 </TouchableHighlight>
 
                 <TouchableHighlight onPress={() => setSelectedPrediction('week')} underlayColor="white">
                     <View style={[styles.buttonSelect, selectedPrediction === 'week' ? styles.buttonSelected : styles.buttonDeselected]}>
-                        <Text style={[styles.buttonTextSelect, selectedPrediction === 'week' ? styles.buttonTextSelected : styles.buttonTextDeselected]}>Week</Text>
+                        <Text style={[globalStyles.buttonText, styles.buttonTextSelect, selectedPrediction === 'week' ? styles.buttonTextSelected : styles.buttonTextDeselected]}>Week</Text>
                     </View>
                 </TouchableHighlight>
             </View>
 
 
-            <BarChart color={color} data={data[selectedPrediction]} min={data.min} max={data.max} yLabels={yLabels[selectedPrediction]} highlight={highlight[selectedPrediction]} />
+            <BarChart color={color} data={data[selectedPrediction]} min={data.min} max={data.max} xLabels={yLabels[selectedPrediction]} highlight={highlight[selectedPrediction]} />
         </View>
     )
 };
