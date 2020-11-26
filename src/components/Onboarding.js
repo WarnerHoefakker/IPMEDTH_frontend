@@ -25,7 +25,7 @@ const Skip = ({...props}) => (
         style={{marginHorizontal:10}}
         {...props}
     >
-        <Text style={{fontSize:16}}>Skip</Text>
+        <Text style={{fontSize:16}}>Overslaan</Text>
     </TouchableOpacity>
 );
 
@@ -34,7 +34,7 @@ const Next = ({...props}) => (
         style={{marginHorizontal:10}}
         {...props}
     >
-        <Text style={{fontSize:16}}>Next</Text>
+        <Text style={{fontSize:16}}>Volgende</Text>
     </TouchableOpacity>
 );
 
@@ -43,7 +43,7 @@ const Done = ({...props}) => (
         style={{marginHorizontal:10}}
         {...props}
     >
-        <Text style={{fontSize:16}}>Done</Text>
+        <Text style={{fontSize:16}}>Klaar</Text>
     </TouchableOpacity>
 );
 
