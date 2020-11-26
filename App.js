@@ -7,11 +7,21 @@ import uuid from 'react-native-uuid';
 import Onboarding from './src/components/Onboarding';
 import Home from './src/components/NavigationBar';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import NavigationBar from './src/components/NavigationBar'
+
+/* checkForGUID() haalt de guid op uit de storage van een device en slaat deze op in de state 'GUID'.
+    Wanneer er geen guid aanwezig is in de lokale storage wordt deze aangemaakt. Dit gebeurd dus bij het voor
+    de eerste keer openen van de app én wanneer de applicatie data verwijderd wordt.
+
+    uuid.v4() genereerd een random string in het volgende format xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+    de hoeveelheid mogelijke uitkomsten van deze functie is zo groot dat het vrijwel onmogelijk is om duplicate
+    strings te genereren. */
 
 const AppStack = createStackNavigator();
 
 const App = () =>{
     const [isFirstLaunch, setIsFirstLaunch] = React.useState(null);
+    const [GUID, setGUID] = useState();
 
     useEffect(() => {
         AsyncStorage.getItem('alreadyLaunched').then(value => {
@@ -23,27 +33,6 @@ const App = () =>{
             }
         });
     }, []);
-    if (isFirstLaunch === null) {
-        return null;
-    } else if ( isFirstLaunch === true){
-        return (
-            <NavigationContainer>
-            <AppStack.Navigator headerMode="none">
-              <AppStack.Screen name="Onboarding" component={Onboarding} />
-              <AppStack.Screen name="Home" component={Home} />
-            </AppStack.Navigator>
-          </NavigationContainer>
-        );
-    } else {
-                    /* checkForGUID() haalt de guid op uit de storage van een device en slaat deze op in de state 'GUID'.
-    Wanneer er geen guid aanwezig is in de lokale storage wordt deze aangemaakt. Dit gebeurd dus bij het voor
-    de eerste keer openen van de app én wanneer de applicatie data verwijderd wordt.
-
-    uuid.v4() genereerd een random string in het volgende format xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
-    de hoeveelheid mogelijke uitkomsten van deze functie is zo groot dat het vrijwel onmogelijk is om duplicate
-    strings te genereren. */
-
-    const [GUID, setGUID] = useState();
 
     const saveGUID = async(value) => {
         try{
@@ -68,14 +57,27 @@ const App = () =>{
         }
     }
 
-    checkForGUID();
-
-        return <Home />
+    if (isFirstLaunch === null) {
+        return null;
+    } else if ( isFirstLaunch === true){
+        checkForGUID();
+        return (
+            <NavigationContainer>
+                <AppStack.Navigator headerMode="none">
+                    <AppStack.Screen name="Onboarding" component={Onboarding} />
+                    <AppStack.Screen name="Home" component={Home} />
+                </AppStack.Navigator>
+            </NavigationContainer>
+        );
+    } else {
+        checkForGUID();
+        return (
+            <NavigationContainer>
+                <NavigationBar></NavigationBar>
+            </NavigationContainer>
+        );
         
     }
 }
-
-
-
 
   export default App;
