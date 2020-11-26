@@ -1,18 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useEffect,useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import 'react-native-gesture-handler';
-import React, {useState} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-import NavigationBar from './src/components/NavigationBar';
-import { NavigationContainer } from '@react-navigation/native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import uuid from 'react-native-uuid';
+
 import Onboarding from './src/components/Onboarding';
 import Home from './src/components/NavigationBar';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
 
 const AppStack = createStackNavigator();
 
@@ -41,7 +35,7 @@ const App = () =>{
           </NavigationContainer>
         );
     } else {
-            /* checkForGUID() haalt de guid op uit de storage van een device en slaat deze op in de state 'GUID'.
+                    /* checkForGUID() haalt de guid op uit de storage van een device en slaat deze op in de state 'GUID'.
     Wanneer er geen guid aanwezig is in de lokale storage wordt deze aangemaakt. Dit gebeurd dus bij het voor
     de eerste keer openen van de app én wanneer de applicatie data verwijderd wordt.
 
@@ -76,10 +70,10 @@ const App = () =>{
 
     checkForGUID();
 
-}
         return <Home />
         
     }
+}
 
 
 
