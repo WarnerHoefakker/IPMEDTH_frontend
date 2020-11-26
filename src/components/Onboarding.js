@@ -1,87 +1,95 @@
-import React, { useRef } from 'react';
-import { View } from 'react-native';
-import ViewPager from '@react-native-community/viewpager';
-import { useNavigation } from '@react-navigation/native';
+import React from 'react';
+import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 
-import Page from '../components/Page';
-import Footer from '../components/Footer';
+import Onboarding from 'react-native-onboarding-swiper';
 
-const Onboarding = () => {
-  const pagerRef = useRef(null);
-  const navigation = useNavigation();
+const Dots = ({selected}) => {
+    let backgroundColor;
 
-  const handlePageChange = pageNumber => {
-    pagerRef.current.setPage(pageNumber);
-  };
+    backgroundColor = selected ? 'rgba(0, 0, 0, 0.8)' : 'rgba(0, 0, 0, 0.3)';
 
-  return (
-    <View style={{ flex: 1 }}>
-      <ViewPager style={{ flex: 1 }} initialPage={0} ref={pagerRef}>
-        <View key="1">
-          <Page
-            backgroundColor="#9BD380"
-            iconName="alert-circle"
-            title="Welkom bij Corona Cleaner"
-          />
-          <Footer
-            backgroundColor="#9BD380"
-            rightButtonLabel="Next"
-            rightButtonPress={() => {
-              handlePageChange(1);
+    return (
+        <View 
+            style={{
+                width:6,
+                height: 6,
+                marginHorizontal: 3,
+                backgroundColor
             }}
-          />
-        </View>
-        <View key="2">
-          <Page
-            backgroundColor="#BBE1FF"
-            iconName="alert-circle"
-            title="Hou 1,5 meter afstand!"
-          />
-          <Footer
-            backgroundColor="#BBE1FF"
-            rightButtonLabel="Next"
-            rightButtonPress={() => {
-              handlePageChange(2);
-            }}
-          />
-        </View>
-        <View key="3">
-          <Page
-            backgroundColor="#A782D9"
-            iconName="alert-circle"
-            title="Om de luchtkwaliteit van ruimte te meten word er gebruik gemaakt van CO2 sensoren"
-          />
-          <Footer
-            backgroundColor="#A782D9"
-            rightButtonLabel="Next"
-            rightButtonPress={() => {
-              handlePageChange(3);
-            }}
-          />
-        </View>
-           
-        <View key="4">
-          <Page
-            backgroundColor="#FFD456"
-            iconName="alert-circle"
-            title="Registreer je wanneer je een ruimte betreed!"
-          />
-                    
-          <Footer
-            backgroundColor="#FFD456"
-            leftButtonLabel="Back"
-            leftButtonPress={() => {
-              handlePageChange(0);
-            }}
-            rightButtonLabel="Continue"
-            rightButtonPress={() => {
-              navigation.navigate('Home');
-            }}
-          />
-        </View>
-      </ViewPager>
-    </View>
-  );
+        />
+    );
+}
+
+const Skip = ({...props}) => (
+    <TouchableOpacity
+        style={{marginHorizontal:10}}
+        {...props}
+    >
+        <Text style={{fontSize:16}}>Skip</Text>
+    </TouchableOpacity>
+);
+
+const Next = ({...props}) => (
+    <TouchableOpacity
+        style={{marginHorizontal:10}}
+        {...props}
+    >
+        <Text style={{fontSize:16}}>Next</Text>
+    </TouchableOpacity>
+);
+
+const Done = ({...props}) => (
+    <TouchableOpacity
+        style={{marginHorizontal:10}}
+        {...props}
+    >
+        <Text style={{fontSize:16}}>Done</Text>
+    </TouchableOpacity>
+);
+
+const OnboardingScreen = ({navigation}) => {
+    return (
+        <Onboarding
+        SkipButtonComponent={Skip}
+        NextButtonComponent={Next}
+        DoneButtonComponent={Done}
+        DotComponent={Dots}
+        onSkip={() => navigation.replace("Home")}
+        onDone={() => navigation.navigate("Home")}
+        pages={[
+          {
+            backgroundColor: '#9BD380',
+            image: <Image source={require("../../assets/img/corona.png")} />,
+            title: 'Welkom bij Corona Cleaner',
+          },
+          {
+            backgroundColor: '#BBE1FF',
+            image: <Image source={require("../../assets/img/corona.png")} />,
+            title: 'Hou 1,5 meter afstand!',
+          },
+          {
+            backgroundColor: '#A782D9',
+            image: <Image source={require("../../assets/img/corona.png")} />,
+            title: 'Luchtkwaliteit',
+            subtitle: "Om de luchtkwaliteit van de ruimte te meten word er gebruik gemaakt van CO2 sensoren",
+          },
+          {
+            backgroundColor: '#FFD456',
+            image: <Image source={require("../../assets/img/corona.png")} />,
+            title: 'Registreer wanneer je een ruimte betreed',
+            subtitle: "tags"
+          },
+        ]}
+      />
+    );
 };
 
-export default Onboarding;
+export default OnboardingScreen;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1, 
+    alignItems: 'center', 
+    justifyContent: 'center'
+  },
+});

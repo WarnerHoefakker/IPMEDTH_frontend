@@ -7,6 +7,7 @@ import Scan from './screens/Scan';
 import Maps from './screens/Maps';
 import Onboarding from './screens/Onboarding';
 
+
 export default function Navigation() {
 
     const Tab = createBottomTabNavigator();
