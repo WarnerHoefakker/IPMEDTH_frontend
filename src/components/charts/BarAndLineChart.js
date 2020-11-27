@@ -3,8 +3,9 @@ import { StyleSheet, Text, View } from 'react-native';
 import { VictoryBar, VictoryChart, VictoryAxis, VictoryLine } from "victory-native";
 
 import chartStyles from "../../assets/style/chartStyle";
+import globalStyles from "../../assets/style/globalStyle";
 
-const BarAndLineChart = ({barData, barMax, barMin, lineData, lineMax, lineMin, yLabels, color}) => {
+const BarAndLineChart = ({barData, barMax, barMin, lineData, lineMax, lineMin, xLabels, color}) => {
     const height = 270;
     const width = 330;
 
@@ -22,7 +23,7 @@ const BarAndLineChart = ({barData, barMax, barMin, lineData, lineMax, lineMin, y
                              style={chartStyles.yAxisStyle}
                 />
 
-                <VictoryAxis tickValues={yLabels}
+                <VictoryAxis tickValues={xLabels}
                              style={chartStyles.xAxisStyle}
                 />
 
@@ -56,12 +57,12 @@ const BarAndLineChart = ({barData, barMax, barMin, lineData, lineMax, lineMin, y
             <View style={styles.legend}>
                 <View style={styles.legendItem}>
                     <View style={[chartStyles.legendStyle.legendItemColorBar[color], styles.legendItemSymbol]} />
-                    <Text>Bezetting</Text>
+                    <Text style={globalStyles.text}>Bezetting</Text>
                 </View>
 
                 <View style={styles.legendItem}>
                     <View style={[styles.legendItemColorLine, styles.legendItemSymbol]} />
-                    <Text>CO2</Text>
+                    <Text style={globalStyles.text}>CO2</Text>
                 </View>
             </View>
         </View>

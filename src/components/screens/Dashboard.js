@@ -3,6 +3,7 @@ import {StyleSheet, Text, View, ScrollView} from 'react-native';
 import Gauge from '../charts/Gauge';
 import Navigation from '../NavigationBar';
 import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import globalStyles from "../../assets/style/globalStyle";
 
 export default function Dashboard({ navigation }) {
 
@@ -44,7 +45,7 @@ export default function Dashboard({ navigation }) {
                             <View style={styles.dashboardCardNameContainer}>
                                 <Text style={styles.dashboardCardName}>{room.roomName}</Text>
                                 <View style={[styles.dashboardCardStatusIndicator, determineSafetyLevel(room)]}>
-        
+
                                 </View>
                             </View>
                             <View key={room.roomName} style={styles.dashboardCard}>

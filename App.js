@@ -1,8 +1,11 @@
-import React, { useEffect,useState } from 'react';
-import { StatusBar } from 'expo-status-bar';
+import 'react-native-gesture-handler';
+import React, {useState, useEffect} from 'react';
+import {SafeAreaView, StyleSheet} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import uuid from 'react-native-uuid';
+import {AppLoading} from "expo";
+import { useFonts } from 'expo-font';
 
 import Onboarding from './src/components/Onboarding';
 import Home from './src/components/NavigationBar';
@@ -20,6 +23,14 @@ import NavigationBar from './src/components/NavigationBar'
 const AppStack = createStackNavigator();
 
 const App = () =>{
+    // Load custom fonts
+    let customFonts = {
+        'Roboto-Regular': require('./src/assets/fonts/Roboto-Regular.ttf')
+    };
+
+    let [fontsLoaded] = useFonts(customFonts);
+
+    // Onboarding
     const [isFirstLaunch, setIsFirstLaunch] = React.useState(null);
     const [GUID, setGUID] = useState();
 
@@ -57,6 +68,10 @@ const App = () =>{
         }
     }
 
+    if(!fontsLoaded) {
+        return <AppLoading/>
+    }
+
     if (isFirstLaunch === null) {
         return null;
     } else if ( isFirstLaunch === true){
@@ -76,7 +91,7 @@ const App = () =>{
                 <NavigationBar></NavigationBar>
             </NavigationContainer>
         );
-        
+
     }
 }
 

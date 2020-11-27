@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
-import RNSpeedometer from 'react-native-speedometer'
+import RNSpeedometer from 'react-native-speedometer';
+import globalStyles from "../../assets/style/globalStyle";
 
 const Gauge = ({color, value, min, max, showLabel}) => {
     const colors = {
@@ -12,7 +13,7 @@ const Gauge = ({color, value, min, max, showLabel}) => {
     let valueLabel = <></>;
 
     if (showLabel !== 'text') {
-        valueLabel = <Text style={styles.label}>{value} / {max}</Text>
+        valueLabel = <Text style={[globalStyles.text, styles.label]}>{value} / {max}</Text>
     }
 
     return (
@@ -39,13 +40,15 @@ const Gauge = ({color, value, min, max, showLabel}) => {
                         activeBarColor: colors[color] ? colors[color][2] : '#707070',
                     },
                 ]}
-                labelNoteStyle={{
-                    display: showLabel === 'text' ? 'flex' : 'none',
-                    fontSize: 14,
-                    fontWeight: 'normal',
-                    justifyContent: 'flex-end',
-                }}
-                // labelStyle={[showValue ? '' : {display: 'none'}, {content: 'test', fontSize: 25}]}
+                labelNoteStyle={[
+                    globalStyles.text,
+                    {
+                        display: showLabel === 'text' ? 'flex' : 'none',
+                        fontSize: 14,
+                        fontWeight: 'normal',
+                        justifyContent: 'flex-end',
+                    }
+                ]}
                 labelStyle={{display: 'none'}}
                 size={150}
                 needleImage={require('../../assets/img/speedometer-needle3.png')}
@@ -67,8 +70,7 @@ const styles = StyleSheet.create({
     label: {
         fontSize: 14,
         fontWeight: 'normal',
-        justifyContent: 'flex-end',
-        // flex: 1
+        justifyContent: 'flex-end'
     }
 });
 
