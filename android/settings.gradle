@@ -1,4 +1,6 @@
 rootProject.name = 'coronacleaner'
+include ':react-native-nfc-manager'
+project(':react-native-nfc-manager').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-nfc-manager/android')
 
 apply from: '../node_modules/react-native-unimodules/gradle.groovy'
 includeUnimodulesProjects()
