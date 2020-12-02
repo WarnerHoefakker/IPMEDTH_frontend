@@ -8,5 +8,9 @@
     <string>ALWAYS</string>
     <key>EXUpdatesLaunchWaitMs</key>
     <integer>0</integer>
+        <key>EXUpdatesURL</key>
+    <string>https://example.com</string>
+    <key>EXUpdatesSDKVersion</key>
+	        <string>38.0.0</string>
   </dict>
 </plist>
