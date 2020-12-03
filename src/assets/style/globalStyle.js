@@ -20,12 +20,12 @@ const globalStyles = StyleSheet.create({
         fontSize: 24
     },
     card: {
-        shadowColor: "#000",
+        shadowColor: "#222222",
         shadowOffset: {
             width: 0,
             height: 2,
         },
-        shadowOpacity: 0.25,
+        shadowOpacity: 0.15,
         shadowRadius: 3.84,
         elevation: 5,
         backgroundColor: '#fff',
