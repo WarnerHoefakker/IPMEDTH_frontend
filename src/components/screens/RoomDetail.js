@@ -6,24 +6,7 @@ import Prediction from "../room-detail/Prediction";
 import PeopleAndCO2 from "../room-detail/PeopleAndCO2";
 import globalStyles from "../../assets/style/globalStyle";
 
-class RoomDetail extends React.Component { // TODO: functie of class? export default function RoomDetail()
-
-//     const color = 'green';
-//
-//     // Test voor Server Side Events
-//     let [co2Value, setCo2Value] = useState(0);
-//
-//     const source = new RNEventSource('http://192.168.178.123:3001/test/sse'); // TODO: hier eigen lokale ip adres invullen/server ip adres invullen
-//
-//     source.addEventListener('message', (event) => {
-//     let data = JSON.parse(event.data);
-//     console.log(data);
-//
-//     setCo2Value(data.value);
-// });
-//
-// console.log(source.url);
-
+class RoomDetail extends React.Component {
     color = 'green';
 
     constructor(props) {
@@ -34,17 +17,11 @@ class RoomDetail extends React.Component { // TODO: functie of class? export def
     }
 
     componentDidMount() {
-//     // Test voor Server Side Events
-
-        const source = new RNEventSource('http://192.168.178.123:3001/test/sse'); // TODO: hier eigen lokale ip adres invullen/server ip adres invullen
+        const source = new RNEventSource('http://188.166.54.87/rooms/LC4044/currentstatus');
 
         source.addEventListener('message', (event) => {
             let data = JSON.parse(event.data);
-            console.log(data.value);
-
-            // this.state.co2Value = data.value; // TODO: reactive
-
-            this.setState({co2Value: data.value})
+            this.setState({co2Value: data.co2.level})
         });
     }
 
@@ -71,7 +48,7 @@ class RoomDetail extends React.Component { // TODO: functie of class? export def
                                     <Text style={[globalStyles.text, globalStyles.cardTitle]}>Luchtkwaliteit</Text>
                                     <Gauge
                                         color={this.color}
-                                        max={100}
+                                        max={1600}
                                         value={this.state.co2Value}
                                         showLabel={'text'}
                                     />
