@@ -5,6 +5,7 @@ import Gauge from "../charts/Gauge";
 import Prediction from "../room-detail/Prediction";
 import PeopleAndCO2 from "../room-detail/PeopleAndCO2";
 import globalStyles from "../../assets/style/globalStyle";
+import {API_URL} from '@env';
 
 class RoomDetail extends React.Component {
     color = 'green';
@@ -17,7 +18,7 @@ class RoomDetail extends React.Component {
     }
 
     componentDidMount() {
-        const source = new RNEventSource('http://188.166.54.87/rooms/LC4044/currentstatus');
+        const source = new RNEventSource(API_URL + '/rooms/LC4044/currentstatus');
 
         source.addEventListener('message', (event) => {
             let data = JSON.parse(event.data);
