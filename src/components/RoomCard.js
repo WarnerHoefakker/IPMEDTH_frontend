@@ -16,7 +16,7 @@ class RoomCard extends React.Component{
     }
 
     componentDidMount(){
-        this.eventSource = new RNEventSource(API_URL + '/rooms/' + this.props.roomId + '/currentstatus');
+        this.eventSource = new RNEventSource('http://188.166.54.87' + '/rooms/' + this.props.roomId + '/currentstatus');
         this.eventSource.addEventListener('message', (event) => {
             let data = JSON.parse(event.data);
             this.setState({co2Value: data.co2.level})

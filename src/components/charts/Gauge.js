@@ -39,7 +39,7 @@ const Gauge = ({color, value, min, max, showLabel}) => {
                         labelColor: '#000',
                         activeBarColor: colors[color] ? colors[color][2] : '#707070',
                     },
-                ]}
+                ]} // TODO: 400 - 800 = goed, 800 - 1000 = matig, 1000+ = slecht
                 labelNoteStyle={[
                     globalStyles.text,
                     {
