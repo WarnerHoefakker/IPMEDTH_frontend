@@ -17,11 +17,18 @@ async function getRFID() {
 async function getRooms() {
     let response = await fetch(API_URL + '/rooms');
     let data = await response.json();
-    return data
+    return data;
+}
+
+async function getRoomCurrentStatus(roomId) {
+    let response = await fetch(API_URL + '/' + roomId + '/currentstatus');
+    let data = await response.json();
+    return data;
 }
 
 export {
     getCO2,
     getRFID,
-    getRooms
+    getRooms,
+    getRoomCurrentStatus
 }
