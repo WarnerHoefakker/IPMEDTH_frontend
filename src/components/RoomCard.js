@@ -1,8 +1,9 @@
 import React from 'react';
-import {StyleSheet, Text, View, TouchableWithoutFeedback} from 'react-native';
+import {StyleSheet, Text, View, TouchableWithoutFeedback, SnapshotViewIOS} from 'react-native';
 import RNEventSource from 'react-native-event-source';
 import Gauge from './charts/Gauge';
 import {API_URL} from '@env';
+import {getRoomCurrentStatus} from '../api/testAPI';
 
 class RoomCard extends React.Component{
 
@@ -16,17 +17,27 @@ class RoomCard extends React.Component{
     }
 
     componentDidMount(){
-        this.eventSource = new RNEventSource(API_URL + '/rooms/' + this.props.roomId + '/currentstatus');
-        this.eventSource.addEventListener('message', (event) => {
-            let data = JSON.parse(event.data);
-            this.setState({co2Value: data.co2.level})
-            this.determineSafetyLevel();
-        });
+        this.getData();
+        this.determineSafetyLevel();
+        this.dataUpdateInterval = setInterval(() => {this.getData();}, 5000);
     }
 
     componentWillUnmount(){
-        this.eventSource.removeAllListeners();
-        this.eventSource.close();
+        clearInterval(this.dataUpdateInterval);
+    }
+
+    getData(){
+        getRoomCurrentStatus(this.props.roomId).then((response) => {
+            this.setState({co2Value: response.co2.level});
+            this.setState({peopleAmount: response.people.people}, () => {
+                if(this.props.roomId == "LC4044" || this.props.roomId == "LC5044"){
+                    console.log(this.state.peopleAmount)
+                }
+            });
+            this.determineSafetyLevel();
+        }).catch((e) => {
+            console.log(e)
+        })
     }
 
     determineSafetyLevel(){
