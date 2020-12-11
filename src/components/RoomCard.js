@@ -44,6 +44,7 @@ class RoomCard extends React.Component{
         } else {
             this.setState({safetyLevel: 'grey'})
         }
+        this.props.safetyLevel(this.props.roomId, this.state.safetyLevel);
     };
 
     render(){
