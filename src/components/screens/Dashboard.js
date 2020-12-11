@@ -124,10 +124,16 @@ class Dashboard extends React.Component {
         let copyOfRoomsState = this.state.rooms;
         for(let i= 0; i < copyOfRoomsState.length; i++){
             if(copyOfRoomsState[i].roomId == roomId){
-                copyOfRoomsState[i].safetyLevel = safetyLevel;
+                if(copyOfRoomsState[i].safetyLevel != safetyLevel && copyOfRoomsState[i].safetyLevel != 'grey' && safetyLevel != 'grey'){
+                    copyOfRoomsState[i].safetyLevel = safetyLevel;
+                    this.setState({rooms: copyOfRoomsState});
+                    this.filterRooms();
+                } else {
+                    copyOfRoomsState[i].safetyLevel = safetyLevel;
+                    this.setState({rooms: copyOfRoomsState});
+                }
             }
         }
-        this.setState({rooms: copyOfRoomsState});
     }
 
     render(){
@@ -147,7 +153,6 @@ class Dashboard extends React.Component {
                                     disabled={false}
                                     value={this.state.levelFilter[0]}
                                     onValueChange={(newValue) => {
-                                        this.setState({shownRooms: []});
                                         this.changeLevelFilterState(0, newValue);
                                     }}
                                     onCheckColor='#848CD9'
@@ -160,7 +165,6 @@ class Dashboard extends React.Component {
                                     disabled={false}
                                     value={this.state.levelFilter[1]}
                                     onValueChange={(newValue) => {
-                                        this.setState({shownRooms: []});
                                         this.changeLevelFilterState(1, newValue);
                                     }}
                                     onCheckColor='#848CD9'
@@ -173,7 +177,6 @@ class Dashboard extends React.Component {
                                     disabled={false}
                                     value={this.state.levelFilter[2]}
                                     onValueChange={(newValue) => {
-                                        this.setState({shownRooms: []});
                                         this.changeLevelFilterState(2, newValue);
                                     }}
                                     onCheckColor='#848CD9'
@@ -186,7 +189,6 @@ class Dashboard extends React.Component {
                                     disabled={false}
                                     value={this.state.levelFilter[3]}
                                     onValueChange={(newValue) => {
-                                        this.setState({shownRooms: []});
                                         this.changeLevelFilterState(3, newValue);
                                     }}
                                     onCheckColor='#848CD9'
@@ -202,7 +204,6 @@ class Dashboard extends React.Component {
                                     disabled={false}
                                     value={this.state.safetyFilter[0]}
                                     onValueChange={(newValue) => {
-                                        this.setState({shownRooms: []});
                                         this.changeSafetyFilterState(0, newValue)
                                     }}
                                     onCheckColor='#848CD9'
@@ -215,7 +216,6 @@ class Dashboard extends React.Component {
                                     disabled={false}
                                     value={this.state.safetyFilter[1]}
                                     onValueChange={(newValue) => {
-                                        this.setState({shownRooms: []});
                                         this.changeSafetyFilterState(1, newValue)
                                     }}
                                     onCheckColor='#848CD9'
@@ -228,7 +228,6 @@ class Dashboard extends React.Component {
                                     disabled={false}
                                     value={this.state.safetyFilter[2]}
                                     onValueChange={(newValue) => {
-                                        this.setState({shownRooms: []});
                                         this.changeSafetyFilterState(2, newValue)
                                     }}
                                     onCheckColor='#848CD9'

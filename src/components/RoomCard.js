@@ -29,11 +29,7 @@ class RoomCard extends React.Component{
     getData(){
         getRoomCurrentStatus(this.props.roomId).then((response) => {
             this.setState({co2Value: response.co2.level});
-            this.setState({peopleAmount: response.people.people}, () => {
-                if(this.props.roomId == "LC4044" || this.props.roomId == "LC5044"){
-                    console.log(this.state.peopleAmount)
-                }
-            });
+            this.setState({peopleAmount: response.people.people});
             this.determineSafetyLevel();
         }).catch((e) => {
             console.log(e)
