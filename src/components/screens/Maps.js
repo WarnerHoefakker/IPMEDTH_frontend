@@ -8,7 +8,6 @@ import LC6 from "../maps/LC6";
 import LC7 from "../maps/LC7";
 
 import {getLevelStatus} from "../../api/levelAPI";
-import {getRooms} from "../../api/roomsAPI";
 
 export default function Maps() {
     const [selectedLevel, setSelectedLevel] = useState('LC4');
