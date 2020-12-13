@@ -1,8 +1,15 @@
 import * as React from "react";
-import Svg, { G, Path, Text, TSpan, Rect } from "react-native-svg";
+import Svg, {G, Path, Text, TSpan, Rect} from "react-native-svg";
 
 export default function LC4(props) {
-    //{props.colors && props.colors['lc4006'] ? props.colors['lc4006'] : "#f4d9c6"}
+    //{props.state && props.state['LC4014'] ? colors[props.state['LC4014']] : "#f4d9c6"}
+
+    const colors = {
+        good: '#F4D9C6',
+        medium: '#F2B385',
+        bad: '#F48E43'
+    };
+
     return (
         <Svg
             xmlns="http://www.w3.org/2000/svg"
@@ -28,7 +35,8 @@ export default function LC4(props) {
                     />
                 </G>
                 <G id="lc4010" transform="translate(27.438 456.217)">
-                    <G id="achtergrond" fill={props.colors && props.colors['lc4010'] ? props.colors['lc4010'] : "#f4d9c6"}>
+                    <G id="achtergrond"
+                       fill={props.state && props.state['LC4010'] ? colors[props.state['LC4010']] : "#f4d9c6"}>
                         <Path
                             d="M 59.27490234375 36.521240234375 L 0.5000011920928955 36.521240234375 L 0.5000011920928955 0.5000001192092896 L 59.27490234375 0.5000001192092896 L 59.27490234375 36.521240234375 Z"
                             stroke="none"
@@ -52,7 +60,8 @@ export default function LC4(props) {
                     </Text>
                 </G>
                 <G id="lc4014" transform="translate(27.438 433.238)">
-                    <G id="achtergrond-2" data-name="achtergrond" fill={props.colors && props.colors['lc4014'] ? props.colors['lc4014'] : "#f4d9c6"}>
+                    <G id="achtergrond-2" data-name="achtergrond"
+                       fill={props.state && props.state['LC4014'] ? colors[props.state['LC4014']] : "#f4d9c6"}>
                         <Path
                             d="M 59.27490234375 23.50024223327637 L 0.5000030994415283 23.50024223327637 L 0.5000030994415283 0.5000020861625671 L 59.27490234375 0.5000020861625671 L 59.27490234375 23.50024223327637 Z"
                             stroke="none"
@@ -81,12 +90,12 @@ export default function LC4(props) {
                         id="achtergrond-3"
                         data-name="achtergrond"
                         transform="translate(-0.418 0.384)"
-                        fill={props.colors && props.colors['lc4044'] ? props.colors['lc4044'] : "#f4d9c6"}
+                        fill={props.state && props.state['LC4044'] ? colors[props.state['LC4044']] : "#f4d9c6"}
                         stroke="#2c2c2c"
                         strokeWidth={1}
                     >
-                        <Rect width={134} height={131.3} stroke="none" />
-                        <Rect x={0.5} y={0.5} width={133} height={130.3} fill="none" />
+                        <Rect width={134} height={131.3} stroke="none"/>
+                        <Rect x={0.5} y={0.5} width={133} height={130.3} fill="none"/>
                     </G>
                     <Text
                         id="nummer-3"
@@ -102,7 +111,8 @@ export default function LC4(props) {
                     </Text>
                 </G>
                 <G id="lc4024" transform="translate(26.854 358.604)">
-                    <G id="achtergrond-4" data-name="achtergrond" fill={props.colors && props.colors['lc4024'] ? props.colors['lc4024'] : "#f4d9c6"}>
+                    <G id="achtergrond-4" data-name="achtergrond"
+                       fill={props.state && props.state['LC4024'] ? colors[props.state['LC4024']] : "#f4d9c6"}>
                         <Path
                             d="M 89.5 48.15635299682617 L 0.5 48.15635299682617 L 0.5 0.5 L 89.5 0.5 L 89.5 48.15635299682617 Z"
                             stroke="none"
@@ -131,7 +141,7 @@ export default function LC4(props) {
                         id="achtergrond-5"
                         data-name="achtergrond"
                         transform="translate(0.271)"
-                        fill={props.colors && props.colors['lc4050'] ? props.colors['lc4050'] : "#f4d9c6"}
+                        fill={props.state && props.state['LC4050'] ? colors[props.state['LC4050']] : "#f4d9c6"}
                     >
                         <Path
                             d="M 89.5 48.15635299682617 L 0.5 48.15635299682617 L 0.5 0.5 L 89.5 0.5 L 89.5 48.15635299682617 Z"
@@ -161,12 +171,12 @@ export default function LC4(props) {
                         id="achtergrond-6"
                         data-name="achtergrond"
                         transform="translate(0.271 0.369)"
-                        fill={props.colors && props.colors['lc4064'] ? props.colors['lc4064'] : "#f4d9c6"}
+                        fill={props.state && props.state['LC4064'] ? colors[props.state['LC4064']] : "#f4d9c6"}
                         stroke="#2c2c2c"
                         strokeWidth={1}
                     >
-                        <Rect width={90} height={59} stroke="none" />
-                        <Rect x={0.5} y={0.5} width={89} height={58} fill="none" />
+                        <Rect width={90} height={59} stroke="none"/>
+                        <Rect x={0.5} y={0.5} width={89} height={58} fill="none"/>
                     </G>
                     <Text
                         id="nummer-6"

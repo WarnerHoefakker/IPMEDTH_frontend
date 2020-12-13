@@ -7,97 +7,80 @@ import LC5 from "../maps/LC5";
 import LC6 from "../maps/LC6";
 import LC7 from "../maps/LC7";
 
+import {getLevelStatus} from "../../api/levelAPI";
+import {getRooms} from "../../api/roomsAPI";
+
 export default function Maps() {
-    const [selectedLevel, setSelectedLevel] = useState('level4');
+    const [selectedLevel, setSelectedLevel] = useState('LC4');
+    const [levelState, setLevelState] = useState({LC4: {}, LC5: {}, LC6: {}, LC7: {}, });
+
+    function selectLevel(item) {
+        setSelectedLevel(item.value);
+
+        getLevelStatus(item.value).then((response) => {
+            let obj = {...levelState};
+            obj[item.value] = response;
+
+            setLevelState(obj);
+
+            console.log(obj);
+        });
+    }
+
+    // selectLevel('LC4'); //TODO: huidige verdieping selecteren
+
+    /*
+    *  TODO:
+    *   - Status bij elke map
+    * */
 
     return (
-            <View style={[globalStyles.page, styles.page]}>
-                <DropDownPicker
-                    items={[
-                        {label: 'Verdieping 4', value: 'level4'},
-                        {label: 'Verdieping 5', value: 'level5'},
-                        {label: 'Verdieping 6', value: 'level6'},
-                        {label: 'Verdieping 7', value: 'level7'},
-                    ]}
-                    defaultValue={selectedLevel}
-                    containerStyle={{height: 40}}
-                    style={{backgroundColor: '#fafafa'}}
-                    itemStyle={{
-                        justifyContent: 'flex-start'
-                    }}
-                    dropDownStyle={{backgroundColor: '#fafafa'}}
-                    onChangeItem={(item) => {
-                        setSelectedLevel(item.value);
-                    }}
-                />
+        <View style={[globalStyles.page, styles.page]}>
+            <DropDownPicker
+                items={[
+                    {label: 'Verdieping 4', value: 'LC4'},
+                    {label: 'Verdieping 5', value: 'LC5'},
+                    {label: 'Verdieping 6', value: 'LC6'},
+                    {label: 'Verdieping 7', value: 'LC7'},
+                ]}
+                defaultValue={selectedLevel}
+                containerStyle={{height: 40}}
+                style={{backgroundColor: '#fafafa'}}
+                itemStyle={{
+                    justifyContent: 'flex-start'
+                }}
+                dropDownStyle={{backgroundColor: '#fafafa'}}
+                onChangeItem={(item) => {
+                    selectLevel(item);
+                }}
+            />
 
-                <View style={styles.map}>
-                    {
-                        // #F4D9C6 #F2B385 #F48E43
-                        selectedLevel === 'level4' &&
-                        <LC4
-                            colors={{
-                                lc4010: '#F4D9C6',
-                                lc4014: '#F2B385',
-                                lc4024: '#F48E43',
-                                lc4044: '#F4D9C6',
-                                lc4050: '#F48E43',
-                                lc4064: '#F2B385',
-                            }}
-                        />
-                    }
+            <View style={styles.map}>
+                {
+                    // #F4D9C6 #F2B385 #F48E43
+                    selectedLevel === 'LC4' &&
+                    <LC4 state={levelState.LC4}  />
+                }
 
-                    {
-                        // #D9DBF3 #B3B8E7 #848CD9
-                        selectedLevel === 'level5' &&
-                        <LC5
-                            colors={{
-                                lc5006: '#D9DBF3',
-                                lc5010: '#B3B8E7',
-                                lc5024: '#848CD9',
-                                lc5044: '#B3B8E7',
-                                lc5050: '#D9DBF3',
-                                lc5064: '#848CD9',
-                            }}
-                        />
-                    }
+                {
+                    // #D9DBF3 #B3B8E7 #848CD9
+                    selectedLevel === 'LC5' &&
+                    <LC5 state={levelState.LC5} />
+                }
 
-                    {
-                        // #E4F8E4 #ADF0AD #78D076
-                        selectedLevel === 'level6' &&
-                        <LC6
-                            colors={{
-                                lc6005: '#E4F8E4',
-                                lc6010: '#ADF0AD',
-                                lc6024: '#78D076',
-                                lc6025: '#E4F8E4',
-                                lc6044: '#ADF0AD',
-                                lc6050: '#78D076',
-                                lc6060: '#E4F8E4',
-                                lc6064: '#ADF0AD',
-                            }}
-                        />
-                    }
+                {
+                    // #E4F8E4 #ADF0AD #78D076
+                    selectedLevel === 'LC6' &&
+                    <LC6 state={levelState.LC6} />
+                }
 
-                    {
-                        // #CBE2EB #8EBFD2 #579FBD
-                        selectedLevel === 'level7' &&
-                        <LC7
-                            colors={{
-                                lc7006: '#CBE2EB',
-                                lc7010: '#8EBFD2',
-                                lc7020: '#579FBD',
-                                lc7024: '#CBE2EB',
-                                lc7025: '#8EBFD2',
-                                lc7044: '#579FBD',
-                                lc7050: '#CBE2EB',
-                                lc7060: '#8EBFD2',
-                                lc7064: '#579FBD',
-                            }}
-                        />
-                    }
-                </View>
+                {
+                    // #CBE2EB #8EBFD2 #579FBD
+                    selectedLevel === 'LC7' &&
+                    <LC7 state={levelState.LC7} />
+                }
             </View>
+        </View>
     )
 }
 

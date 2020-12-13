@@ -2,7 +2,14 @@ import * as React from "react";
 import Svg, { G, Path, Text, TSpan, Rect } from "react-native-svg";
 
 export default function LC5(props) {
-    //{props.colors && props.colors['lc5006'] ? props.colors['lc5006'] : "#d9dbf3"}
+    //{props.state && props.state['LC5014'] ? colors[props.state['LC5014']] : "#d9dbf3"}
+
+    const colors = {
+        good: '#D9DBF3',
+        medium: '#B3B8E7',
+        bad: '#848CD9'
+    };
+
     return (
         <Svg
             xmlns="http://www.w3.org/2000/svg"
@@ -28,7 +35,7 @@ export default function LC5(props) {
                     />
                 </G>
                 <G id="lc5006" transform="translate(58.438 433.238)">
-                    <G id="achtergrond" fill={props.colors && props.colors['lc5006'] ? props.colors['lc5006'] : "#d9dbf3"}>
+                    <G id="achtergrond" fill={props.state && props.state['LC5006'] ? colors[props.state['LC5006']] : "#d9dbf3"}>
                         <Path
                             d="M 58.27495956420898 59.25341796875 L 0.4999997913837433 59.25341796875 L 0.4999997913837433 0.4999989867210388 L 58.27495956420898 0.4999989867210388 L 58.27495956420898 59.25341796875 Z"
                             stroke="none"
@@ -52,7 +59,7 @@ export default function LC5(props) {
                     </Text>
                 </G>
                 <G id="lc5010" transform="translate(26.854 433.238)">
-                    <G id="achtergrond-2" data-name="achtergrond" fill={props.colors && props.colors['lc5010'] ? props.colors['lc5010'] : "#d9dbf3"}>
+                    <G id="achtergrond-2" data-name="achtergrond" fill={props.state && props.state['LC5010'] ? colors[props.state['LC5010']] : "#d9dbf3"}>
                         <Path
                             d="M 31.93756484985352 59.25341796875 L 0.5000043511390686 59.25341796875 L 0.5000043511390686 0.4999989867210388 L 31.93756484985352 0.4999989867210388 L 31.93756484985352 59.25341796875 Z"
                             stroke="none"
@@ -81,7 +88,7 @@ export default function LC5(props) {
                         id="achtergrond-3"
                         data-name="achtergrond"
                         transform="translate(-0.418 0.384)"
-                        fill={props.colors && props.colors['lc5044'] ? props.colors['lc5044'] : "#d9dbf3"}
+                        fill={props.state && props.state['LC5044'] ? colors[props.state['LC5044']] : "#d9dbf3"}
                         stroke="#2c2c2c"
                         strokeWidth={1}
                     >
@@ -102,7 +109,7 @@ export default function LC5(props) {
                     </Text>
                 </G>
                 <G id="lc5024" transform="translate(26.854 358.604)">
-                    <G id="achtergrond-4" data-name="achtergrond" fill={props.colors && props.colors['lc5024'] ? props.colors['lc5024'] : "#d9dbf3"}>
+                    <G id="achtergrond-4" data-name="achtergrond" fill={props.state && props.state['LC5024'] ? colors[props.state['LC5024']] : "#d9dbf3"}>
                         <Path
                             d="M 89.5 48.15635299682617 L 0.5 48.15635299682617 L 0.5 0.5 L 89.5 0.5 L 89.5 48.15635299682617 Z"
                             stroke="none"
@@ -131,7 +138,7 @@ export default function LC5(props) {
                         id="achtergrond-5"
                         data-name="achtergrond"
                         transform="translate(0.271)"
-                        fill={props.colors && props.colors['lc5050'] ? props.colors['lc5050'] : "#d9dbf3"}
+                        fill={props.state && props.state['LC5050'] ? colors[props.state['LC5050']] : "#d9dbf3"}
                     >
                         <Path
                             d="M 89.5 48.15635299682617 L 0.5 48.15635299682617 L 0.5 0.5 L 89.5 0.5 L 89.5 48.15635299682617 Z"
@@ -161,7 +168,7 @@ export default function LC5(props) {
                         id="achtergrond-6"
                         data-name="achtergrond"
                         transform="translate(0.271 0.369)"
-                        fill={props.colors && props.colors['lc5064'] ? props.colors['lc5064'] : "#d9dbf3"}
+                        fill={props.state && props.state['LC5064'] ? colors[props.state['LC5064']] : "#d9dbf3"}
                         stroke="#2c2c2c"
                         strokeWidth={1}
                     >

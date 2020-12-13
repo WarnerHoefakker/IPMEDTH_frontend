@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, View, ScrollView} from 'react-native';
-import {getRooms} from '../../api/testAPI';
+import {getRooms} from '../../api/roomsAPI';
 import RoomCard from '../RoomCard';
 
 class Dashboard extends React.Component {
