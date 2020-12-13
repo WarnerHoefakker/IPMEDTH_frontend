@@ -24,11 +24,14 @@ class RoomDetail extends React.Component {
             let data = JSON.parse(event.data);
             this.setState({co2Value: data.co2.level})
         });
+
+        console.log(this.props.route.params.roomId)
     }
 
     render() {
         return (
             <SafeAreaView style={globalStyles.safeAreaView}>
+                <Text>{this.props.route.params.roomId}</Text>
                 <ScrollView>
                     <View style={globalStyles.page}>
                         <View style={styles.twoCards}>

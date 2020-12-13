@@ -1,11 +1,10 @@
 import React, {useState} from 'react';
-import {StyleSheet, Text, View, Image} from 'react-native';
+import {StyleSheet, Image} from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Dashboard from './screens/Dashboard';
-import RoomDetail from './screens/RoomDetail';
 import Scan from './screens/Scan';
 import Maps from './screens/Maps';
-import Onboarding from './screens/Onboarding';
+import Onboarding from './Onboarding';
+import DashboardNavigation from './DashboardNavigation';
 
 
 export default function Navigation() {
@@ -20,17 +19,11 @@ export default function Navigation() {
             screenOptions={({route}) => ({
                 tabBarIcon: ({focused, color, size}) => {
 
-                    if(route.name == "Dashboard"){
+                    if(route.name == "DashboardNavigation"){
                         if(focused){
                             return <Image style={styles.dashboardIcon} source={require("../../assets/img/dashboard-icon-focused.png")}/>
                         } else{
                             return <Image style={styles.dashboardIcon} source={require("../../assets/img/dashboard-icon.png")}/>
-                        }
-                    } else if (route.name == "RoomDetail"){
-                        if(focused){
-                            return <Image style={styles.roomDetailIcon} source={require("../../assets/img/room-detail-icon-focused.png")}/>
-                        } else {
-                            return <Image style={styles.roomDetailIcon} source={require("../../assets/img/room-detail-icon.png")}/>
                         }
                     } else if (route.name == "Maps"){
                         if(focused){
@@ -50,12 +43,8 @@ export default function Navigation() {
                 },
             })}>
             <Tab.Screen
-                name="Dashboard"
-                component={Dashboard}>
-            </Tab.Screen>
-            <Tab.Screen
-                name="RoomDetail"
-                component={RoomDetail}>
+                name="DashboardNavigation"
+                component={DashboardNavigation}>
             </Tab.Screen>
             <Tab.Screen
                 name="Maps"
