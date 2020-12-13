@@ -2,8 +2,10 @@ import React from 'react';
 import {StyleSheet, View, ScrollView, Image, Text, TouchableNativeFeedbackBase} from 'react-native';
 import {getRooms} from '../../api/testAPI';
 import RoomCard from '../RoomCard';
-import { TouchableHighlight } from 'react-native-gesture-handler';
+import { TouchableHighlight, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import CheckBox from '@react-native-community/checkbox';
+import RoomDetail from './RoomDetail';
+import Navigation from '../NavigationBar';
 
 class Dashboard extends React.Component {
 
@@ -246,7 +248,11 @@ class Dashboard extends React.Component {
                 <ScrollView style={styles.scrollView} contentContainerStyle={{paddingTop: 60}}>
                     {this.state.shownRooms.length > 0 ? this.state.shownRooms.map((room, index) => {
                         return (
-                            <RoomCard roomName={room.roomName} roomId={room.roomId} key={room.roomId} safetyLevel={this.saveSafetyLevel}></RoomCard>
+                            <TouchableWithoutFeedback onPress= {() => this.props.navigation.navigate('RoomDetail', {
+                                roomId: room.roomId
+                            })}>
+                                <RoomCard roomName={room.roomName} roomId={room.roomId} key={room.roomId} safetyLevel={this.saveSafetyLevel}></RoomCard>
+                            </TouchableWithoutFeedback>
                         );
                     }) : <Text>Er zijn geen ruimtes die voldoen aan deze criteria</Text>}
                 </ScrollView>

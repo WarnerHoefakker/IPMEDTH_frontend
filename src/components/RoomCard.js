@@ -55,9 +55,8 @@ class RoomCard extends React.Component{
     };
 
     render(){
-        const { navigation } = this.props;
         return (
-            <TouchableWithoutFeedback style={styles.dashboardCardContainer} onPress={() => navigation.navigate('RoomDetail')}>
+            <TouchableWithoutFeedback style={styles.dashboardCardContainer}>
                 <View>
                     <View style={styles.dashboardCardNameContainer}>
                         <Text style={styles.dashboardCardName}>{this.props.roomName}</Text>
