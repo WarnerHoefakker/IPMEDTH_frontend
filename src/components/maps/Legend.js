@@ -6,17 +6,17 @@ const Legend = ({colors}) => {
     return (
         <View style={styles.legend}>
             <View style={styles.legendItem}>
-                <View style={[styles.legendItemSymbol, {backgroundColor: colors.good}]} />
+                <View style={[styles.legendItemSymbol, {backgroundColor: colors.green}]} />
                 <Text style={globalStyles.text}>Goed</Text>
             </View>
 
             <View style={styles.legendItem}>
-                <View style={[styles.legendItemSymbol, {backgroundColor: colors.medium}]} />
+                <View style={[styles.legendItemSymbol, {backgroundColor: colors.orange}]} />
                 <Text style={globalStyles.text}>Matig</Text>
             </View>
 
             <View style={styles.legendItem}>
-                <View style={[styles.legendItemSymbol, {backgroundColor: colors.bad}]} />
+                <View style={[styles.legendItemSymbol, {backgroundColor: colors.red}]} />
                 <Text style={globalStyles.text}>Slecht</Text>
             </View>
         </View>
