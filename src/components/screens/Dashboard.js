@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, View, ScrollView, Image, Text, AppState} from 'react-native';
-import {getRooms} from '../../api/testAPI';
+import {getRooms} from '../../api/roomsAPI';
 import RoomCard from '../RoomCard';
 import { TouchableHighlight, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import CheckBox from '@react-native-community/checkbox';
@@ -89,21 +89,21 @@ class Dashboard extends React.Component {
         let stateCopy = this.state.levelFilter;
         stateCopy[index] = value;
         this.setState({levelFilter: stateCopy})
-        
+
         let activeLevelFiltersCopy = this.state.activeLevelFilters;
         if(value){
             switch(index){
                 case 0: activeLevelFiltersCopy.push('5fbfd84483e5dc31b48dbe9c'); break;
                 case 1: activeLevelFiltersCopy.push('5fbfd25a838fd0305b94fd74'); break;
                 case 2: activeLevelFiltersCopy.push('5fbfd84ccc39b531bb9fde4e'); break;
-                case 3: activeLevelFiltersCopy.push('5fbfd851a737b931c7a07714'); break; 
+                case 3: activeLevelFiltersCopy.push('5fbfd851a737b931c7a07714'); break;
             }
         } else {
             switch(index){
                 case 0: activeLevelFiltersCopy = this.removeValueFromArray(activeLevelFiltersCopy, '5fbfd84483e5dc31b48dbe9c'); break;
                 case 1: activeLevelFiltersCopy = this.removeValueFromArray(activeLevelFiltersCopy, '5fbfd25a838fd0305b94fd74'); break;
                 case 2: activeLevelFiltersCopy = this.removeValueFromArray(activeLevelFiltersCopy, '5fbfd84ccc39b531bb9fde4e'); break;
-                case 3: activeLevelFiltersCopy = this.removeValueFromArray(activeLevelFiltersCopy, '5fbfd851a737b931c7a07714'); break; 
+                case 3: activeLevelFiltersCopy = this.removeValueFromArray(activeLevelFiltersCopy, '5fbfd851a737b931c7a07714'); break;
             }
         }
         this.setState({activeLevelFilters: activeLevelFiltersCopy})
@@ -255,7 +255,7 @@ class Dashboard extends React.Component {
         )
     }
 
-    
+
 }
 
 const styles = StyleSheet.create({
@@ -272,7 +272,7 @@ const styles = StyleSheet.create({
     filterButton: {
         width: 55,
         height: 55,
-        backgroundColor: '#247BA0',   
+        backgroundColor: '#247BA0',
         borderRadius: 30,
         justifyContent: 'center',
         alignItems: 'center'
@@ -280,7 +280,7 @@ const styles = StyleSheet.create({
     filterCancelButton: {
         width: 55,
         height: 55,
-        backgroundColor: '#247BA0',   
+        backgroundColor: '#247BA0',
         borderRadius: 30,
         justifyContent: 'center',
         alignItems: 'center'
@@ -328,7 +328,7 @@ const styles = StyleSheet.create({
         marginLeft: 5,
         fontSize: 16
     },
-    
+
 });
 
 export default Dashboard

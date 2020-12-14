@@ -25,6 +25,7 @@
     "react-native": "~0.63.3",
     "react-native-checkbox": "^2.0.0",
     "react-native-dotenv": "^2.4.3",
+    "react-native-dropdown-picker": "^3.7.1",
     "react-native-event-source": "^1.1.0",
     "react-native-gesture-handler": "~1.7.0",
     "react-native-nfc-manager": "^2.2.0",

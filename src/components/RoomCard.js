@@ -3,7 +3,7 @@ import {StyleSheet, Text, View, TouchableWithoutFeedback, SnapshotViewIOS} from 
 import RNEventSource from 'react-native-event-source';
 import Gauge from './charts/Gauge';
 import {API_URL} from '@env';
-import {getRoomCurrentStatus} from '../api/testAPI';
+import {getRoomCurrentStatus} from '../api/roomsAPI';
 
 class RoomCard extends React.Component{
 
