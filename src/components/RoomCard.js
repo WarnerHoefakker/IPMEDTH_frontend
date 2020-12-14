@@ -10,49 +10,9 @@ class RoomCard extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            co2Value: 0,
-            peopleAmount: 0,
-            safetyLevel: "grey"
+
         }
     }
-
-    componentDidMount(){
-        this.getData();
-        this.determineSafetyLevel();
-        this.dataUpdateInterval = setInterval(() => {this.getData();}, 5000);
-    }
-
-    componentWillUnmount(){
-        clearInterval(this.dataUpdateInterval);
-    }
-
-    getData(){
-        getRoomCurrentStatus(this.props.roomId).then((response) => {
-            this.setState({co2Value: response.co2.level});
-            this.setState({peopleAmount: response.people.people});
-            this.determineSafetyLevel();
-        }).catch((e) => {
-            console.log(e)
-        })
-    }
-
-    determineSafetyLevel(){
-        let points = 0;
-        points += this.state.co2Value
-        if(this.state.co2Value > 700){
-            points += this.state.peopleAmount
-        }
-        if(points > 0 && points <= 700){
-            this.setState({safetyLevel: 'green'})
-        } else if (points > 700 && points <= 1000){
-            this.setState({safetyLevel: 'orange'})
-        } else if (points > 1000){
-            this.setState({safetyLevel: 'red'})
-        } else {
-            this.setState({safetyLevel: 'grey'})
-        }
-        this.props.safetyLevel(this.props.roomId, this.state.safetyLevel);
-    };
 
     render(){
         return (
@@ -60,9 +20,7 @@ class RoomCard extends React.Component{
                 <View>
                     <View style={styles.dashboardCardNameContainer}>
                         <Text style={styles.dashboardCardName}>{this.props.roomName}</Text>
-                        <View style={[styles.dashboardCardStatusIndicator, styles[this.state.safetyLevel]]}>
-
-                        </View>
+                        <View style={[styles.dashboardCardStatusIndicator, styles[this.props.safetyLevel]]}></View>
                     </View>
                     <View style={styles.dashboardCard}>
                         <View style={styles.dashboardGaugeNameContainer}>
@@ -73,12 +31,12 @@ class RoomCard extends React.Component{
                             <Gauge
                                 color='green'
                                 max={60}
-                                value={this.state.peopleAmount}
+                                value={this.props.people}
                             />
                             <Gauge
                                 color='green'
                                 max={1300}
-                                value={this.state.co2Value}
+                                value={this.props.co2}
                                 showLabel={'text'}
                             />
                         </View>
