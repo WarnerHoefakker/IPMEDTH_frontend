@@ -1,6 +1,5 @@
 import React from 'react'
 import {StyleSheet, Text, View} from "react-native";
-import chartStyles from "../../assets/style/chartStyle";
 import globalStyles from "../../assets/style/globalStyle";
 
 const Legend = ({colors}) => {
@@ -37,8 +36,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         alignSelf: 'flex-start',
         marginBottom: 10,
-        marginLeft: 5,
-        marginRight: 5
+        marginLeft: 10,
+        marginRight: 10
     },
     legendItemSymbol: {
         width: 15,
@@ -51,7 +50,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#D56062'
     },
     legendItemText: {
-
+        fontFamily: 'Roboto-Regular',
     }
 });
 
