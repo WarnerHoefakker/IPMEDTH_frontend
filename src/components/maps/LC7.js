@@ -7,9 +7,9 @@ export default function LC7(props) {
     //{props.state && props.state['LC7014'] ? colors[props.state['LC7014']] : "#cbe2eb"}
 
     const colors = {
-        good: '#CBE2EB',
-        medium: '#8EBFD2',
-        bad: '#579FBD'
+        green: '#CBE2EB',
+        orange: '#8EBFD2',
+        red: '#579FBD'
     };
 
     return (

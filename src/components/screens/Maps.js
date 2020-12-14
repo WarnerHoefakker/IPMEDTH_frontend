@@ -26,6 +26,8 @@ export default function Maps() {
 
             setLevelState(obj);
             setPageLoading(false);
+
+            console.log(obj)
         });
     }
 

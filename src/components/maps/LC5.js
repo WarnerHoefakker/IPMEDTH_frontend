@@ -7,9 +7,9 @@ export default function LC5(props) {
     //{props.state && props.state['LC5014'] ? colors[props.state['LC5014']] : "#d9dbf3"}
 
     const colors = {
-        good: '#D9DBF3',
-        medium: '#B3B8E7',
-        bad: '#848CD9'
+        green: '#D9DBF3',
+        orange: '#B3B8E7',
+        red: '#848CD9'
     };
 
     return (
