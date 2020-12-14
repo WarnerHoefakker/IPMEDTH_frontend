@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View, ScrollView, Image, Text, TouchableNativeFeedbackBase} from 'react-native';
+import {StyleSheet, View, ScrollView, Image, Text, AppState} from 'react-native';
 import {getRooms} from '../../api/testAPI';
 import RoomCard from '../RoomCard';
 import { TouchableHighlight, TouchableWithoutFeedback } from 'react-native-gesture-handler';
@@ -13,23 +13,34 @@ class Dashboard extends React.Component {
         super(props);
         this.state = {
             rooms: [],
+            shownRooms: [],
             showFilterOptions: false,
             levelFilter: [false, false, false, false],
             safetyFilter: [false, false, false],
             activeLevelFilters: [],
             activeSafetyFilters: [],
-            shownRooms: [],
         }
     }
 
     componentDidMount() {
         getRooms().then((response) => {
-            response.forEach((room) => {
-                room['safetyLevel'] = 'grey'
-            })
             this.setState({rooms: response})
             this.setState({shownRooms: response})
         });
+        this.dataUpdateInterval = setInterval(() => {this.getData();}, 5000);
+    }
+
+    componentWillUnmount(){
+        clearInterval(this.dataUpdateInterval);
+    }
+
+    getData(){
+        if(AppState.currentState == 'active'){
+            getRooms().then((response) => {
+                this.setState({rooms: response})
+                this.filterRooms();
+            });
+        }
     }
 
     showFilterOptions(){
@@ -120,22 +131,6 @@ class Dashboard extends React.Component {
         }
         this.setState({activeSafetyFilters: activeSafetyFiltersCopy})
         this.filterRooms();
-    }
-    
-    saveSafetyLevel = (roomId, safetyLevel) => {
-        let copyOfRoomsState = this.state.rooms;
-        for(let i= 0; i < copyOfRoomsState.length; i++){
-            if(copyOfRoomsState[i].roomId == roomId){
-                if(copyOfRoomsState[i].safetyLevel != safetyLevel && copyOfRoomsState[i].safetyLevel != 'grey' && safetyLevel != 'grey'){
-                    copyOfRoomsState[i].safetyLevel = safetyLevel;
-                    this.setState({rooms: copyOfRoomsState});
-                    this.filterRooms();
-                } else {
-                    copyOfRoomsState[i].safetyLevel = safetyLevel;
-                    this.setState({rooms: copyOfRoomsState});
-                }
-            }
-        }
     }
 
     render(){
@@ -246,12 +241,12 @@ class Dashboard extends React.Component {
                     </TouchableHighlight>
                 </View>
                 <ScrollView style={styles.scrollView} contentContainerStyle={{paddingTop: 60}}>
-                    {this.state.shownRooms.length > 0 ? this.state.shownRooms.map((room, index) => {
+                    {this.state.shownRooms.length > 0 ? this.state.shownRooms.map((room) => {
                         return (
                             <TouchableWithoutFeedback onPress= {() => this.props.navigation.navigate('RoomDetail', {
                                 roomId: room.roomId
                             })}>
-                                <RoomCard roomName={room.roomName} roomId={room.roomId} key={room.roomId} safetyLevel={this.saveSafetyLevel}></RoomCard>
+                                <RoomCard roomName={room.roomName} roomId={room.roomId} key={room.roomId} co2={room.co2} people={room.people} safetyLevel={room.safetyLevel}></RoomCard>
                             </TouchableWithoutFeedback>
                         );
                     }) : <Text>Er zijn geen ruimtes die voldoen aan deze criteria</Text>}
