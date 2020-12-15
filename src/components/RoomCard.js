@@ -10,7 +10,20 @@ class RoomCard extends React.Component{
     constructor(props){
         super(props);
         this.state = {
+            color: ""
+        }
+    }
 
+    componentDidMount(){
+        let level = this.props.roomId[2];
+        if(level == '4'){
+            this.setState({color: "orange"})
+        } else if (level == '5'){
+            this.setState({color: "purple"})
+        } else if (level == '6'){
+            this.setState({color: "green"})
+        } else if (level == '7'){
+            this.setState({color: "blue"})
         }
     }
 
@@ -29,15 +42,17 @@ class RoomCard extends React.Component{
                         </View>
                         <View style={styles.dashboardGaugeContainer}>
                             <Gauge
-                                color='green'
+                                color={this.state.color}
                                 max={60}
                                 value={this.props.people}
+                                size={130}
                             />
                             <Gauge
-                                color='green'
+                                color={this.state.color}
                                 max={1300}
                                 value={this.props.co2}
                                 showLabel={'text'}
+                                size={130}
                             />
                         </View>
                     </View>
@@ -88,14 +103,15 @@ const styles = StyleSheet.create({
     },
     dashboardGaugeName: {
         marginLeft: 50,
-        marginRight: 35,
+        marginRight: 30,
+        marginTop: 10,
         color: '#545454'
     },
     dashboardGaugeContainer: {
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        paddingHorizontal: 15
+        paddingHorizontal: 30,
     },
     dashboardCard: {
         display: 'flex',
