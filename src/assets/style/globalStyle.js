@@ -42,6 +42,7 @@ const globalStyles = StyleSheet.create({
         alignSelf: 'flex-start',
         marginTop: 10,
         marginBottom: 10,
+        width: '100%'
     },
     button: {
         paddingTop: 8,
@@ -52,6 +53,7 @@ const globalStyles = StyleSheet.create({
         justifyContent: 'center',
         borderRadius:5,
         backgroundColor: '#247BA0',
+        width: '100%'
     },
     buttonText: {
         color: '#fff',

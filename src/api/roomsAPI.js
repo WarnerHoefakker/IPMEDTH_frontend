@@ -11,6 +11,7 @@ async function getRoomCurrentStatus(roomId) {
     let data = await response.json();
     return data;
 }
+
 export {
     getRooms
 }
