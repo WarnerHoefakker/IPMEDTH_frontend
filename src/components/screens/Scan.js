@@ -37,8 +37,6 @@ class Scan extends React.Component {
     getTag = async () => {
         const tagId = await AsyncStorage.getItem('TAG');
 
-        console.log(tagId)
-
         this.setState({tagValue: tagId})
     }
 

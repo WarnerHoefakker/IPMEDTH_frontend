@@ -47,7 +47,7 @@ const App = () =>{
     const saveGUID = async(value) => {
         try{
             await AsyncStorage.setItem('GUID', value);
-            setGUID(value);
+            setGUID(value);r
         } catch(e) {
             console.log(e);
         }

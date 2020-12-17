@@ -6,6 +6,9 @@ import { TouchableHighlight, TouchableWithoutFeedback } from 'react-native-gestu
 import CheckBox from '@react-native-community/checkbox';
 import RoomDetail from './RoomDetail';
 import Navigation from '../NavigationBar';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import RNEventSource from "react-native-event-source";
+import Icon from 'react-native-vector-icons/Feather'
 
 class Dashboard extends React.Component {
 
@@ -19,6 +22,9 @@ class Dashboard extends React.Component {
             safetyFilter: [false, false, false],
             activeLevelFilters: [],
             activeSafetyFilters: [],
+            currentLocation: null,
+            currentLocationStartTime: {},
+            elapsedTime: {},
         }
     }
 
@@ -28,11 +34,81 @@ class Dashboard extends React.Component {
             this.setState({shownRooms: response})
         });
         this.dataUpdateInterval = setInterval(() => {this.getData();}, 5000);
+
+        this.addLocationEventListener();
+
     }
 
     componentWillUnmount(){
         clearInterval(this.dataUpdateInterval);
+
+        this.eventSource.removeAllListeners()
     }
+
+    addLocationEventListener = async () => {
+        const GUID = await AsyncStorage.getItem('GUID')
+
+        this.eventSource = new RNEventSource('http://192.168.178.123:3001/people/currentlocation/' + GUID); // TODO: env/variabele
+        console.log("add eventlistener");
+
+        this.eventSource.addEventListener('message', async (event) => {
+            console.log(JSON.parse(event.data));
+            const data = JSON.parse(event.data);
+            if(data.loggedIn) {
+                this.setState({currentLocation: data.roomName});
+
+                const date = new Date(data.startTime);
+
+                this.setState({currentLocationStartTime: {hours: date.getHours(), minutes: date.getMinutes()}});
+
+                this.startTimer(date);
+            } else {
+                this.setState({currentLocation: null});
+                this.setState({currentLocationStartTime: {}});
+                this.setState({elapsedTime: {}});
+
+                this.stopTimer();
+
+                console.log(this.state.currentLocation);
+            }
+
+        });
+    };
+
+    startTimer = () => {
+        this.calculateTime();
+
+        this.interval = this.interval ? this.interval : setInterval(() => {
+            this.calculateTime()
+
+        }, 60000);
+    };
+
+    stopTimer = () => {
+        if(this.interval) {
+            clearInterval(this.interval);
+            this.interval = null;
+        }
+    };
+
+    calculateTime = () => { // TODO: controleren of het wel dezelfde dag is? Anders klopt dit niet
+        const currentTime = new Date();
+
+        let minutes = currentTime.getMinutes() - this.state.currentLocationStartTime.minutes;
+        let hours = currentTime.getHours() - this.state.currentLocationStartTime.hours;
+
+        if (minutes < 0) {
+            minutes = 60 - minutes;
+            hours -= 1;
+        }
+
+        this.setState({
+            elapsedTime: {
+                hours,
+                minutes
+            }
+        });
+    };
 
     getData(){
         if(AppState.currentState == 'active'){
@@ -235,11 +311,31 @@ class Dashboard extends React.Component {
                         </View>
                     </View>
                 </View>}
+
                 <View style={styles.filterButtonContainer}>
                     <TouchableHighlight style={styles.filterButton} underlayColor="#2789b3" onPress={() => this.showFilterOptions()}>
                         <Image style={styles.filterIcon} source={require("../../../assets/img/filter-icon.png")}/>
                     </TouchableHighlight>
                 </View>
+
+                {this.state.currentLocation !== null &&
+                <View style={styles.currentLocationBar}>
+                    <View style={[styles.currentLocationBarItem, styles.currentLocationBarItem1]}>
+                        <Icon name="log-in" size={25} color="#fff" style={styles.loginIcon}/>
+                        <Text style={styles.currentLocationBarText}>{this.state.currentLocation}</Text>
+                        <View style={[styles.dashboardCardStatusIndicator, styles['orange']]} />
+                    </View>
+                    <View style={[styles.currentLocationBarItem, styles.currentLocationBarItem2]}>
+                        <Text style={styles.currentLocationBarText}>Tijd:</Text>
+                        <Text style={styles.currentLocationBarText}>{String("0" + this.state.elapsedTime.hours).slice(-2) + ":" + String("0" + this.state.elapsedTime.minutes)}</Text>
+                    </View>
+                    <View style={[styles.currentLocationBarItem, styles.currentLocationBarItem3]}>
+                        <Text style={styles.currentLocationBarText}>Bekijk</Text>
+                        <Icon name="chevron-right" size={25} color="#fff" />
+                    </View>
+                </View>
+                }
+
                 <ScrollView style={styles.scrollView} contentContainerStyle={{paddingTop: 60}}>
                     {this.state.shownRooms.length > 0 ? this.state.shownRooms.map((room) => {
                         return (
@@ -328,6 +424,62 @@ const styles = StyleSheet.create({
         marginLeft: 5,
         fontSize: 16
     },
+    currentLocationBar: {
+        justifyContent: 'space-between',
+        flexDirection: 'row',
+        position: 'absolute',
+        top: 0,
+        right: 0,
+        zIndex: 2,
+        backgroundColor: '#247BA0',
+        margin: 10,
+        borderRadius: 4
+    },
+    currentLocationBarItem: {
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginTop: 6,
+        marginBottom: 6
+    },
+    currentLocationBarItem1: {
+        justifyContent: 'flex-start'
+    },
+    currentLocationBarItem2: {
+        justifyContent: 'center'
+    },
+    currentLocationBarItem3: {
+        justifyContent: 'flex-end'
+    },
+    currentLocationBarText: {
+        color: '#fff',
+        marginLeft: 4,
+        marginRight: 4
+    },
+    loginIcon: {
+        marginLeft: 4,
+        marginRight: 4
+    },
+    dashboardCardStatusIndicator: {
+        width: 16,
+        height: 16,
+        borderRadius: 20,
+        backgroundColor: 'grey',
+        marginRight: 4,
+        marginLeft: 4
+    },
+    green: {
+        backgroundColor: 'green'
+    },
+    orange: {
+        backgroundColor: 'orange'
+    },
+    red: {
+        backgroundColor: 'red'
+    },
+    grey: {
+        backgroundColor: 'grey'
+    }
 
 });
 
