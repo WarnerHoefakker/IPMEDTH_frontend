@@ -1,13 +1,13 @@
 import React from 'react';
 import {StyleSheet, View, ScrollView, Image, Text, AppState, TouchableHighlight, TouchableOpacity} from 'react-native';
 import {getRooms} from '../../api/roomsAPI';
+import {getCurrentLocation} from '../../api/tagAPI';
 import RoomCard from '../RoomCard';
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 import CheckBox from '@react-native-community/checkbox';
 import RoomDetail from './RoomDetail';
 import Navigation from '../NavigationBar';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import RNEventSource from "react-native-event-source";
 import Icon from 'react-native-vector-icons/Feather'
 
 class Dashboard extends React.Component {
@@ -22,11 +22,7 @@ class Dashboard extends React.Component {
             safetyFilter: [false, false, false],
             activeLevelFilters: [],
             activeSafetyFilters: [],
-            currentLocation: null,
-            currentRoomId: null,
-            currentLocationStartTime: {},
-            currentLocationSafetyLevel: '',
-            elapsedTime: {},
+            currentLocation: {},
         }
     }
 
@@ -34,9 +30,10 @@ class Dashboard extends React.Component {
         getRooms().then((response) => {
             this.setState({rooms: response})
             this.setState({shownRooms: response})
-
-            this.addLocationEventListener();
         });
+
+        this.getCurrentRoom();
+
         this.dataUpdateInterval = setInterval(() => {
             this.getData();
         }, 5000);
@@ -45,98 +42,20 @@ class Dashboard extends React.Component {
 
     componentWillUnmount() {
         clearInterval(this.dataUpdateInterval);
-
-        this.eventSource.removeAllListeners()
     }
 
-    addLocationEventListener = async () => {
-        const GUID = await AsyncStorage.getItem('GUID')
+    getCurrentRoom() {
+        AsyncStorage.getItem('GUID').then((guid) => {
+            console.log(guid)
+            getCurrentLocation(guid).then((response) => {
+                console.log(response);
 
-        this.eventSource = new RNEventSource('http://192.168.178.123:3001/people/currentlocation/' + GUID); // TODO: env/variabele
-        console.log("add eventlistener");
-
-        this.eventSource.addEventListener('message', async (event) => {
-            console.log(JSON.parse(event.data));
-            const data = JSON.parse(event.data);
-            if (data.loggedIn) {
-                const dateLogin = new Date(data.startTime);
-                const dayLogin = new Date(data.startTime);
-                const dateToday = new Date();
-
-                if (dayLogin.setHours(0, 0, 0, 0) == dateToday.setHours(0, 0, 0, 0)) {
-                    this.setState({currentLocation: data.roomName});
-                    this.setState({currentRoomId: data.roomId});
-
-                    this.setState({
-                        currentLocationStartTime: {
-                            hours: dateLogin.getHours(),
-                            minutes: dateLogin.getMinutes()
-                        }
-                    });
-
-                    this.startTimer(dateLogin);
-                    this.getSafetyLevelCurrentRoom(data.roomName)
-                } else {
-                    console.log(dateLogin, dateToday)
-                }
-
-            } else {
-                this.setState({currentLocation: null});
-                this.setState({currentRoomId: null});
-                this.setState({currentLocationStartTime: {}});
-                this.setState({elapsedTime: {}});
-
-                this.stopTimer();
-
-                console.log(this.state.currentLocation);
-            }
-
-        });
-    };
-
-    startTimer = () => {
-        this.calculateTime();
-
-        this.interval = this.interval ? this.interval : setInterval(() => {
-            this.calculateTime()
-
-        }, 60000);
-    };
-
-    stopTimer = () => {
-        if (this.interval) {
-            clearInterval(this.interval);
-            this.interval = null;
-        }
-    };
-
-    getSafetyLevelCurrentRoom = (roomName) => {
-        for (let i = 0; i < this.state.rooms.length; i++) {
-            if (this.state.rooms[i].roomName === roomName) {
-                console.log(this.state.rooms[i])
-                this.setState({currentLocationSafetyLevel: this.state.rooms[i].safetyLevel})
-            }
-        }
-    };
-
-    calculateTime = () => { // TODO: controleren of het wel dezelfde dag is? Anders klopt dit niet
-        const currentTime = new Date();
-
-        let minutes = currentTime.getMinutes() - this.state.currentLocationStartTime.minutes;
-        let hours = currentTime.getHours() - this.state.currentLocationStartTime.hours;
-
-        if (minutes < 0) {
-            minutes = 60 - minutes;
-            hours -= 1;
-        }
-
-        this.setState({
-            elapsedTime: {
-                hours,
-                minutes
-            }
-        });
-    };
+                // if(response.loggedIn) {
+                    this.setState({currentLocation: response})
+                // }
+            });
+        })
+    }
 
     getData() {
         if (AppState.currentState == 'active') {
@@ -144,6 +63,8 @@ class Dashboard extends React.Component {
                 this.setState({rooms: response})
                 this.filterRooms();
             });
+
+            this.getCurrentRoom();
         }
     }
 
@@ -377,22 +298,19 @@ class Dashboard extends React.Component {
                     </TouchableHighlight>
                 </View>
 
-                {this.state.currentLocation !== null &&
-                <TouchableOpacity style={styles.currentLocationBarTouch} onPress={() => {
-                    console.log(this.state.currentRoomId)
-                    this.props.navigation.navigate('RoomDetail', {roomId: this.state.currentRoomId})
-                }}>
+                {this.state.currentLocation.loggedIn &&
+                <TouchableOpacity style={styles.currentLocationBarTouch} onPress={() =>
+                    this.props.navigation.navigate('RoomDetail', {roomId: this.state.currentLocation.roomId})
+                }>
                     <View style={styles.currentLocationBar}>
                         <View style={[styles.currentLocationBarItem, styles.currentLocationBarItem1]}>
                             <Icon name="log-in" size={25} color="#fff" style={styles.loginIcon}/>
-                            <Text style={styles.currentLocationBarText}>{this.state.currentLocation}</Text>
-                            <View
-                                style={[styles.dashboardCardStatusIndicator, styles[this.state.currentLocationSafetyLevel]]}/>
+                            <Text style={styles.currentLocationBarText}>{this.state.currentLocation.roomName}</Text>
+                            <View style={[styles.dashboardCardStatusIndicator, styles[this.state.currentLocation.safetyLevel]]}/>
                         </View>
                         <View style={[styles.currentLocationBarItem, styles.currentLocationBarItem2]}>
                             <Text style={styles.currentLocationBarText}>Tijd:</Text>
-                            <Text
-                                style={styles.currentLocationBarText}>{String("0" + this.state.elapsedTime.hours).slice(-2) + ":" + String("0" + this.state.elapsedTime.minutes).slice(-2)}</Text>
+                            <Text style={styles.currentLocationBarText}>{String("0" + this.state.currentLocation.totalTime.hours).slice(-2) + ":" + String("0" + this.state.currentLocation.totalTime.minutes).slice(-2)}</Text>
                         </View>
                         <View style={[styles.currentLocationBarItem, styles.currentLocationBarItem3]}>
                             <Text style={styles.currentLocationBarText}>Bekijk</Text>

@@ -3,17 +3,19 @@ import {ActivityIndicator, StyleSheet, View} from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import globalStyles from "../../assets/style/globalStyle";
 import {AntDesign} from '@expo/vector-icons';
+import {getCurrentLocation} from "../../api/tagAPI";
 import LC4 from "../maps/LC4";
 import LC5 from "../maps/LC5";
 import LC6 from "../maps/LC6";
 import LC7 from "../maps/LC7";
 
 import {getLevelStatus} from "../../api/levelAPI";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Maps() {
     const [pageLoading, setPageLoading] = useState(true);
 
-    const [selectedLevel, setSelectedLevel] = useState('LC5');
+    const [selectedLevel, setSelectedLevel] = useState('LC4');
     const [levelState, setLevelState] = useState({LC4: {}, LC5: {}, LC6: {}, LC7: {},});
 
     function selectLevel(level) {
@@ -49,7 +51,16 @@ export default function Maps() {
     };
 
     useEffect(() => {
-        selectLevel('LC4'); //TODO: huidige verdieping selecteren
+        AsyncStorage.getItem('GUID').then((guid) => {
+            getCurrentLocation(guid).then((response) => {
+                if(response.loggedIn) {
+                    selectLevel(response.levelName); //TODO: huidige verdieping selecteren
+                }
+                else {
+                    selectLevel('LC4');
+                }
+            });
+        });
     }, []);
 
     return (

@@ -16,6 +16,14 @@ async function addTag(tagId, appId) {
     return data
 }
 
+async function getCurrentLocation(appId) {
+    let response = await fetch(API_URL + '/people/currentlocation/' + appId);
+
+    let data = await response.json();
+    return data
+}
+
 export {
-    addTag
+    addTag,
+    getCurrentLocation
 }
