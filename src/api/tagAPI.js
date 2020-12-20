@@ -17,6 +17,13 @@ async function addTag(tagId, appId) {
     return data
 }
 
+async function getTag(appId) {
+    let response = await fetch(api + '/rfid/tagid/' + appId);
+
+    let data = await response.json();
+    return data
+}
+
 async function getCurrentLocation(appId) {
     let response = await fetch(api + '/people/currentlocation/' + appId);
 
@@ -26,5 +33,6 @@ async function getCurrentLocation(appId) {
 
 export {
     addTag,
+    getTag,
     getCurrentLocation
 }

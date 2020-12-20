@@ -34,7 +34,7 @@ class RoomDetail extends React.Component {
         //     this.setState({co2Value: data.co2.level})
         // });
 
-        this.setState({pageLoading: false}) // TODO: als request om data op te halen voltooid
+        this.setState({pageLoading: false}) // TODO: als request om data op te halen voltooid is
     }
 
     render() {
