@@ -4,7 +4,6 @@ import {VictoryBar, VictoryChart, VictoryAxis} from "victory-native";
 import globalStyles from "../../assets/style/globalStyle";
 import chartStyles from "../../assets/style/chartStyle";
 
-
 const BarChart = ({data, min, max, xLabels, color, highlight}) => {
     return (
         <View style={styles.container}>

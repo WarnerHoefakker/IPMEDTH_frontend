@@ -10,6 +10,10 @@ const colors = {
     blue: {
         normal: '#579fbd',
         highlight: '#176080'
+    },
+    orange: {
+        normal: '#f48e43',
+        highlight: '#ba5c1e'
     }
 };
 
@@ -28,6 +32,11 @@ const chartStyles = {
         blue: {
             data: {
                 fill: colors.blue.normal
+            }
+        },
+        orange: {
+            data: {
+                fill: colors.orange.normal
             }
         },
         addHighlight: (color, timestamp, highlight) => {
@@ -51,6 +60,9 @@ const chartStyles = {
             },
             blue: {
                 backgroundColor: '#579fbd'
+            },
+            orange: {
+                backgroundColor: '#f48e43'
             },
         },
     },

@@ -11,7 +11,14 @@ class RoomDetail extends React.Component {
     constructor(props) {
         super(props);
 
-        this.color = 'purple';
+        const colorList = {
+            LC4: 'orange',
+            LC5: 'purple',
+            LC6: 'green',
+            LC7: 'blue'
+        }
+
+        this.color = colorList[this.props.route.params.levelName]
 
         this.state = {
             co2Value: 0,
@@ -41,7 +48,7 @@ class RoomDetail extends React.Component {
 
         return (
             <SafeAreaView style={globalStyles.safeAreaView}>
-                <Text>{this.props.route.params.roomId}</Text>
+                <Text>{this.props.route.params.roomName}</Text>
                 <ScrollView>
                     <View style={globalStyles.page}>
                         <View style={styles.twoCards}>

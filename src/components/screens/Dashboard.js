@@ -355,7 +355,8 @@ class Dashboard extends React.Component {
                     {this.state.shownRooms.length > 0 ? this.state.shownRooms.map((room) => {
                         return (
                             <TouchableWithoutFeedback onPress= {() => this.props.navigation.navigate('RoomDetail', {
-                                roomId: room.roomId
+                                roomName: room.roomName,
+                                levelName: room.levelId.levelName
                             })}>
                                 <RoomCard roomName={room.roomName} roomId={room.roomId} key={room.roomId} co2={room.co2} people={room.people} safetyLevel={room.safetyLevel}></RoomCard>
                             </TouchableWithoutFeedback>
