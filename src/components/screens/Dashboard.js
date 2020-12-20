@@ -1,15 +1,18 @@
 import React from 'react';
-import {StyleSheet, View, ScrollView, Image, Text, AppState} from 'react-native';
+import {StyleSheet, View, ScrollView, Image, Text, AppState, TouchableHighlight, TouchableOpacity} from 'react-native';
 import {getRooms} from '../../api/roomsAPI';
+import {getCurrentLocation} from '../../api/tagAPI';
 import RoomCard from '../RoomCard';
-import { TouchableHighlight, TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 import CheckBox from '@react-native-community/checkbox';
 import RoomDetail from './RoomDetail';
 import Navigation from '../NavigationBar';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import Icon from 'react-native-vector-icons/Feather'
 
 class Dashboard extends React.Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             rooms: [],
@@ -19,7 +22,8 @@ class Dashboard extends React.Component {
             safetyFilter: [false, false, false],
             activeLevelFilters: [],
             activeSafetyFilters: [],
-            amountOfFiltersActive: 0
+            amountOfFiltersActive: 0,
+            currentLocation: {},
         }
     }
 
@@ -28,48 +32,64 @@ class Dashboard extends React.Component {
             this.setState({rooms: response})
             this.setState({shownRooms: response})
         });
-        this.dataUpdateInterval = setInterval(() => {this.getData();}, 5000);
+
+        this.getCurrentRoom();
+
+        this.dataUpdateInterval = setInterval(() => {
+            this.getData();
+        }, 5000);
+
     }
 
-    componentWillUnmount(){
+    componentWillUnmount() {
         clearInterval(this.dataUpdateInterval);
     }
 
-    getData(){
-        if(AppState.currentState == 'active'){
+    getCurrentRoom() {
+        AsyncStorage.getItem('GUID').then((guid) => {
+            getCurrentLocation(guid).then((response) => {
+                this.setState({currentLocation: response})
+            });
+        })
+    }
+
+    getData() {
+        if (AppState.currentState == 'active') {
             getRooms().then((response) => {
                 this.setState({rooms: response})
                 this.filterRooms();
             });
+
+            this.getCurrentRoom();
         }
     }
 
-    showFilterOptions(){
-        if(this.state.showFilterOptions){
+    showFilterOptions() {
+        if (this.state.showFilterOptions) {
             this.setState({showFilterOptions: false});
         } else {
             this.setState({showFilterOptions: true});
         }
     }
 
-    filterRooms(){
-        if(this.state.activeLevelFilters.length == 0 && this.state.activeSafetyFilters.length == 0){
+    filterRooms() {
+        if (this.state.activeLevelFilters.length == 0 && this.state.activeSafetyFilters.length == 0) {
             let roomsToBeShown = this.state.rooms;
             this.setState({shownRooms: roomsToBeShown})
         } else {
             let roomsToBeShown = [];
 
             this.state.rooms.forEach((room) => {
-                if(this.state.activeLevelFilters.length != 0 && this.state.activeSafetyFilters.length == 0){
-                    if(this.state.activeLevelFilters.includes(room.levelId)){
+                if (this.state.activeLevelFilters.length != 0 && this.state.activeSafetyFilters.length == 0) {
+                    if (this.state.activeLevelFilters.includes(room.levelId)) {
                         roomsToBeShown.push(room);
                     }
-                } else if(this.state.activeLevelFilters.length == 0 && this.state.activeSafetyFilters.length != 0){
-                    if(this.state.activeSafetyFilters.includes(room.safetyLevel)){
+                } else if (this.state.activeLevelFilters.length == 0 && this.state.activeSafetyFilters.length != 0) {
+                    if (this.state.activeSafetyFilters.includes(room.safetyLevel)) {
                         roomsToBeShown.push(room);
                     }
-                } else if (this.state.activeLevelFilters.length != 0 && this.state.activeSafetyFilters.length != 0){
-                    if(this.state.activeLevelFilters.includes(room.levelId) && this.state.activeSafetyFilters.includes(room.safetyLevel)){
+                } else if (this.state.activeLevelFilters.length != 0 && this.state.activeSafetyFilters.length != 0) {
+                    if (this.state.activeLevelFilters.includes(room.levelId) && this.state.activeSafetyFilters.includes(room.safetyLevel)) {
                         roomsToBeShown.push(room);
                     }
                 }
@@ -78,33 +98,49 @@ class Dashboard extends React.Component {
         }
     }
 
-    removeValueFromArray(array, value){
+    removeValueFromArray(array, value) {
         let index = array.indexOf(value);
-        if(index !== -1){
+        if (index !== -1) {
             array.splice(index, 1);
         }
         return array;
     }
 
-    changeLevelFilterState(index, value){
+    changeLevelFilterState(index, value) {
         let stateCopy = this.state.levelFilter;
         stateCopy[index] = value;
         this.setState({levelFilter: stateCopy})
 
         let activeLevelFiltersCopy = this.state.activeLevelFilters;
-        if(value){
-            switch(index){
-                case 0: activeLevelFiltersCopy.push('5fbfd84483e5dc31b48dbe9c'); break;
-                case 1: activeLevelFiltersCopy.push('5fbfd25a838fd0305b94fd74'); break;
-                case 2: activeLevelFiltersCopy.push('5fbfd84ccc39b531bb9fde4e'); break;
-                case 3: activeLevelFiltersCopy.push('5fbfd851a737b931c7a07714'); break;
+        if (value) {
+            switch (index) {
+                case 0:
+                    activeLevelFiltersCopy.push('5fbfd84483e5dc31b48dbe9c');
+                    break;
+                case 1:
+                    activeLevelFiltersCopy.push('5fbfd25a838fd0305b94fd74');
+                    break;
+                case 2:
+                    activeLevelFiltersCopy.push('5fbfd84ccc39b531bb9fde4e');
+                    break;
+                case 3:
+                    activeLevelFiltersCopy.push('5fbfd851a737b931c7a07714');
+                    break;
             }
         } else {
-            switch(index){
-                case 0: activeLevelFiltersCopy = this.removeValueFromArray(activeLevelFiltersCopy, '5fbfd84483e5dc31b48dbe9c'); break;
-                case 1: activeLevelFiltersCopy = this.removeValueFromArray(activeLevelFiltersCopy, '5fbfd25a838fd0305b94fd74'); break;
-                case 2: activeLevelFiltersCopy = this.removeValueFromArray(activeLevelFiltersCopy, '5fbfd84ccc39b531bb9fde4e'); break;
-                case 3: activeLevelFiltersCopy = this.removeValueFromArray(activeLevelFiltersCopy, '5fbfd851a737b931c7a07714'); break;
+            switch (index) {
+                case 0:
+                    activeLevelFiltersCopy = this.removeValueFromArray(activeLevelFiltersCopy, '5fbfd84483e5dc31b48dbe9c');
+                    break;
+                case 1:
+                    activeLevelFiltersCopy = this.removeValueFromArray(activeLevelFiltersCopy, '5fbfd25a838fd0305b94fd74');
+                    break;
+                case 2:
+                    activeLevelFiltersCopy = this.removeValueFromArray(activeLevelFiltersCopy, '5fbfd84ccc39b531bb9fde4e');
+                    break;
+                case 3:
+                    activeLevelFiltersCopy = this.removeValueFromArray(activeLevelFiltersCopy, '5fbfd851a737b931c7a07714');
+                    break;
             }
         }
 
@@ -119,23 +155,35 @@ class Dashboard extends React.Component {
         this.filterRooms();
     }
 
-    changeSafetyFilterState(index, value){
+    changeSafetyFilterState(index, value) {
         let stateCopy = this.state.safetyFilter;
         stateCopy[index] = value;
         this.setState({safetyFilter: stateCopy})
 
         let activeSafetyFiltersCopy = this.state.activeSafetyFilters;
-        if(value){
-            switch(index){
-                case 0: activeSafetyFiltersCopy.push('green'); break;
-                case 1: activeSafetyFiltersCopy.push('orange'); break;
-                case 2: activeSafetyFiltersCopy.push('red'); break;
+        if (value) {
+            switch (index) {
+                case 0:
+                    activeSafetyFiltersCopy.push('green');
+                    break;
+                case 1:
+                    activeSafetyFiltersCopy.push('orange');
+                    break;
+                case 2:
+                    activeSafetyFiltersCopy.push('red');
+                    break;
             }
         } else {
-            switch(index){
-                case 0: activeSafetyFiltersCopy = this.removeValueFromArray(activeSafetyFiltersCopy, 'green'); break;
-                case 1: activeSafetyFiltersCopy = this.removeValueFromArray(activeSafetyFiltersCopy, 'orange'); break;
-                case 2: activeSafetyFiltersCopy = this.removeValueFromArray(activeSafetyFiltersCopy, 'red'); break;
+            switch (index) {
+                case 0:
+                    activeSafetyFiltersCopy = this.removeValueFromArray(activeSafetyFiltersCopy, 'green');
+                    break;
+                case 1:
+                    activeSafetyFiltersCopy = this.removeValueFromArray(activeSafetyFiltersCopy, 'orange');
+                    break;
+                case 2:
+                    activeSafetyFiltersCopy = this.removeValueFromArray(activeSafetyFiltersCopy, 'red');
+                    break;
             }
         }
 
@@ -150,14 +198,16 @@ class Dashboard extends React.Component {
         this.filterRooms();
     }
 
-    render(){
+    render() {
         return (
             <View style={styles.dashboardScreen}>
                 {this.state.showFilterOptions && <View style={styles.filterOverlay}>
                     <View style={styles.filterOptionsContainer}>
                         <View style={styles.filterCancelButtonContainer}>
-                            <TouchableHighlight style={styles.filterCancelButton} underlayColor="#2789b3" onPress={() => this.showFilterOptions()}>
-                                <Image style={styles.filterIcon} source={require("../../../assets/img/close-icon.png")}/>
+                            <TouchableHighlight style={styles.filterCancelButton} underlayColor="#2789b3"
+                                                onPress={() => this.showFilterOptions()}>
+                                <Image style={styles.filterIcon}
+                                       source={require("../../../assets/img/close-icon.png")}/>
                             </TouchableHighlight>
                         </View>
                         <View>
@@ -170,7 +220,7 @@ class Dashboard extends React.Component {
                                         this.changeLevelFilterState(0, newValue);
                                     }}
                                     onCheckColor='#848CD9'
-                                    tintColors={{true : "#848CD9"}}
+                                    tintColors={{true: "#848CD9"}}
                                 />
                                 <Text style={styles.checkboxLabel}>4</Text>
                             </View>
@@ -182,7 +232,7 @@ class Dashboard extends React.Component {
                                         this.changeLevelFilterState(1, newValue);
                                     }}
                                     onCheckColor='#848CD9'
-                                    tintColors={{true : "#848CD9"}}
+                                    tintColors={{true: "#848CD9"}}
                                 />
                                 <Text style={styles.checkboxLabel}>5</Text>
                             </View>
@@ -194,7 +244,7 @@ class Dashboard extends React.Component {
                                         this.changeLevelFilterState(2, newValue);
                                     }}
                                     onCheckColor='#848CD9'
-                                    tintColors={{true : "#848CD9"}}
+                                    tintColors={{true: "#848CD9"}}
                                 />
                                 <Text style={styles.checkboxLabel}>6</Text>
                             </View>
@@ -206,7 +256,7 @@ class Dashboard extends React.Component {
                                         this.changeLevelFilterState(3, newValue);
                                     }}
                                     onCheckColor='#848CD9'
-                                    tintColors={{true : "#848CD9"}}
+                                    tintColors={{true: "#848CD9"}}
                                 />
                                 <Text style={styles.checkboxLabel}>7</Text>
                             </View>
@@ -221,7 +271,7 @@ class Dashboard extends React.Component {
                                         this.changeSafetyFilterState(0, newValue)
                                     }}
                                     onCheckColor='#848CD9'
-                                    tintColors={{true : "#848CD9"}}
+                                    tintColors={{true: "#848CD9"}}
                                 />
                                 <Text style={styles.checkboxLabel}>Goed</Text>
                             </View>
@@ -233,7 +283,7 @@ class Dashboard extends React.Component {
                                         this.changeSafetyFilterState(1, newValue)
                                     }}
                                     onCheckColor='#848CD9'
-                                    tintColors={{true : "#848CD9"}}
+                                    tintColors={{true: "#848CD9"}}
                                 />
                                 <Text style={styles.checkboxLabel}>Matig</Text>
                             </View>
@@ -245,24 +295,50 @@ class Dashboard extends React.Component {
                                         this.changeSafetyFilterState(2, newValue)
                                     }}
                                     onCheckColor='#848CD9'
-                                    tintColors={{true : "#848CD9"}}
+                                    tintColors={{true: "#848CD9"}}
                                 />
                                 <Text style={styles.checkboxLabel}>Slecht</Text>
                             </View>
                         </View>
                     </View>
                 </View>}
+
                 <View style={styles.filterButtonContainer}>
                     <TouchableHighlight style={styles.filterButton} underlayColor="#2789b3" onPress={() => this.showFilterOptions()}>
                         <View>
                             <Image style={styles.filterIcon} source={require("../../../assets/img/filter-icon.png")}/>
                         </View>
                     </TouchableHighlight>
+                                                                     
                     {this.state.amountOfFiltersActive > 0 && 
                     <View style={styles.filterIndicator}>
                         <Text style={styles.filterIndicatorText}>{this.state.amountOfFiltersActive}</Text>
                     </View>}
                 </View>
+
+                {this.state.currentLocation.loggedIn &&
+                <TouchableOpacity style={styles.currentLocationBarTouch} onPress={() =>
+                    this.props.navigation.navigate('RoomDetail', {roomId: this.state.currentLocation.roomId})
+                }>
+                    <View style={styles.currentLocationBar}>
+                        <View style={[styles.currentLocationBarItem, styles.currentLocationBarItem1]}>
+                            <Icon name="log-in" size={25} color="#fff" style={styles.loginIcon}/>
+                            <Text style={styles.currentLocationBarText}>{this.state.currentLocation.roomName}</Text>
+                            <View style={[styles.dashboardCardStatusIndicator, styles[this.state.currentLocation.safetyLevel]]}/>
+                        </View>
+                        <View style={[styles.currentLocationBarItem, styles.currentLocationBarItem2]}>
+                            <Text style={styles.currentLocationBarText}>Tijd:</Text>
+                            <Text style={styles.currentLocationBarText}>{String("0" + this.state.currentLocation.totalTime.hours).slice(-2) + ":" + String("0" + this.state.currentLocation.totalTime.minutes).slice(-2)}</Text>
+                        </View>
+                        <View style={[styles.currentLocationBarItem, styles.currentLocationBarItem3]}>
+                            <Text style={styles.currentLocationBarText}>Bekijk</Text>
+                            <Icon name="chevron-right" size={25} color="#fff"/>
+                        </View>
+
+                    </View>
+                </TouchableOpacity>
+                }
+
                 <ScrollView style={styles.scrollView} contentContainerStyle={{paddingTop: 25}}>
                     {this.state.shownRooms.length > 0 ? this.state.shownRooms.map((room) => {
                         return (
@@ -282,15 +358,16 @@ class Dashboard extends React.Component {
 }
 
 const styles = StyleSheet.create({
-    scrollView: {
-        paddingHorizontal: 20,
-        minWidth: '100%',
-        minHeight: '100%'
-    },
     dashboardScreen: {
         display: 'flex',
         flexDirection: 'column',
         backgroundColor: '#EFEFEF',
+        height: '100%'
+    },
+    scrollView: {
+        paddingHorizontal: 20,
+        minWidth: '100%',
+        alignSelf: 'stretch',
     },
     filterButton: {
         width: 55,
@@ -365,6 +442,70 @@ const styles = StyleSheet.create({
         marginLeft: 5,
         fontSize: 16
     },
+    currentLocationBar: {
+        justifyContent: 'space-between',
+        flexDirection: 'row',
+    },
+    currentLocationBarTouch: {
+        backgroundColor: '#247BA0',
+        marginTop: 10,
+        marginLeft: 10,
+        marginRight: 10,
+        borderRadius: 4
+    },
+    currentLocationBarItem: {
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginTop: 6,
+        marginBottom: 6
+    },
+    currentLocationBarItem1: {
+        justifyContent: 'flex-start'
+    },
+    currentLocationBarItem2: {
+        justifyContent: 'center'
+    },
+    currentLocationBarItem3: {
+        justifyContent: 'flex-end'
+    },
+    currentLocationBarText: {
+        color: '#fff',
+        marginLeft: 4,
+        marginRight: 4
+    },
+    loginIcon: {
+        marginLeft: 4,
+        marginRight: 4
+    },
+    dashboardCardStatusIndicator: {
+        width: 16,
+        height: 16,
+        borderRadius: 20,
+        backgroundColor: 'grey',
+        marginRight: 4,
+        marginLeft: 4
+    },
+    green: {
+        backgroundColor: 'green',
+        borderWidth: 1,
+        borderColor: '#fff'
+    },
+    orange: {
+        backgroundColor: 'orange',
+        borderWidth: 1,
+        borderColor: '#fff'
+    },
+    red: {
+        backgroundColor: 'red',
+        borderWidth: 1,
+        borderColor: '#fff'
+    },
+    grey: {
+        backgroundColor: 'grey',
+        borderWidth: 1,
+        borderColor: '#fff'
+    }
 
 });
 

@@ -20,12 +20,12 @@ const globalStyles = StyleSheet.create({
         fontSize: 24
     },
     card: {
-        shadowColor: "#222222",
+        shadowColor: "#000",
         shadowOffset: {
             width: 0,
             height: 2,
         },
-        shadowOpacity: 0.15,
+        shadowOpacity: 0.25,
         shadowRadius: 3.84,
         elevation: 5,
         backgroundColor: '#fff',
@@ -42,6 +42,7 @@ const globalStyles = StyleSheet.create({
         alignSelf: 'flex-start',
         marginTop: 10,
         marginBottom: 10,
+        width: '100%'
     },
     button: {
         paddingTop: 8,
@@ -52,6 +53,7 @@ const globalStyles = StyleSheet.create({
         justifyContent: 'center',
         borderRadius:5,
         backgroundColor: '#247BA0',
+        width: '100%'
     },
     buttonText: {
         color: '#fff',
