@@ -58,7 +58,16 @@ const globalStyles = StyleSheet.create({
     buttonText: {
         color: '#fff',
         marginBottom: 0
-    }
+    },
+    loadingContainer: {
+        flex: 1,
+        justifyContent: "center"
+    },
+    loadingHorizontal: {
+        flexDirection: "row",
+        justifyContent: "space-around",
+        padding: 10
+    },
 });
 
 export default globalStyles;

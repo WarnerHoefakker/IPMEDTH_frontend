@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {StyleSheet, Text, View, ScrollView, SafeAreaView} from 'react-native';
+import {StyleSheet, Text, View, ScrollView, SafeAreaView, ActivityIndicator} from 'react-native';
 import RNEventSource from 'react-native-event-source'
 import Gauge from "../charts/Gauge";
 import Prediction from "../room-detail/Prediction";
@@ -8,27 +8,37 @@ import globalStyles from "../../assets/style/globalStyle";
 import {API_URL} from '@env';
 
 class RoomDetail extends React.Component {
-    color = 'green';
-
     constructor(props) {
         super(props);
+
+        this.color = 'purple';
+
         this.state = {
-            co2Value: 0
+            co2Value: 0,
+            pageLoading: true
         }
     }
 
     componentDidMount() {
-        const source = new RNEventSource(API_URL + '/rooms/LC4044/currentstatus');
+        // const source = new RNEventSource(API_URL + '/rooms/LC4044/currentstatus');
+        //
+        // source.addEventListener('message', (event) => {
+        //     let data = JSON.parse(event.data);
+        //     this.setState({co2Value: data.co2.level})
+        // });
 
-        source.addEventListener('message', (event) => {
-            let data = JSON.parse(event.data);
-            this.setState({co2Value: data.co2.level})
-        });
-
-        console.log(this.props.route.params.roomId)
+        this.setState({pageLoading: false}) // TODO: als request om data op te halen voltooid
     }
 
     render() {
+        if(this.state.pageLoading) {
+            return (
+                <View style={[globalStyles.loadingContainer, globalStyles.loadingHorizontal]}>
+                    <ActivityIndicator size="large" color="#247BA0"/>
+                </View>
+            )
+        }
+
         return (
             <SafeAreaView style={globalStyles.safeAreaView}>
                 <Text>{this.props.route.params.roomId}</Text>
