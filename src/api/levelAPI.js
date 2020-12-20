@@ -1,7 +1,8 @@
 import {API_URL} from '@env';
+const api = "http://192.168.2.6:3001";
 
 async function getLevelStatus(level) {
-    let response = await fetch(API_URL + '/levels/' + level + '/status');
+    let response = await fetch(api + '/levels/' + level + '/status');
     let data = await response.json();
     return data
 }

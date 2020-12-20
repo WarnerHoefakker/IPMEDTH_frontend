@@ -3,8 +3,9 @@ import { StyleSheet, View, Text } from 'react-native';
 import RNSpeedometer from 'react-native-speedometer';
 import globalStyles from "../../assets/style/globalStyle";
 
-const Gauge = ({color, value, min, max, showLabel}) => {
+const Gauge = ({color, value, min, max, showLabel, size}) => {
     const colors = {
+        orange: ['#f4d9c6', '#f2b385', '#f48e43'],
         blue: ['#cbe2eb', '#8ebfd2', '#579fbd'],
         green: ['#e4f8e4', '#c4efc3', '#94e393'],
         purple: ['#d9dbf3', '#b3b8e7', '#848cd9']
@@ -50,10 +51,9 @@ const Gauge = ({color, value, min, max, showLabel}) => {
                     }
                 ]}
                 labelStyle={{display: 'none'}}
-                size={150}
+                size={size || 150}
                 needleImage={require('../../assets/img/speedometer-needle3.png')}
-                innerCircleStyle={{width: 150 * 0.7, // TODO: aanpassen
-                    height: 150 / 2 * 0.7,}}
+                innerCircleStyle={size ? {width: size * 0.7, height: size / 2 * 0.7} : {width: 150 * 0.7, height: 150 / 2 * 0.7,}}
             />
             {valueLabel}
         </View>

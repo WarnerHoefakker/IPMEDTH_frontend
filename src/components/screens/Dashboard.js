@@ -22,6 +22,7 @@ class Dashboard extends React.Component {
             safetyFilter: [false, false, false],
             activeLevelFilters: [],
             activeSafetyFilters: [],
+            amountOfFiltersActive: 0,
             currentLocation: {},
         }
     }
@@ -142,6 +143,14 @@ class Dashboard extends React.Component {
                     break;
             }
         }
+
+        if(value){
+            let updatedAmount = this.state.amountOfFiltersActive + 1;
+            this.setState({amountOfFiltersActive: updatedAmount})
+        } else {
+            let updatedAmount = this.state.amountOfFiltersActive - 1;
+            this.setState({amountOfFiltersActive: updatedAmount})
+        }
         this.setState({activeLevelFilters: activeLevelFiltersCopy})
         this.filterRooms();
     }
@@ -176,6 +185,14 @@ class Dashboard extends React.Component {
                     activeSafetyFiltersCopy = this.removeValueFromArray(activeSafetyFiltersCopy, 'red');
                     break;
             }
+        }
+
+        if(value){
+            let updatedAmount = this.state.amountOfFiltersActive + 1;
+            this.setState({amountOfFiltersActive: updatedAmount})
+        } else {
+            let updatedAmount = this.state.amountOfFiltersActive - 1;
+            this.setState({amountOfFiltersActive: updatedAmount})
         }
         this.setState({activeSafetyFilters: activeSafetyFiltersCopy})
         this.filterRooms();
@@ -287,10 +304,16 @@ class Dashboard extends React.Component {
                 </View>}
 
                 <View style={styles.filterButtonContainer}>
-                    <TouchableHighlight style={styles.filterButton} underlayColor="#2789b3"
-                                        onPress={() => this.showFilterOptions()}>
-                        <Image style={styles.filterIcon} source={require("../../../assets/img/filter-icon.png")}/>
+                    <TouchableHighlight style={styles.filterButton} underlayColor="#2789b3" onPress={() => this.showFilterOptions()}>
+                        <View>
+                            <Image style={styles.filterIcon} source={require("../../../assets/img/filter-icon.png")}/>
+                        </View>
                     </TouchableHighlight>
+                                                                     
+                    {this.state.amountOfFiltersActive > 0 && 
+                    <View style={styles.filterIndicator}>
+                        <Text style={styles.filterIndicatorText}>{this.state.amountOfFiltersActive}</Text>
+                    </View>}
                 </View>
 
                 {this.state.currentLocation.loggedIn &&
@@ -316,18 +339,17 @@ class Dashboard extends React.Component {
                 </TouchableOpacity>
                 }
 
-                    <ScrollView style={styles.scrollView} contentContainerStyle={{paddingTop: 20}}>
-                        {this.state.shownRooms.length > 0 ? this.state.shownRooms.map((room) => {
-                            return (
-                                <TouchableWithoutFeedback onPress={() => this.props.navigation.navigate('RoomDetail', {
-                                    roomId: room.roomId
-                                })}>
-                                    <RoomCard roomName={room.roomName} roomId={room.roomId} key={room.roomId} co2={room.co2}
-                                              people={room.people} safetyLevel={room.safetyLevel}></RoomCard>
-                                </TouchableWithoutFeedback>
-                            );
-                        }) : <Text>Er zijn geen ruimtes die voldoen aan deze criteria</Text>}
-                    </ScrollView>
+                <ScrollView style={styles.scrollView} contentContainerStyle={{paddingTop: 25}}>
+                    {this.state.shownRooms.length > 0 ? this.state.shownRooms.map((room) => {
+                        return (
+                            <TouchableWithoutFeedback onPress= {() => this.props.navigation.navigate('RoomDetail', {
+                                roomId: room.roomId
+                            })}>
+                                <RoomCard roomName={room.roomName} roomId={room.roomId} key={room.roomId} co2={room.co2} people={room.people} safetyLevel={room.safetyLevel}></RoomCard>
+                            </TouchableWithoutFeedback>
+                        );
+                    }) : <Text>Er zijn geen ruimtes die voldoen aan deze criteria</Text>}
+                </ScrollView>
             </View>
         )
     }
@@ -353,7 +375,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#247BA0',
         borderRadius: 30,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     filterCancelButton: {
         width: 55,
@@ -366,6 +388,20 @@ const styles = StyleSheet.create({
     filterIcon: {
         width: 34,
         height: 34,
+    },
+    filterIndicator: {
+        position: "absolute",
+        bottom: 40,
+        left: 35,
+        backgroundColor: "red",
+        borderRadius: 30,
+        width: 20,
+        height: 20,
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    filterIndicatorText: {
+        color: '#fff',
     },
     filterOverlay: {
         backgroundColor: 'rgba(0, 0, 0, 0.2)',
