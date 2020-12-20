@@ -46,13 +46,8 @@ class Dashboard extends React.Component {
 
     getCurrentRoom() {
         AsyncStorage.getItem('GUID').then((guid) => {
-            console.log(guid)
             getCurrentLocation(guid).then((response) => {
-                console.log(response);
-
-                // if(response.loggedIn) {
-                    this.setState({currentLocation: response})
-                // }
+                this.setState({currentLocation: response})
             });
         })
     }
@@ -321,18 +316,18 @@ class Dashboard extends React.Component {
                 </TouchableOpacity>
                 }
 
-                <ScrollView style={styles.scrollView} contentContainerStyle={{paddingTop: 60}}>
-                    {this.state.shownRooms.length > 0 ? this.state.shownRooms.map((room) => {
-                        return (
-                            <TouchableWithoutFeedback onPress={() => this.props.navigation.navigate('RoomDetail', {
-                                roomId: room.roomId
-                            })}>
-                                <RoomCard roomName={room.roomName} roomId={room.roomId} key={room.roomId} co2={room.co2}
-                                          people={room.people} safetyLevel={room.safetyLevel}></RoomCard>
-                            </TouchableWithoutFeedback>
-                        );
-                    }) : <Text>Er zijn geen ruimtes die voldoen aan deze criteria</Text>}
-                </ScrollView>
+                    <ScrollView style={styles.scrollView} contentContainerStyle={{paddingTop: 20}}>
+                        {this.state.shownRooms.length > 0 ? this.state.shownRooms.map((room) => {
+                            return (
+                                <TouchableWithoutFeedback onPress={() => this.props.navigation.navigate('RoomDetail', {
+                                    roomId: room.roomId
+                                })}>
+                                    <RoomCard roomName={room.roomName} roomId={room.roomId} key={room.roomId} co2={room.co2}
+                                              people={room.people} safetyLevel={room.safetyLevel}></RoomCard>
+                                </TouchableWithoutFeedback>
+                            );
+                        }) : <Text>Er zijn geen ruimtes die voldoen aan deze criteria</Text>}
+                    </ScrollView>
             </View>
         )
     }
@@ -341,15 +336,16 @@ class Dashboard extends React.Component {
 }
 
 const styles = StyleSheet.create({
-    scrollView: {
-        paddingHorizontal: 20,
-        minWidth: '100%',
-        minHeight: '100%'
-    },
     dashboardScreen: {
         display: 'flex',
         flexDirection: 'column',
         backgroundColor: '#EFEFEF',
+        height: '100%'
+    },
+    scrollView: {
+        paddingHorizontal: 20,
+        minWidth: '100%',
+        alignSelf: 'stretch',
     },
     filterButton: {
         width: 55,
@@ -415,10 +411,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
     currentLocationBarTouch: {
-        // zIndex: 5,
-        // position: 'absolute',
-        // top: 0,
-        // left: 0,
         backgroundColor: '#247BA0',
         marginTop: 10,
         marginLeft: 10,
