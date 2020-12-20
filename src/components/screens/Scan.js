@@ -7,37 +7,18 @@ import globalStyles from "../../assets/style/globalStyle";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Svg, { G, Path } from "react-native-svg";
 
-import {addTag} from '../../api/tagAPI'
+import {addTag, getTag} from '../../api/tagAPI'
 
 class Scan extends React.Component {
 
-    state = {
-        androidLookingForTags: false,
-        tagSuccesfullyDetected: false,
-        tagValue: ''
-    }
+    constructor(props) {
+        super(props);
 
-    saveTag = async (value) => {
-        try {
-            await AsyncStorage.setItem('TAG', value);
-            this.setState({tagValue: value});
-
-            const guid = await AsyncStorage.getItem('GUID');
-
-            const response = await addTag(value, guid);
-
-            console.log(response) // TODO: vanuit backend duidelijke error messages versturen, deze in app tonen
-
-            console.log(this.state.tagValue)
-        } catch (e) {
-            console.log(e);
+        this.state = {
+            androidLookingForTags: false,
+            tagSuccesfullyDetected: false,
+            tagValue: ''
         }
-    }
-
-    getTag = async () => {
-        const tagId = await AsyncStorage.getItem('TAG');
-
-        this.setState({tagValue: tagId})
     }
 
     componentDidMount() {
@@ -62,6 +43,31 @@ class Scan extends React.Component {
         NfcManager.setEventListener(NfcEvents.DiscoverTag, null);
         NfcManager.unregisterTagEvent().catch(() => 0);
     }
+
+    saveTag = async (value) => {
+        try {
+            await AsyncStorage.setItem('TAG', value);
+            this.setState({tagValue: value});
+
+            const guid = await AsyncStorage.getItem('GUID');
+
+            const response = await addTag(value, guid);
+
+            console.log(response) // TODO: vanuit backend duidelijke error messages versturen, deze in app tonen
+
+            console.log(this.state.tagValue)
+        } catch (e) {
+            console.log(e);
+        }
+    };
+
+    getTag = async () => {
+        const guid = await AsyncStorage.getItem('GUID');
+        const response = await getTag(guid);
+
+        await AsyncStorage.setItem('TAG', response.tagId);
+        this.setState({tagValue: response.tagId});
+    };
 
     showSuccesfullyDetectedTagPopUp() {
         this.setState({tagSuccesfullyDetected: true})

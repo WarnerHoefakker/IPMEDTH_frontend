@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View, ScrollView, Image, Text, AppState, TouchableHighlight, TouchableOpacity} from 'react-native';
+import {ActivityIndicator, StyleSheet, View, ScrollView, Image, Text, AppState, TouchableHighlight, TouchableOpacity} from 'react-native';
 import {getRooms} from '../../api/roomsAPI';
 import {getCurrentLocation} from '../../api/tagAPI';
 import RoomCard from '../RoomCard';
@@ -9,6 +9,7 @@ import RoomDetail from './RoomDetail';
 import Navigation from '../NavigationBar';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/Feather'
+import globalStyles from "../../assets/style/globalStyle";
 
 class Dashboard extends React.Component {
 
@@ -24,6 +25,7 @@ class Dashboard extends React.Component {
             activeSafetyFilters: [],
             amountOfFiltersActive: 0,
             currentLocation: {},
+            pageLoading: true
         }
     }
 
@@ -31,6 +33,8 @@ class Dashboard extends React.Component {
         getRooms().then((response) => {
             this.setState({rooms: response})
             this.setState({shownRooms: response})
+
+            this.setState({pageLoading: false})
         });
 
         this.getCurrentRoom();
@@ -199,6 +203,14 @@ class Dashboard extends React.Component {
     }
 
     render() {
+        if(this.state.pageLoading) {
+            return (
+                <View style={[globalStyles.loadingContainer, globalStyles.loadingHorizontal]}>
+                    <ActivityIndicator size="large" color="#247BA0"/>
+                </View>
+            )
+        }
+
         return (
             <View style={styles.dashboardScreen}>
                 {this.state.showFilterOptions && <View style={styles.filterOverlay}>
@@ -343,7 +355,8 @@ class Dashboard extends React.Component {
                     {this.state.shownRooms.length > 0 ? this.state.shownRooms.map((room) => {
                         return (
                             <TouchableWithoutFeedback onPress= {() => this.props.navigation.navigate('RoomDetail', {
-                                roomId: room.roomId
+                                roomName: room.roomName,
+                                levelName: room.levelId.levelName
                             })}>
                                 <RoomCard roomName={room.roomName} roomId={room.roomId} key={room.roomId} co2={room.co2} people={room.people} safetyLevel={room.safetyLevel}></RoomCard>
                             </TouchableWithoutFeedback>
