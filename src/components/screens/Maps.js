@@ -54,7 +54,7 @@ export default function Maps() {
         AsyncStorage.getItem('GUID').then((guid) => {
             getCurrentLocation(guid).then((response) => {
                 if(response.loggedIn) {
-                    selectLevel(response.levelName); //TODO: huidige verdieping selecteren
+                    selectLevel(response.levelName);
                 }
                 else {
                     selectLevel('LC4');

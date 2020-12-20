@@ -1,9 +1,10 @@
 import {API_URL} from '@env';
+const api = "http://192.168.178.123:3001";
 
 async function addTag(tagId, appId) {
     const postData = {tagId, appId};
 
-    let response = await fetch(API_URL + '/rfid/add', {
+    let response = await fetch(api + '/rfid/add', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -17,7 +18,7 @@ async function addTag(tagId, appId) {
 }
 
 async function getCurrentLocation(appId) {
-    let response = await fetch(API_URL + '/people/currentlocation/' + appId);
+    let response = await fetch(api + '/people/currentlocation/' + appId);
 
     let data = await response.json();
     return data
