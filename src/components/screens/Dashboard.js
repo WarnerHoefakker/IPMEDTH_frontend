@@ -85,7 +85,7 @@ class Dashboard extends React.Component {
 
             this.state.rooms.forEach((room) => {
                 if (this.state.activeLevelFilters.length != 0 && this.state.activeSafetyFilters.length == 0) {
-                    if (this.state.activeLevelFilters.includes(room.levelId)) {
+                    if (this.state.activeLevelFilters.includes(room.levelId._id)) {
                         roomsToBeShown.push(room);
                     }
                 } else if (this.state.activeLevelFilters.length == 0 && this.state.activeSafetyFilters.length != 0) {
@@ -93,7 +93,7 @@ class Dashboard extends React.Component {
                         roomsToBeShown.push(room);
                     }
                 } else if (this.state.activeLevelFilters.length != 0 && this.state.activeSafetyFilters.length != 0) {
-                    if (this.state.activeLevelFilters.includes(room.levelId) && this.state.activeSafetyFilters.includes(room.safetyLevel)) {
+                    if (this.state.activeLevelFilters.includes(room.levelId._id) && this.state.activeSafetyFilters.includes(room.safetyLevel)) {
                         roomsToBeShown.push(room);
                     }
                 }
