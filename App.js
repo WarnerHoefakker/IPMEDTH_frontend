@@ -22,6 +22,34 @@ import NavigationBar from './src/components/NavigationBar'
 const AppStack = createStackNavigator();
 
 const App = () =>{
+    // const handleNotification = async (notification) => {
+    //     console.log(notification);
+    //     Alert.alert(notification); 
+
+    //     let events = await fetchEvents();
+    //     //console.log(events)
+    //     setEvents(events);
+    // };
+    // useEffect(() =>{
+    //     _notificationSubscription = Notifications.addListener(handleNotification);
+    //     return function cleanup(){
+    //         _notificationSubscription.remove();
+    //     }
+    // },[])
+
+    // useEffect(() => {
+    //     doAsync();
+    //     async function doAsync(){
+    //         await registerForPushNotificationsAsync();
+    //         try{
+    //             let events = await fetchevents();
+    //             setEvents(events);
+    //         } catch (error){
+    //             console.log(error);
+    //         }
+    //     }
+
+    // }
     // Load custom fonts
     let customFonts = {
         'Roboto-Regular': require('./src/assets/fonts/Roboto-Regular.ttf')
