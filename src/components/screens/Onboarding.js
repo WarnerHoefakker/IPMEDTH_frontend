@@ -66,7 +66,7 @@ const OnboardingScreen = ({navigation}) => {
             backgroundColor: '#fff',
             image: <Image style={styles.onboardingImage} source={require("../../../assets/img/onboarding-1.png")} />,
             title: 'Welkom bij Corona Cleaner',
-            subtitle: 'Welkom bij de corona applicatie van de opleiding Informatica aan de Hogeschool Leiden!'
+            subtitle: 'De corona applicatie van de opleiding Informatica aan de Hogeschool Leiden!'
           },
           {
             backgroundColor: '#fff',
