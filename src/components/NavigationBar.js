@@ -3,14 +3,13 @@ import {StyleSheet, Image} from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Scan from './screens/Scan';
 import Maps from './screens/Maps';
-import Onboarding from './Onboarding';
+import Onboarding from './screens/Onboarding';
 import DashboardNavigation from './DashboardNavigation';
 
 
 export default function Navigation() {
 
     const Tab = createBottomTabNavigator();
-    
 
     return (
         <Tab.Navigator
@@ -56,7 +55,8 @@ export default function Navigation() {
             </Tab.Screen>
             <Tab.Screen
                 name="Onboarding"
-                component={Onboarding}>
+                component={Onboarding}
+                options={{tabBarVisible: false}}>
             </Tab.Screen>
             <Tab.Screen
                 name="Scan"

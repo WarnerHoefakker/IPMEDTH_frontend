@@ -49,6 +49,7 @@ class Dashboard extends React.Component {
 
     componentWillUnmount() {
         clearInterval(this.dataUpdateInterval);
+        this.state = {}
     }
 
     getCurrentRoom() {

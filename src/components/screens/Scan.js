@@ -13,7 +13,6 @@ class Scan extends React.Component {
 
     constructor(props) {
         super(props);
-
         this.state = {
             androidLookingForTags: false,
             tagSuccesfullyDetected: false,
@@ -35,7 +34,6 @@ class Scan extends React.Component {
             // waar de gebruiker is ingelogd.
             this.saveTag(tag.id)
         });
-
         this.getTag();
     }
 
