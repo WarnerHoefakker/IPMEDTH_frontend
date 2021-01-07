@@ -6,7 +6,7 @@ import uuid from 'react-native-uuid';
 import {AppLoading} from "expo";
 import { useFonts } from 'expo-font';
 
-import Onboarding from './src/components/Onboarding';
+import Onboarding from './src/components/screens/Onboarding';
 import Home from './src/components/NavigationBar';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import NavigationBar from './src/components/NavigationBar'
@@ -87,7 +87,10 @@ const App = () =>{
         checkForGUID();
         return (
             <NavigationContainer>
-                <NavigationBar></NavigationBar>
+                <AppStack.Navigator headerMode="none">
+                    <AppStack.Screen name="Home" component={Home} />
+                    <AppStack.Screen name="Onboarding" component={Onboarding} />
+                </AppStack.Navigator>
             </NavigationContainer>
         );
 
