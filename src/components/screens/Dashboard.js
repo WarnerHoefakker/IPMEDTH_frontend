@@ -26,7 +26,7 @@ class Dashboard extends React.Component {
             amountOfFiltersActive: 0,
             currentLocation: {},
             pageLoading: true,
-            slideAnim: new Animated.Value(-435),
+            slideAnim: new Animated.Value(-500),
             fadeAnim: new Animated.Value(0)
         }
     }
@@ -216,7 +216,7 @@ class Dashboard extends React.Component {
 
     slideOut = () => {
         Animated.timing(this.state.slideAnim, {
-           toValue: -435,
+           toValue: -500,
            duration: 300,
            useNativeDriver: true,
         }).start(({finished}) => {
