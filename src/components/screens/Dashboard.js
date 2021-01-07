@@ -1,5 +1,5 @@
 import React from 'react';
-import {ActivityIndicator, StyleSheet, View, ScrollView, Image, Text, AppState, TouchableHighlight, TouchableOpacity} from 'react-native';
+import {Animated, ActivityIndicator, StyleSheet, View, ScrollView, Image, Text, AppState, TouchableHighlight, TouchableOpacity} from 'react-native';
 import {getRooms} from '../../api/roomsAPI';
 import {getCurrentLocation} from '../../api/tagAPI';
 import RoomCard from '../RoomCard';
@@ -25,7 +25,9 @@ class Dashboard extends React.Component {
             activeSafetyFilters: [],
             amountOfFiltersActive: 0,
             currentLocation: {},
-            pageLoading: true
+            pageLoading: true,
+            slideAnim: new Animated.Value(-435),
+            fadeAnim: new Animated.Value(0)
         }
     }
 
@@ -63,16 +65,18 @@ class Dashboard extends React.Component {
                 this.setState({rooms: response})
                 this.filterRooms();
             });
-
             this.getCurrentRoom();
         }
     }
 
     showFilterOptions() {
         if (this.state.showFilterOptions) {
-            this.setState({showFilterOptions: false});
+            this.slideOut();
+            this.fadeOut();
         } else {
             this.setState({showFilterOptions: true});
+            this.slideIn();
+            this.fadeIn();
         }
     }
 
@@ -202,6 +206,40 @@ class Dashboard extends React.Component {
         this.filterRooms();
     }
 
+    slideIn = () => {
+        Animated.timing(this.state.slideAnim, {
+           toValue: 0,
+           duration: 300,
+           useNativeDriver: true, 
+        }).start();
+    }
+
+    slideOut = () => {
+        Animated.timing(this.state.slideAnim, {
+           toValue: -435,
+           duration: 300,
+           useNativeDriver: true,
+        }).start(({finished}) => {
+            this.setState({showFilterOptions: false});
+        });
+    }
+
+    fadeIn = () => {
+        Animated.timing(this.state.fadeAnim, {
+            toValue: 1,
+            duration: 300,
+            useNativeDriver: true, 
+         }).start();
+    }
+
+    fadeOut = () => {
+        Animated.timing(this.state.fadeAnim, {
+            toValue: 0,
+            duration: 300,
+            useNativeDriver: true, 
+         }).start();
+    }
+
     render() {
         if(this.state.pageLoading) {
             return (
@@ -213,8 +251,8 @@ class Dashboard extends React.Component {
 
         return (
             <View style={styles.dashboardScreen}>
-                {this.state.showFilterOptions && <View style={styles.filterOverlay}>
-                    <View style={styles.filterOptionsContainer}>
+                {this.state.showFilterOptions && <Animated.View style={[styles.filterOverlay, {opacity: this.state.fadeAnim}]}>
+                    <Animated.View style={[styles.filterOptionsContainer, {translateY: this.state.slideAnim}]}>
                         <View style={styles.filterCancelButtonContainer}>
                             <TouchableHighlight style={styles.filterCancelButton} underlayColor="#2789b3"
                                                 onPress={() => this.showFilterOptions()}>
@@ -222,8 +260,8 @@ class Dashboard extends React.Component {
                                        source={require("../../../assets/img/close-icon.png")}/>
                             </TouchableHighlight>
                         </View>
-                        <View>
-                            <Text style={styles.filterOptionsTitle}>Verdieping</Text>
+                        <Text style={styles.filterOptionsTitle}>Verdieping</Text>
+                        <View style={styles.levelCheckboxWrapper}>
                             <View style={styles.checkboxContainer}>
                                 <CheckBox
                                     disabled={false}
@@ -273,8 +311,8 @@ class Dashboard extends React.Component {
                                 <Text style={styles.checkboxLabel}>7</Text>
                             </View>
                         </View>
-                        <View>
-                            <Text style={styles.filterOptionsTitle}>Veiligheidsgraad</Text>
+                        <Text style={styles.filterOptionsTitle}>Veiligheidsgraad</Text>
+                        <View style={styles.safetyLevelCheckboxWrapper}>
                             <View style={styles.checkboxContainer}>
                                 <CheckBox
                                     disabled={false}
@@ -312,8 +350,11 @@ class Dashboard extends React.Component {
                                 <Text style={styles.checkboxLabel}>Slecht</Text>
                             </View>
                         </View>
-                    </View>
-                </View>}
+                        <TouchableHighlight style={styles.filterSaveButton} underlayColor="#2789b3" onPress={() => this.showFilterOptions()}>
+                            <Text style={styles.filterSaveButtonText}>Opslaan</Text>
+                        </TouchableHighlight>
+                    </Animated.View>
+                </Animated.View>}
 
                 <View style={styles.filterButtonContainer}>
                     <TouchableHighlight style={styles.filterButton} underlayColor="#2789b3" onPress={() => this.showFilterOptions()}>
@@ -398,6 +439,21 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
+    filterSaveButton: {
+        backgroundColor: '#247BA0',
+        color: '#fff',
+        borderRadius: 5,
+        width: 95,
+        height: 45,
+        marginTop: 40,
+        alignItems: 'center',
+        justifyContent: 'center',
+        alignSelf: 'center'
+    },
+    filterSaveButtonText: {
+        color: '#fff',
+        fontWeight: "bold"
+    },
     filterIcon: {
         width: 34,
         height: 34,
@@ -441,7 +497,7 @@ const styles = StyleSheet.create({
         borderBottomLeftRadius: 25,
         borderBottomRightRadius: 25,
         paddingHorizontal: 20,
-        paddingTop: 90
+        paddingTop: 110
     },
     filterOptionsTitle: {
         fontSize: 24,
@@ -449,11 +505,21 @@ const styles = StyleSheet.create({
     },
     checkboxContainer: {
         flexDirection: 'row',
-        alignItems: "center"
+        alignItems: "center",
+        marginRight: 25,
+        marginBottom: 5
     },
     checkboxLabel: {
         marginLeft: 5,
         fontSize: 16
+    },
+    levelCheckboxWrapper: {
+        flexDirection: 'row',
+        marginBottom: 20,
+        marginTop: 5
+    },
+    safetyLevelCheckbox: {
+        marginBottom: 5
     },
     currentLocationBar: {
         justifyContent: 'space-between',
