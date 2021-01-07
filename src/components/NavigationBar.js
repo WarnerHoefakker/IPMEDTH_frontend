@@ -32,7 +32,11 @@ export default function Navigation() {
                             return <Image style={styles.mapIcon} source={require("../../assets/img/map-icon.png")}/>
                         }
                     } else if (route.name == "Onboarding"){
-                        return <Image style={styles.onboardingIcon} source={require("../../assets/img/onboarding-icon.png")}/>
+                        if(focused){
+                            return <Image style={styles.onboardingIcon} source={require("../../assets/img/onboarding-icon-focused.png")}/>
+                        } else {
+                            return <Image style={styles.onboardingIcon} source={require("../../assets/img/onboarding-icon.png")}/>
+                        }
                     } else if (route.name == "Scan"){
                         if(focused){
                             return <Image style={styles.addTagIcon} source={require("../../assets/img/add-tag-icon-focused.png")}/>
