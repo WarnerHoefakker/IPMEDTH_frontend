@@ -372,7 +372,11 @@ class Dashboard extends React.Component {
 
                 {this.state.currentLocation.loggedIn &&
                 <TouchableOpacity style={styles.currentLocationBarTouch} onPress={() =>
-                    this.props.navigation.navigate('RoomDetail', {roomId: this.state.currentLocation.roomId})
+                    this.props.navigation.navigate('RoomDetail', {
+                        roomId: this.state.currentLocation.roomId,
+                        roomName: this.state.currentLocation.roomName,
+                        levelName: this.state.currentLocation.levelName
+                    })
                 }>
                     <View style={styles.currentLocationBar}>
                         <View style={[styles.currentLocationBarItem, styles.currentLocationBarItem1]}>
