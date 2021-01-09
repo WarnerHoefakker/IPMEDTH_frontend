@@ -6,6 +6,7 @@ import Prediction from "../room-detail/Prediction";
 import PeopleAndCO2 from "../room-detail/PeopleAndCO2";
 import globalStyles from "../../assets/style/globalStyle";
 import {API_URL} from '@env';
+import {getRoomHistory, getRoomPrediction} from "../../api/roomsAPI";
 
 class RoomDetail extends React.Component {
     constructor(props) {
@@ -22,19 +23,43 @@ class RoomDetail extends React.Component {
 
         this.state = {
             co2Value: 0,
-            pageLoading: true
+            pageLoading: true,
+            loadingItems: {
+                prediction: true,
+                history: true,
+                // currentStatus: true
+            },
+            historyData: {},
+            predictionData: {},
         }
     }
 
     componentDidMount() {
-        // const source = new RNEventSource(API_URL + '/rooms/LC4044/currentstatus');
-        //
-        // source.addEventListener('message', (event) => {
-        //     let data = JSON.parse(event.data);
-        //     this.setState({co2Value: data.co2.level})
-        // });
+        getRoomPrediction(this.props.route.params.roomId).then((response) => {
+            this.setState({predictionData: response});
+            this.setLoading("prediction", false)
+        });
 
-        this.setState({pageLoading: false}) // TODO: als request om data op te halen voltooid is
+        getRoomHistory(this.props.route.params.roomId).then((response) => {
+            this.setState({historyData: response});
+            this.setLoading("history", false)
+        });
+    }
+
+    setLoading(key, value) {
+        let pageLoading = false;
+        let loadingItems = this.state.loadingItems;
+
+        loadingItems[key] = value;
+        this.setState({loadingItems});
+
+        for(const item in loadingItems) {
+            if(loadingItems[item] === true) {
+               pageLoading = true
+            }
+        }
+
+        this.setState({pageLoading})
     }
 
     render() {
@@ -81,13 +106,13 @@ class RoomDetail extends React.Component {
                         <View style={[globalStyles.card]}>
                             <Text style={[globalStyles.text, globalStyles.cardTitle]}>Verwachte bezetting</Text>
 
-                            <Prediction color={this.color}/>
+                            <Prediction color={this.color} predictionData={this.state.predictionData}/>
                         </View>
 
                         <View style={[globalStyles.card]}>
                             <Text style={[globalStyles.text, globalStyles.cardTitle]}>Bezetting en CO2</Text>
 
-                            <PeopleAndCO2 color={this.color}/>
+                            <PeopleAndCO2 color={this.color} historyData={this.state.historyData}/>
                         </View>
                     </View>
                 </ScrollView>
