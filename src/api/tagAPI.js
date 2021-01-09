@@ -1,5 +1,5 @@
 import {API_URL} from '@env';
-const api = "http://192.168.2.5:3001";
+const api = "http://192.168.178.123:3001";
 
 async function addTag(tagId, appId) {
     const postData = {tagId, appId};

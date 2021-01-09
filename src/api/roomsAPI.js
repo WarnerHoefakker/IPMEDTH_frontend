@@ -1,5 +1,5 @@
 import {API_URL} from '@env';
-const api = "http://192.168.2.5:3001";
+const api = "http://192.168.178.123:3001";
 
 async function getRooms() {
     let response = await fetch(api + '/rooms');
@@ -13,6 +13,20 @@ async function getRoomCurrentStatus(roomId) {
     return data;
 }
 
+async function getRoomHistory(roomId) {
+    let response = await fetch(api + '/rooms/' + roomId + '/history');
+    let data = await response.json();
+    return data;
+}
+
+async function getRoomPrediction(roomId) {
+    let response = await fetch(api + '/rooms/' + roomId + '/averageOccupation');
+    let data = await response.json();
+    return data;
+}
+
 export {
-    getRooms
+    getRooms,
+    getRoomHistory,
+    getRoomPrediction
 }
