@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "33091240558",
+    "project_id": "corona-cleaner",
+    "storage_bucket": "corona-cleaner.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:33091240558:android:02e68137b455dd8c141c7f",
+        "android_client_info": {
+          "package_name": "corona.cleaner"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "33091240558-g7mt61kah6tsjc9s0076c38a6iqaqill.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD8xz0XC8BfKdfWVGMsBfTZccO37gxZwDA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "33091240558-g7mt61kah6tsjc9s0076c38a6iqaqill.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

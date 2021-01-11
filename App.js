@@ -10,6 +10,7 @@ import Onboarding from './src/components/screens/Onboarding';
 import Home from './src/components/NavigationBar';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import NavigationBar from './src/components/NavigationBar'
+import RemotePushController from './src/components/RemotePushController'
 
 /* checkForGUID() haalt de guid op uit de storage van een device en slaat deze op in de state 'GUID'.
     Wanneer er geen guid aanwezig is in de lokale storage wordt deze aangemaakt. Dit gebeurd dus bij het voor
@@ -105,6 +106,7 @@ const App = () =>{
         checkForGUID();
         return (
             <NavigationContainer>
+                <RemotePushController />
                 <AppStack.Navigator headerMode="none">
                     <AppStack.Screen name="Onboarding" component={Onboarding} />
                     <AppStack.Screen name="Home" component={Home} />
@@ -115,6 +117,7 @@ const App = () =>{
         checkForGUID();
         return (
             <NavigationContainer>
+                <RemotePushController />
                 <AppStack.Navigator headerMode="none">
                     <AppStack.Screen name="Home" component={Home} />
                     <AppStack.Screen name="Onboarding" component={Onboarding} />
