@@ -8,7 +8,7 @@ const BarChart = ({data, min, max, xLabels, color, highlight}) => {
     return (
         <View style={styles.container}>
             <VictoryChart width={330} height={270} domainPadding={{ x: 20 }} >
-                <VictoryAxis dependentAxis label={'Aantal personen'} key={0}
+                <VictoryAxis dependentAxis label={'Gemiddeld aantal personen'} key={0}
                              style={chartStyles.yAxisStyle}
                              tickValues={[0.25, 0.5, 0.75, 1]}
                              tickFormat={(t) => t * max}

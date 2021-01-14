@@ -23,13 +23,13 @@ const Prediction = ({color, predictionData}) => {
             <View style={styles.buttonContainer}>
                 <TouchableHighlight onPress={() => setSelectedPrediction('day')} underlayColor="white">
                     <View style={[styles.buttonSelect, selectedPrediction === 'day' ? styles.buttonSelected : styles.buttonDeselected]}>
-                        <Text style={[globalStyles.buttonText, styles.buttonTextSelect, selectedPrediction === 'day' ? styles.buttonTextSelected : styles.buttonTextDeselected]}>Dag</Text>
+                        <Text style={[globalStyles.buttonText, styles.buttonTextSelect, selectedPrediction === 'day' ? styles.buttonTextSelected : styles.buttonTextDeselected]}>Vandaag</Text>
                     </View>
                 </TouchableHighlight>
 
                 <TouchableHighlight onPress={() => setSelectedPrediction('week')} underlayColor="white">
                     <View style={[styles.buttonSelect, selectedPrediction === 'week' ? styles.buttonSelected : styles.buttonDeselected]}>
-                        <Text style={[globalStyles.buttonText, styles.buttonTextSelect, selectedPrediction === 'week' ? styles.buttonTextSelected : styles.buttonTextDeselected]}>Week</Text>
+                        <Text style={[globalStyles.buttonText, styles.buttonTextSelect, selectedPrediction === 'week' ? styles.buttonTextSelected : styles.buttonTextDeselected]}>Deze week</Text>
                     </View>
                 </TouchableHighlight>
             </View>

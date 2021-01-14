@@ -13,13 +13,13 @@ const BarAndLineChart = ({barData, barMax, barMin, lineData, lineMax, lineMin, x
         <View style={styles.container}>
             <VictoryChart width={width} height={height} domainPadding={{x: 20}}>
                 <VictoryAxis
-                    dependentAxis label={'Aantal personen'} key={0}
+                    dependentAxis label={'Gemiddeld aantal personen'} key={0}
                     style={chartStyles.yAxisStyle}
                     tickValues={[0.25, 0.5, 0.75, 1]}
                     tickFormat={(t) => t * barMax}
                 />
                 <VictoryAxis
-                    dependentAxis label={'CO2 niveau (ppm)'} orientation={'right'} key={1}
+                    dependentAxis label={'Gemiddeld CO2 niveau (ppm)'} orientation={'right'} key={1}
                     tickValues={[0.25, 0.5, 0.75, 1]}
                     tickFormat={(t) => t * lineMax}
                     style={chartStyles.yAxisStyle}

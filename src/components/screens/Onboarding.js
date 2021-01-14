@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, Image, TouchableHighlight, TouchableOpacity, StyleSheet } from 'react-native';
 import Onboarding from 'react-native-onboarding-swiper';
-import Scan from '../NavigationBar'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Dots = ({selected}) => {
     let backgroundColor;
@@ -60,46 +60,52 @@ const OnboardingScreen = ({navigation}) => {
         DotComponent={Dots}
         bottomBarColor={'#fff'}
         onSkip={() => navigation.replace("Home")}
-        onDone={() => navigation.replace("Home")}
+        onDone={() => {
+          AsyncStorage.getItem('onboardingCompleted').then(value => {
+            if (value == null){
+                AsyncStorage.setItem('onboardingCompleted', 'true');
+                navigation.replace("Home", {screen: 'Scan'})
+            } else {
+              navigation.replace("Home")
+            }
+          });
+        }}
         pages={[
           {
             backgroundColor: '#fff',
             image: <Image style={styles.onboardingImage} source={require("../../../assets/img/onboarding-1.png")} />,
-            title: 'Welkom bij Corona Cleaner',
-            subtitle: 'De corona applicatie van de opleiding Informatica aan de Hogeschool Leiden!'
+            title: <Text style={styles.title}>Welkom bij Corona Cleaner</Text>,
+            subtitle: <Text style={styles.text}>De corona applicatie van de opleiding Informatica aan de Hogeschool Leiden!</Text>
           },
           {
             backgroundColor: '#fff',
             image: <Image style={styles.onboardingImage} source={require("../../../assets/img/onboarding-2.png")} />,
-            title: 'Overzicht',
-            subtitle: 'Bekijk de hoeveelheid mensen en de luchtkwaliteit per ruimte zodat jij je bezoek aan Carrefour hier op kunt aanpassen.'
+            title: <Text style={styles.title}>Overzicht</Text>,
+            subtitle: <Text style={styles.text}>Bekijk de hoeveelheid mensen, de luchtkwaliteit en de veiligheidsstatus van elke ruimte zodat jij je bezoek aan Carrefour hier op kunt aanpassen.</Text>
           },
           {
             backgroundColor: '#fff',
             image: <Image style={styles.onboardingImage} source={require("../../../assets/img/onboarding-3.png")} />,
-            title: 'Plan je bezoek',
-            subtitle: "Kijk op welke tijdstippen het rustig is in je favoriete werkruimte",
+            title: <Text style={styles.title}>Plan je bezoek</Text>,
+            subtitle: <Text style={styles.text}>Kijk op welke tijdstippen het rustig is in je favoriete werkruimte</Text>,
           },
           {
             backgroundColor: '#fff',
             image: <Image style={styles.onboardingImage} source={require("../../../assets/img/onboarding-4.png")} />,
-            title: 'Plattegronden',
-            subtitle: "Bekijk per verdieping de veiligheidsgraad van alle ruimtes op die verdieping."
+            title: <Text style={styles.title}>Plattegronden</Text>,
+            subtitle: <Text style={styles.text}>Bekijk per verdieping de veiligheidsgraad van alle ruimtes op die verdieping.</Text>
           },
           {
             backgroundColor: '#fff',
             image: <Image style={styles.onboardingImage} source={require("../../../assets/img/onboarding-5.png")} />,
-            title: 'Regels',
-            subtitle: 'Houd a.u.b. voldoende afstand en draag altijd een mondkapje op locatie, samen houden wij Carrefour veilig.'
+            title: <Text style={styles.title}>Regels</Text>,
+            subtitle: <Text style={styles.text}>Houd a.u.b. voldoende afstand en draag altijd een mondkapje op locatie, samen houden wij Carrefour veilig.</Text>
           },
           {
             backgroundColor: '#fff',
             image: <Image style={styles.onboardingImage} source={require("../../../assets/img/onboarding-6.png")} />,
-            title: 
-            <TouchableHighlight style={styles.scanButton} underlayColor="#2789b3" onPress={() => goToScanScreen(navigation)}>
-              <Text style={styles.scanButtonText}>Scannen maar!</Text>
-            </TouchableHighlight>,
-            subtitle: 'Om maximaal gebruik te kunnen maken van de applicatie scan je jouw tag met de scanfunctie binnen de applicatie.'
+            title: <Text style={styles.title}>Scannen maar!</Text>,
+            subtitle: <Text style={styles.text}>Om maximaal gebruik te kunnen maken van de applicatie scan je jouw tag met de scanfunctie binnen de applicatie.</Text>
           },
         ]}
       />
@@ -113,6 +119,20 @@ const styles = StyleSheet.create({
     flex: 1, 
     alignItems: 'center', 
     justifyContent: 'center'
+  },
+  title:{
+    fontSize: 24,
+    marginBottom: 20,
+    marginHorizontal:40,
+    textAlign: "center", 
+    color: '#383838' 
+  },
+  text:{
+    fontSize: 16,
+    textAlign: "center",
+    marginHorizontal: 30,
+    color: "#545454",
+    lineHeight: 22
   },
   onboardingImage: {
     width: 300,
