@@ -1,23 +1,36 @@
-import React, { useEffect } from 'react'
+import React, {useEffect} from 'react'
 import PushNotification from 'react-native-push-notification'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 const RemotePushController = () => {
-  useEffect(() => {
-    PushNotification.configure({
-      // (optional) Called when Token is generated (iOS and Android)
-      onRegister: function(token) {
-        console.log('TOKEN:', token)
-      },
+    useEffect(() => {
+        PushNotification.configure({
+            // (optional) Called when Token is generated (iOS and Android)
+            onRegister: function (token) {
+                // TODO: token opslaan in db
+                console.log('TOKEN:', token)
+
+                AsyncStorage.getItem('firebaseToken').then(value => {
+                    if (value === null) {
+                        AsyncStorage.setItem('firebaseToken', token.token);
+                    } else {
+                        if (value !== token.token) {
+                            console.log('tokens komen niet overeen') //TODO: opnieuw naar database sturen??
+                        }
+                    }
+                });
+            },
 // (required) Called when a remote or local notification is opened or received
-      onNotification: function(notification) {
-        console.log('REMOTE NOTIFICATION ==>', notification)
+            onNotification: function (notification) {
+                console.log('REMOTE NOTIFICATION ==>', notification)
 // process the notification here
-      },
-      // Android only: GCM or FCM Sender ID
-      senderID: '256218572662',
-      popInitialNotification: true,
-      requestPermissions: true
-    })
-  }, [])
-return null
+            },
+            // Android only: GCM or FCM Sender ID
+            senderID: '256218572662',
+            popInitialNotification: true,
+            requestPermissions: true
+        })
+    }, [])
+    return null
 }
 export default RemotePushController

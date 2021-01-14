@@ -1,8 +1,8 @@
 import {API_URL} from '@env';
-const api = "http://192.168.1.11:3001";
+const api = "http://192.168.178.123:3001";
 
-async function addTag(tagId, appId) {
-    const postData = {tagId, appId};
+async function addTag(tagId, appId, firebaseToken) {
+    const postData = {tagId, appId, firebaseToken};
 
     let response = await fetch(api + '/rfid/add', {
         method: 'POST',

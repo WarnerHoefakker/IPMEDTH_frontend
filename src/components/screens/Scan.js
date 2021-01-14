@@ -48,8 +48,9 @@ class Scan extends React.Component {
             this.setState({tagValue: value});
 
             const guid = await AsyncStorage.getItem('GUID');
+            const firebaseToken = await AsyncStorage.getItem('firebaseToken');
 
-            const response = await addTag(value, guid);
+            const response = await addTag(value, guid, firebaseToken);
 
             console.log(response) // TODO: vanuit backend duidelijke error messages versturen, deze in app tonen
 
