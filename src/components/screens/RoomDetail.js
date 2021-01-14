@@ -1,12 +1,11 @@
-import React, {useState} from 'react';
-import {StyleSheet, Text, View, ScrollView, SafeAreaView, ActivityIndicator} from 'react-native';
-import RNEventSource from 'react-native-event-source'
+import React from 'react';
+import {StyleSheet, Text, View, ScrollView, SafeAreaView, ActivityIndicator, Image} from 'react-native';
 import Gauge from "../charts/Gauge";
 import Prediction from "../room-detail/Prediction";
 import PeopleAndCO2 from "../room-detail/PeopleAndCO2";
 import globalStyles from "../../assets/style/globalStyle";
-import {API_URL} from '@env';
 import {getRoomHistory, getRoomPrediction} from "../../api/roomsAPI";
+import {TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
 class RoomDetail extends React.Component {
     constructor(props) {
@@ -72,14 +71,22 @@ class RoomDetail extends React.Component {
         }
 
         return (
-            <SafeAreaView style={globalStyles.safeAreaView}>
-                <Text>{this.props.route.params.roomName}</Text>
+            <SafeAreaView>
                 <ScrollView>
                     <View style={globalStyles.page}>
+                        <View style={styles.backButton}>
+                            <TouchableWithoutFeedback onPress={() => this.props.navigation.navigate("Dashboard")}>
+                                <View style={styles.imageTextContainer}>
+                                    <Image style={styles.backButtonImage} source={require("../../../assets/img/back-icon.png")}></Image>
+                                    <Text style={styles.backButtonText}>Terug</Text>
+                                </View>
+                            </TouchableWithoutFeedback>
+                        </View>
+                        <Text style={styles.title}>{this.props.route.params.roomName}</Text>
                         <View style={styles.twoCards}>
                             <View style={styles.containerHalfWidth}>
-                                <View style={[globalStyles.card, styles.cardLeft]}>
-                                    <Text style={[globalStyles.text, globalStyles.cardTitle]}>Bezetting</Text>
+                                <View style={[globalStyles.card, styles.cardLeft, styles.smallCard]}>
+                                    <Text style={[globalStyles.text, globalStyles.cardTitle, styles.cardTitle]}>Bezetting</Text>
                                     <Gauge
                                         color={this.color}
                                         max={60}
@@ -90,7 +97,7 @@ class RoomDetail extends React.Component {
                             </View>
 
                             <View style={styles.containerHalfWidth}>
-                                <View style={[globalStyles.card, styles.cardRight]}>
+                                <View style={[globalStyles.card, styles.cardRight, styles.smallCard]}>
                                     <Text style={[globalStyles.text, globalStyles.cardTitle]}>Luchtkwaliteit</Text>
                                     <Gauge
                                         color={this.color}
@@ -102,17 +109,15 @@ class RoomDetail extends React.Component {
                             </View>
                         </View>
 
+                        <View style={[globalStyles.card, styles.bigCard]}>
+                            <Text style={[globalStyles.text, globalStyles.cardTitle, styles.cardTitle]}>Bezetting en luchtkwaliteit</Text>
+                            <PeopleAndCO2 color={this.color} historyData={this.state.historyData}/>
+                        </View>
 
-                        <View style={[globalStyles.card]}>
+                        <View style={[globalStyles.card, styles.bigCard]}>
                             <Text style={[globalStyles.text, globalStyles.cardTitle]}>Verwachte bezetting</Text>
 
                             <Prediction color={this.color} predictionData={this.state.predictionData}/>
-                        </View>
-
-                        <View style={[globalStyles.card]}>
-                            <Text style={[globalStyles.text, globalStyles.cardTitle]}>Bezetting en CO2</Text>
-
-                            <PeopleAndCO2 color={this.color} historyData={this.state.historyData}/>
                         </View>
                     </View>
                 </ScrollView>
@@ -123,6 +128,36 @@ class RoomDetail extends React.Component {
 }
 
 const styles = StyleSheet.create({
+    backButton:{
+        position: "absolute",
+        paddingHorizontal: 10,
+        paddingVertical: 20
+    },
+    imageTextContainer:{
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+    backButtonImage:{
+        width: 32,
+        height: 32,
+        flexDirection: 'row'
+    },
+    backButtonText:{
+        fontSize: 16,
+        marginLeft: 5
+    },
+    smallCard: {
+        paddingBottom: 160,
+    },
+    bigCard:{
+        marginTop: 10,
+    },
+    title: {
+        fontSize: 24,
+        textAlign: "center",
+        marginBottom: 30,
+        marginTop: 50,
+    },
     twoCards: {
         justifyContent: 'center',
         flexDirection: 'row',
@@ -142,7 +177,8 @@ const styles = StyleSheet.create({
     cardTitle: {
         fontSize: 20,
         marginTop: 7,
-        marginBottom: 7
+        marginBottom: 7,
+        textAlign: 'center'
     },
     victoryContainer: {
         alignItems: 'center',

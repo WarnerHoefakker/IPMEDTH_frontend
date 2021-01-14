@@ -79,7 +79,7 @@ class Scan extends React.Component {
             <View style={[globalStyles.page, styles.page]}>
 
                 <View style={styles.pageContent}>
-                    {this.state.tagValue === '' || this.state.tagValue === null  &&
+                    {this.state.tagValue == '' &&
                     <View style={styles.textContainer}>
                         <Svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -99,8 +99,7 @@ class Scan extends React.Component {
                                 />
                             </G>
                         </Svg>
-
-                        <Text>Geen tag gekoppeld</Text>
+                        <Text style={styles.noTagText}>Er is momenteel geen tag gekoppeld. Scan je tag om deze te koppelen.</Text>
                     </View>
                     }
 
@@ -129,14 +128,22 @@ class Scan extends React.Component {
                         <Text>ID: {this.state.tagValue}</Text>
                     </View>
                     }
-
-                    <View style={globalStyles.buttonContainer}>
-                        <TouchableOpacity
-                            style={globalStyles.button}
-                            onPress={this._test}>
-                            <Text style={globalStyles.buttonText}>Koppel een nieuwe tag</Text>
-                        </TouchableOpacity>
-                    </View>
+                    {this.state.tagValue == '' ? 
+                        <View style={globalStyles.buttonContainer, styles.button}>
+                            <TouchableOpacity
+                                style={[globalStyles.button, styles.button]}
+                                onPress={this._test}>
+                                <Text style={globalStyles.buttonText}>Scan tag</Text>
+                            </TouchableOpacity>
+                        </View>
+                     : 
+                     <View style={globalStyles.buttonContainer, styles.button}>
+                            <TouchableOpacity
+                                style={[globalStyles.button, styles.button]}
+                                onPress={this._test}>
+                                <Text style={globalStyles.buttonText}>Koppel nieuwe tag</Text>
+                            </TouchableOpacity>
+                    </View>}
                 </View>
 
 
@@ -191,9 +198,18 @@ const styles = StyleSheet.create({
         height: '100%',
         flex: 1
     },
+    button:{
+        alignSelf: 'center',
+        position: 'relative',
+        bottom: 75
+    },
     scanButton: {
         // flex: 1,
         alignSelf: 'flex-end',
+    },
+    noTagText:{
+        textAlign: 'center',
+        marginHorizontal: 40
     },
     textContainer: {
         alignItems: 'center',
