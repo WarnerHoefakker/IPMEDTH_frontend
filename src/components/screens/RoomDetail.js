@@ -4,7 +4,7 @@ import Gauge from "../charts/Gauge";
 import Prediction from "../room-detail/Prediction";
 import PeopleAndCO2 from "../room-detail/PeopleAndCO2";
 import globalStyles from "../../assets/style/globalStyle";
-import {getRoomHistory, getRoomPrediction} from "../../api/roomsAPI";
+import {getRoomHistory, getRoomPrediction, getRoomCurrentStatus} from "../../api/roomsAPI";
 import {TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
 class RoomDetail extends React.Component {
@@ -22,6 +22,8 @@ class RoomDetail extends React.Component {
 
         this.state = {
             co2Value: 0,
+            peopleAmount: 0,
+            maxPeopleAmount: 0,
             pageLoading: true,
             loadingItems: {
                 prediction: true,
@@ -34,14 +36,31 @@ class RoomDetail extends React.Component {
     }
 
     componentDidMount() {
+        this.getData();
+        this.dataUpdateInterval = setInterval(() => {
+            this.getData();
+        }, 5000);
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.dataUpdateInterval);
+    }
+
+    getData(){
+        getRoomCurrentStatus(this.props.route.params.roomId).then((response) => {
+            this.setState({co2Value: response.co2.level});
+            this.setState({peopleAmount: response.people.people});
+            this.setState({maxPeopleAmount: response.people.max});
+        });
+
         getRoomPrediction(this.props.route.params.roomId).then((response) => {
             this.setState({predictionData: response});
-            this.setLoading("prediction", false)
+            this.setLoading("prediction", false);
         });
 
         getRoomHistory(this.props.route.params.roomId).then((response) => {
             this.setState({historyData: response});
-            this.setLoading("history", false)
+            this.setLoading("history", false);
         });
     }
 
@@ -89,8 +108,8 @@ class RoomDetail extends React.Component {
                                     <Text style={[globalStyles.text, globalStyles.cardTitle, styles.cardTitle]}>Bezetting</Text>
                                     <Gauge
                                         color={this.color}
-                                        max={60}
-                                        value={41}
+                                        max={this.state.maxPeopleAmount}
+                                        value={this.state.peopleAmount}
                                         // showLabel={'text'}
                                     />
                                 </View>
@@ -110,7 +129,7 @@ class RoomDetail extends React.Component {
                         </View>
 
                         <View style={[globalStyles.card, styles.bigCard]}>
-                            <Text style={[globalStyles.text, globalStyles.cardTitle, styles.cardTitle]}>Bezetting en luchtkwaliteit</Text>
+                            <Text style={[globalStyles.text, globalStyles.cardTitle, styles.cardTitle]}> Historie van Bezetting en luchtkwaliteit</Text>
                             <PeopleAndCO2 color={this.color} historyData={this.state.historyData}/>
                         </View>
 

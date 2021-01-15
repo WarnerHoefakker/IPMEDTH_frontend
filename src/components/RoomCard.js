@@ -49,7 +49,7 @@ class RoomCard extends React.Component{
                             />
                             <Gauge
                                 color={this.state.color}
-                                max={1300}
+                                max={1600}
                                 value={this.props.co2}
                                 showLabel={'text'}
                                 size={130}

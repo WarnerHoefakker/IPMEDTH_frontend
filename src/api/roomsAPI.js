@@ -28,5 +28,6 @@ async function getRoomPrediction(roomId) {
 export {
     getRooms,
     getRoomHistory,
-    getRoomPrediction
+    getRoomPrediction,
+    getRoomCurrentStatus
 }
