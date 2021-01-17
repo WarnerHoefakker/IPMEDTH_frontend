@@ -1,6 +1,6 @@
 import React from 'react'
 import {
-    View, Text, TouchableOpacity, Platform, Image, StyleSheet
+    ActivityIndicator, View, Text, TouchableOpacity, Platform, Image, StyleSheet
 } from 'react-native'
 import NfcManager, {NfcEvents} from 'react-native-nfc-manager';
 import globalStyles from "../../assets/style/globalStyle";
@@ -16,7 +16,8 @@ class Scan extends React.Component {
         this.state = {
             androidLookingForTags: false,
             tagSuccesfullyDetected: false,
-            tagValue: ''
+            tagValue: '',
+            pageLoading: true
         }
     }
 
@@ -66,6 +67,7 @@ class Scan extends React.Component {
 
         await AsyncStorage.setItem('TAG', response.tagId);
         this.setState({tagValue: response.tagId});
+        this.setState({pageLoading: false})
     };
 
     showSuccesfullyDetectedTagPopUp() {
@@ -79,73 +81,84 @@ class Scan extends React.Component {
         return (
             <View style={[globalStyles.page, styles.page]}>
 
-                <View style={styles.pageContent}>
-                    {this.state.tagValue == '' &&
-                    <View style={styles.textContainer}>
-                        <Svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width={145}
-                            height={145}
-                            viewBox="0 0 29.25 29.25"
-                            style={styles.statusImage}
-                        >
-                            <G data-name="Icon ionic-ios-close-circle-outline" fill="#ff0e19">
-                                <Path
-                                    data-name="Path 49"
-                                    d="M19.92 18.33l-3.706-3.705 3.705-3.705a1.124 1.124 0 00-1.589-1.589l-3.705 3.705-3.705-3.705a1.124 1.124 0 00-1.589 1.589l3.705 3.705-3.705 3.705a1.086 1.086 0 000 1.589 1.116 1.116 0 001.589 0l3.705-3.705 3.705 3.705a1.129 1.129 0 001.589 0 1.116 1.116 0 00.001-1.589z"
-                                />
-                                <Path
-                                    data-name="Path 50"
-                                    d="M14.625 1.969a12.651 12.651 0 11-8.951 3.705 12.573 12.573 0 018.951-3.705m0-1.969A14.625 14.625 0 1029.25 14.625 14.623 14.623 0 0014.625 0z"
-                                />
-                            </G>
-                        </Svg>
-                        <Text style={styles.noTagText}>Er is momenteel geen tag gekoppeld. Scan je tag om deze te koppelen.</Text>
-                    </View>
-                    }
-
-                    {this.state.tagValue !== '' && this.state.tagValue !== null  &&
-                    <View style={styles.textContainer}>
-                        <Svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width={145}
-                            height={145}
-                            viewBox="0 0 146.75 146.75"
-                            style={styles.statusImage}
-                        >
-                            <G data-name="Icon ionic-ios-checkmark-circle-outline" fill="#94e393">
-                                <Path
-                                    data-name="Path 36"
-                                    d="M110.983 51.116l-6.212-6.385a1.335 1.335 0 00-.988-.423 1.281 1.281 0 00-.988.423L59.758 88.085 44.095 72.423a1.364 1.364 0 00-1.975 0l-6.279 6.278a1.406 1.406 0 000 2.011l19.755 19.755a6.247 6.247 0 004.127 2.011 6.546 6.546 0 004.092-1.94h.035l47.165-47.412a1.508 1.508 0 00-.032-2.01z"
-                                />
-                                <Path
-                                    data-name="Path 37"
-                                    d="M73.375 9.877a63.508 63.508 0 0144.907 108.4 63.508 63.508 0 01-89.814-89.809A63.077 63.077 0 0173.375 9.877m0-9.877a73.375 73.375 0 1073.375 73.375A73.364 73.364 0 0073.375 0z"
-                                />
-                            </G>
-                        </Svg>
-
-                        <Text>Tag gekoppeld</Text>
-                        <Text>ID: {this.state.tagValue}</Text>
-                    </View>
-                    }
-                    {this.state.tagValue === '' ?
-                        <View style={[globalStyles.buttonContainer, styles.button]}>
-                            <TouchableOpacity
-                                style={[globalStyles.button, styles.button]}
-                                onPress={this._test}>
-                                <Text style={globalStyles.buttonText}>Scan tag</Text>
-                            </TouchableOpacity>
+                {
+                    this.state.pageLoading ?
+                        <View style={[globalStyles.loadingContainer, globalStyles.loadingHorizontal]}>
+                            <ActivityIndicator size="large" color="#247BA0"/>
                         </View>
-                     : 
-                     <View style={[globalStyles.buttonContainer, styles.button]}>
-                            <TouchableOpacity
-                                style={[globalStyles.button, styles.button]}
-                                onPress={this._test}>
-                                <Text style={globalStyles.buttonText}>Koppel nieuwe tag</Text>
-                            </TouchableOpacity>
-                    </View>}
-                </View>
+
+                        :
+
+                        <View style={styles.pageContent}>
+                            {this.state.tagValue == '' &&
+                            <View style={styles.textContainer}>
+                                <Svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width={145}
+                                    height={145}
+                                    viewBox="0 0 29.25 29.25"
+                                    style={styles.statusImage}
+                                >
+                                    <G data-name="Icon ionic-ios-close-circle-outline" fill="#ff0e19">
+                                        <Path
+                                            data-name="Path 49"
+                                            d="M19.92 18.33l-3.706-3.705 3.705-3.705a1.124 1.124 0 00-1.589-1.589l-3.705 3.705-3.705-3.705a1.124 1.124 0 00-1.589 1.589l3.705 3.705-3.705 3.705a1.086 1.086 0 000 1.589 1.116 1.116 0 001.589 0l3.705-3.705 3.705 3.705a1.129 1.129 0 001.589 0 1.116 1.116 0 00.001-1.589z"
+                                        />
+                                        <Path
+                                            data-name="Path 50"
+                                            d="M14.625 1.969a12.651 12.651 0 11-8.951 3.705 12.573 12.573 0 018.951-3.705m0-1.969A14.625 14.625 0 1029.25 14.625 14.623 14.623 0 0014.625 0z"
+                                        />
+                                    </G>
+                                </Svg>
+                                <Text style={styles.noTagText}>Er is momenteel geen tag gekoppeld. Scan je tag om deze
+                                    te koppelen.</Text>
+                            </View>
+                            }
+
+                            {this.state.tagValue !== '' && this.state.tagValue !== null &&
+                            <View style={styles.textContainer}>
+                                <Svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width={145}
+                                    height={145}
+                                    viewBox="0 0 146.75 146.75"
+                                    style={styles.statusImage}
+                                >
+                                    <G data-name="Icon ionic-ios-checkmark-circle-outline" fill="#94e393">
+                                        <Path
+                                            data-name="Path 36"
+                                            d="M110.983 51.116l-6.212-6.385a1.335 1.335 0 00-.988-.423 1.281 1.281 0 00-.988.423L59.758 88.085 44.095 72.423a1.364 1.364 0 00-1.975 0l-6.279 6.278a1.406 1.406 0 000 2.011l19.755 19.755a6.247 6.247 0 004.127 2.011 6.546 6.546 0 004.092-1.94h.035l47.165-47.412a1.508 1.508 0 00-.032-2.01z"
+                                        />
+                                        <Path
+                                            data-name="Path 37"
+                                            d="M73.375 9.877a63.508 63.508 0 0144.907 108.4 63.508 63.508 0 01-89.814-89.809A63.077 63.077 0 0173.375 9.877m0-9.877a73.375 73.375 0 1073.375 73.375A73.364 73.364 0 0073.375 0z"
+                                        />
+                                    </G>
+                                </Svg>
+
+                                <Text>Tag gekoppeld</Text>
+                                <Text>ID: {this.state.tagValue}</Text>
+                            </View>
+                            }
+                            {this.state.tagValue === '' ?
+                                <View style={[globalStyles.buttonContainer, styles.button]}>
+                                    <TouchableOpacity
+                                        style={[globalStyles.button, styles.button]}
+                                        onPress={this._test}>
+                                        <Text style={globalStyles.buttonText}>Scan tag</Text>
+                                    </TouchableOpacity>
+                                </View>
+                                :
+                                <View style={[globalStyles.buttonContainer, styles.button]}>
+                                    <TouchableOpacity
+                                        style={[globalStyles.button, styles.button]}
+                                        onPress={this._test}>
+                                        <Text style={globalStyles.buttonText}>Koppel nieuwe tag</Text>
+                                    </TouchableOpacity>
+                                </View>}
+                        </View>
+
+                }
 
 
                 {this.state.androidLookingForTags && Platform.OS === 'android' && <View style={styles.popUpContainer}>
