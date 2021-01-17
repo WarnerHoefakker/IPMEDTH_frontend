@@ -43,7 +43,7 @@ class RoomCard extends React.Component{
                         <View style={styles.dashboardGaugeContainer}>
                             <Gauge
                                 color={this.state.color}
-                                max={60}
+                                max={this.props.maxPeopleAmount}
                                 value={this.props.people}
                                 size={130}
                             />

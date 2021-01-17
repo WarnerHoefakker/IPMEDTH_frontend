@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import RNSpeedometer from 'react-native-speedometer';
 import globalStyles from "../../assets/style/globalStyle";

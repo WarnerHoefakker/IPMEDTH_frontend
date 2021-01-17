@@ -129,8 +129,8 @@ class Scan extends React.Component {
                         <Text>ID: {this.state.tagValue}</Text>
                     </View>
                     }
-                    {this.state.tagValue == '' ? 
-                        <View style={globalStyles.buttonContainer, styles.button}>
+                    {this.state.tagValue === '' ?
+                        <View style={[globalStyles.buttonContainer, styles.button]}>
                             <TouchableOpacity
                                 style={[globalStyles.button, styles.button]}
                                 onPress={this._test}>
@@ -138,7 +138,7 @@ class Scan extends React.Component {
                             </TouchableOpacity>
                         </View>
                      : 
-                     <View style={globalStyles.buttonContainer, styles.button}>
+                     <View style={[globalStyles.buttonContainer, styles.button]}>
                             <TouchableOpacity
                                 style={[globalStyles.button, styles.button]}
                                 onPress={this._test}>

@@ -405,7 +405,7 @@ class Dashboard extends React.Component {
                                 roomId: room.roomId,
                                 levelName: room.levelId.levelName
                             })}>
-                                <RoomCard roomName={room.roomName} roomId={room.roomId} key={room.roomId} co2={room.co2} people={room.people} safetyLevel={room.safetyLevel}></RoomCard>
+                                <RoomCard roomName={room.roomName} roomId={room.roomId} key={room.roomId} co2={room.co2} people={room.people} maxPeopleAmount={room.peopleAmount} safetyLevel={room.safetyLevel}></RoomCard>
                             </TouchableWithoutFeedback>
                         );
                     }) : <Text>Er zijn geen ruimtes die voldoen aan deze criteria</Text>}
