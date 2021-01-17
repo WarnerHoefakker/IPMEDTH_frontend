@@ -62,6 +62,7 @@ class Scan extends React.Component {
     };
 
     getTag = async () => {
+        this.setState({pageLoading: true});
         const guid = await AsyncStorage.getItem('GUID');
         const response = await getTag(guid);
 

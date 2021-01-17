@@ -399,15 +399,15 @@ class Dashboard extends React.Component {
 
                 <ScrollView style={styles.scrollView} contentContainerStyle={{paddingTop: 25}}>
                     {this.state.shownRooms.length > 0 ? this.state.shownRooms.map((room) => {
-                        return (
-                            <TouchableWithoutFeedback onPress= {() => this.props.navigation.navigate('RoomDetail', {
-                                roomName: room.roomName,
-                                roomId: room.roomId,
-                                levelName: room.levelId.levelName
-                            })}>
-                                <RoomCard roomName={room.roomName} roomId={room.roomId} key={room.roomId} co2={room.co2} people={room.people} maxPeopleAmount={room.peopleAmount} safetyLevel={room.safetyLevel}></RoomCard>
-                            </TouchableWithoutFeedback>
-                        );
+                    return (
+                        <TouchableWithoutFeedback onPress= {() => this.props.navigation.navigate('RoomDetail', {
+                            roomName: room.roomName,
+                            roomId: room.roomId,
+                            levelName: room.levelId.levelName
+                        })}>
+                            <RoomCard roomName={room.roomName} roomId={room.roomId} key={room.roomId} co2={room.co2} people={room.people} maxPeopleAmount={room.peopleAmount} safetyLevel={room.safetyLevel}></RoomCard>
+                        </TouchableWithoutFeedback>
+                    );
                     }) : <Text>Er zijn geen ruimtes die voldoen aan deze criteria</Text>}
                 </ScrollView>
             </View>

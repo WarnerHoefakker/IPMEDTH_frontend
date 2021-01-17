@@ -6,6 +6,8 @@ import PeopleAndCO2 from "../room-detail/PeopleAndCO2";
 import globalStyles from "../../assets/style/globalStyle";
 import {getRoomHistory, getRoomPrediction, getRoomCurrentStatus} from "../../api/roomsAPI";
 import {TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import CurrentPeopleAmount from "../room-detail/CurrentPeopleAmount";
+import CurrentCo2Level from "../room-detail/CurrentCO2Level";
 
 class RoomDetail extends React.Component {
     constructor(props) {
@@ -106,11 +108,11 @@ class RoomDetail extends React.Component {
                             <View style={styles.containerHalfWidth}>
                                 <View style={[globalStyles.card, styles.cardLeft, styles.smallCard]}>
                                     <Text style={[globalStyles.text, globalStyles.cardTitle, styles.cardTitle]}>Bezetting</Text>
-                                    <Gauge
+                                    <CurrentPeopleAmount
                                         color={this.color}
                                         max={this.state.maxPeopleAmount}
                                         value={this.state.peopleAmount}
-                                        // showLabel={'text'}
+                                        size={130}
                                     />
                                 </View>
                             </View>
@@ -118,11 +120,11 @@ class RoomDetail extends React.Component {
                             <View style={styles.containerHalfWidth}>
                                 <View style={[globalStyles.card, styles.cardRight, styles.smallCard]}>
                                     <Text style={[globalStyles.text, globalStyles.cardTitle]}>Luchtkwaliteit</Text>
-                                    <Gauge
+                                    <CurrentCo2Level
                                         color={this.color}
-                                        max={1600}
                                         value={this.state.co2Value}
                                         showLabel={'text'}
+                                        size={130}
                                     />
                                 </View>
                             </View>

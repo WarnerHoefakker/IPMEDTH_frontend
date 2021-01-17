@@ -2,6 +2,8 @@ import React from 'react';
 import {StyleSheet, Text, View, TouchableWithoutFeedback, SnapshotViewIOS} from 'react-native';
 import RNEventSource from 'react-native-event-source';
 import Gauge from './charts/Gauge';
+import CurrentPeopleAmount from "./room-detail/CurrentPeopleAmount";
+import CurrentCo2Level from "./room-detail/CurrentCO2Level";
 import {API_URL} from '@env';
 import {getRoomCurrentStatus} from '../api/roomsAPI';
 
@@ -41,15 +43,14 @@ class RoomCard extends React.Component{
                             <Text style={styles.dashboardGaugeName}>Luchtkwaliteit</Text>
                         </View>
                         <View style={styles.dashboardGaugeContainer}>
-                            <Gauge
+                            <CurrentPeopleAmount
                                 color={this.state.color}
                                 max={this.props.maxPeopleAmount}
                                 value={this.props.people}
                                 size={130}
                             />
-                            <Gauge
+                            <CurrentCo2Level
                                 color={this.state.color}
-                                max={1600}
                                 value={this.props.co2}
                                 showLabel={'text'}
                                 size={130}

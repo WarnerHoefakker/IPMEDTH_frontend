@@ -3,7 +3,7 @@ import { StyleSheet, View, Text } from 'react-native';
 import RNSpeedometer from 'react-native-speedometer';
 import globalStyles from "../../assets/style/globalStyle";
 
-const Gauge = ({color, value, min, max, showLabel, size}) => {
+const Gauge = ({color, value, min, max, showLabel, labelValue, labelMax, size}) => {
     const colors = {
         orange: ['#f4d9c6', '#f2b385', '#f48e43'],
         blue: ['#cbe2eb', '#8ebfd2', '#579fbd'],
@@ -11,10 +11,17 @@ const Gauge = ({color, value, min, max, showLabel, size}) => {
         purple: ['#d9dbf3', '#b3b8e7', '#848cd9']
     };
 
+    // const colors = {
+    //     orange: ['#FFD0F6', '#F5A5E5', '#E877D3'],
+    //     blue: ['#C4D4FF', '#829BE2', '#4566BF'],
+    //     green: ['#c3f3f5', '#9CE0E0', '#5EBCBC'],
+    //     purple: ['#d9dbf3', '#b3b8e7', '#848cd9']
+    // };
+
     let valueLabel = <></>;
 
     if (showLabel !== 'text') {
-        valueLabel = <Text style={[globalStyles.text, styles.label]}>{value} / {max}</Text>
+        valueLabel = <Text style={[globalStyles.text, styles.label]}>{labelValue} / {labelMax}</Text>
     }
 
     return (
