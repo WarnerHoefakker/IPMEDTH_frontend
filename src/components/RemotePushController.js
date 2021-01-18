@@ -7,17 +7,10 @@ const RemotePushController = () => {
         PushNotification.configure({
             // (optional) Called when Token is generated (iOS and Android)
             onRegister: function (token) {
-                // TODO: token opslaan in db
-                console.log('TOKEN:', token)
-
                 AsyncStorage.getItem('firebaseToken').then(value => {
                     if (value === null) {
                         AsyncStorage.setItem('firebaseToken', token.token);
-                    } else {
-                        if (value !== token.token) {
-                            console.log('tokens komen niet overeen') //TODO: opnieuw naar database sturen??
-                        }
-                    }
+                    } 
                 });
             },
 // (required) Called when a remote or local notification is opened or received

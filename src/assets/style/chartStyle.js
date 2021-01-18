@@ -68,7 +68,7 @@ const chartStyles = {
     },
     yAxisStyle: {
         axis: {stroke: "none"},
-        axisLabel: {fontSize: 13, padding: 35, fontFamily: 'Arial', color: '#545454'}, //TODO: Roboto
+        axisLabel: {fontSize: 13, padding: 35, fontFamily: 'Arial', color: '#545454'},
         grid: {stroke: "#cfcfcf"},
         tickLabels: {fontSize: 13, padding: 2, fontFamily: 'Arial', color: '#545454'}
     },
