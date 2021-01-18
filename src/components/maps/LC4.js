@@ -7,9 +7,9 @@ export default function LC4(props) {
     //{props.state && props.state['LC4014'] ? colors[props.state['LC4014']] : "#f4d9c6"}
 
     const colors = {
-        green: '#F4D9C6',
-        orange: '#F2B385',
-        red: '#F48E43'
+        green: '#FFD0F6',
+        orange: '#F5A5E5',
+        red: '#E877D3'
     };
 
     return (
@@ -39,7 +39,7 @@ export default function LC4(props) {
                     </G>
                     <G id="lc4010" transform="translate(27.438 456.217)">
                         <G id="achtergrond"
-                           fill={props.state && props.state['LC4010'] ? colors[props.state['LC4010']] : "#f4d9c6"}>
+                           fill={props.state && props.state['LC4010'] ? colors[props.state['LC4010']] : colors.green}>
                             <Path
                                 d="M 59.27490234375 36.521240234375 L 0.5000011920928955 36.521240234375 L 0.5000011920928955 0.5000001192092896 L 59.27490234375 0.5000001192092896 L 59.27490234375 36.521240234375 Z"
                                 stroke="none"
@@ -64,7 +64,7 @@ export default function LC4(props) {
                     </G>
                     <G id="lc4014" transform="translate(27.438 433.238)">
                         <G id="achtergrond-2" data-name="achtergrond"
-                           fill={props.state && props.state['LC4014'] ? colors[props.state['LC4014']] : "#f4d9c6"}>
+                           fill={props.state && props.state['LC4014'] ? colors[props.state['LC4014']] : colors.green}>
                             <Path
                                 d="M 59.27490234375 23.50024223327637 L 0.5000030994415283 23.50024223327637 L 0.5000030994415283 0.5000020861625671 L 59.27490234375 0.5000020861625671 L 59.27490234375 23.50024223327637 Z"
                                 stroke="none"
@@ -93,7 +93,7 @@ export default function LC4(props) {
                             id="achtergrond-3"
                             data-name="achtergrond"
                             transform="translate(-0.418 0.384)"
-                            fill={props.state && props.state['LC4044'] ? colors[props.state['LC4044']] : "#f4d9c6"}
+                            fill={props.state && props.state['LC4044'] ? colors[props.state['LC4044']] : colors.green}
                             stroke="#2c2c2c"
                             strokeWidth={1}
                         >
@@ -115,7 +115,7 @@ export default function LC4(props) {
                     </G>
                     <G id="lc4024" transform="translate(26.854 358.604)">
                         <G id="achtergrond-4" data-name="achtergrond"
-                           fill={props.state && props.state['LC4024'] ? colors[props.state['LC4024']] : "#f4d9c6"}>
+                           fill={props.state && props.state['LC4024'] ? colors[props.state['LC4024']] : colors.green}>
                             <Path
                                 d="M 89.5 48.15635299682617 L 0.5 48.15635299682617 L 0.5 0.5 L 89.5 0.5 L 89.5 48.15635299682617 Z"
                                 stroke="none"
@@ -144,7 +144,7 @@ export default function LC4(props) {
                             id="achtergrond-5"
                             data-name="achtergrond"
                             transform="translate(0.271)"
-                            fill={props.state && props.state['LC4050'] ? colors[props.state['LC4050']] : "#f4d9c6"}
+                            fill={props.state && props.state['LC4050'] ? colors[props.state['LC4050']] : colors.green}
                         >
                             <Path
                                 d="M 89.5 48.15635299682617 L 0.5 48.15635299682617 L 0.5 0.5 L 89.5 0.5 L 89.5 48.15635299682617 Z"
@@ -174,7 +174,7 @@ export default function LC4(props) {
                             id="achtergrond-6"
                             data-name="achtergrond"
                             transform="translate(0.271 0.369)"
-                            fill={props.state && props.state['LC4064'] ? colors[props.state['LC4064']] : "#f4d9c6"}
+                            fill={props.state && props.state['LC4064'] ? colors[props.state['LC4064']] : colors.green}
                             stroke="#2c2c2c"
                             strokeWidth={1}
                         >
@@ -198,7 +198,7 @@ export default function LC4(props) {
                         id="Path_40"
                         data-name="Path 40"
                         transform="translate(138.213 387.238)"
-                        fill="#ebe3dc"
+                        fill="#EDEDED"
                     >
                         <Path
                             d="M 21.5 21.5 L 0.5 21.5 L 0.5 0.5 L 21.5 0.5 L 21.5 21.5 Z"
@@ -214,7 +214,7 @@ export default function LC4(props) {
                         id="Path_39"
                         data-name="Path 39"
                         transform="translate(203.213 387.238)"
-                        fill="#ebe3dc"
+                        fill="#EDEDED"
                     >
                         <Path
                             d="M 22.5 21.5 L 0.5 21.5 L 0.5 0.5 L 22.5 0.5 L 22.5 21.5 Z"
@@ -230,7 +230,7 @@ export default function LC4(props) {
                         id="Path_43"
                         data-name="Path 43"
                         transform="translate(116.213 433.238)"
-                        fill="#ebe3dc"
+                        fill="#EDEDED"
                     >
                         <Path
                             d="M 131.5 58.5 L 0.5 58.5 L 0.5 0.5 L 131.5 0.5 L 131.5 58.5 Z"
@@ -246,7 +246,7 @@ export default function LC4(props) {
                         id="Path_38"
                         data-name="Path 38"
                         transform="translate(86.291 433.238)"
-                        fill="#ebe3dc"
+                        fill="#EDEDED"
                     >
                         <Path
                             d="M 30.5 58.5 L 0.4999990463256836 58.5 L 0.4999990463256836 0.5 L 30.5 0.5 L 30.5 58.5 Z"

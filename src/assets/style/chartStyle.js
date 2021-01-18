@@ -4,16 +4,16 @@ const colors = {
         highlight: '#4D2691'
     },
     green: {
-        normal: '#94E393',
-        highlight: '#379535'
+        normal: '#5EBCBC',
+        highlight: '#33868c'
     },
     blue: {
-        normal: '#579fbd',
-        highlight: '#176080'
+        normal: '#4471c9',
+        highlight: '#293060'
     },
     orange: {
-        normal: '#f48e43',
-        highlight: '#ba5c1e'
+        normal: '#E877D3',
+        highlight: '#aa3a95'
     }
 };
 
@@ -44,10 +44,33 @@ const chartStyles = {
         }
     },
     lineStyle: {
-        data: {
-            stroke: '#D56062',
-            strokeWidth: 3,
-            strokeLinecap: "round"
+        purple: {
+            data: {
+                stroke: '#863272',
+                strokeWidth: 3,
+                strokeLinecap: "round"
+            }
+        },
+        green: {
+            data: {
+                stroke: '#863272',
+                strokeWidth: 3,
+                strokeLinecap: "round"
+            }
+        },
+        blue: {
+            data: {
+                stroke: '#863272',
+                strokeWidth: 3,
+                strokeLinecap: "round"
+            }
+        },
+        orange: {
+            data: {
+                stroke: '#863272',
+                strokeWidth: 3,
+                strokeLinecap: "round"
+            }
         }
     },
     legendStyle: {
@@ -56,13 +79,27 @@ const chartStyles = {
                 backgroundColor: '#848cd9'
             },
             green: {
-                backgroundColor: '#94E393'
+                backgroundColor: '#5EBCBC'
             },
             blue: {
-                backgroundColor: '#579fbd'
+                backgroundColor: '#4471c9'
             },
             orange: {
-                backgroundColor: '#f48e43'
+                backgroundColor: '#E877D3'
+            },
+        },
+        legendItemColorLine: {
+            purple: {
+                backgroundColor: '#863272'
+            },
+            green: {
+                backgroundColor: '#863272'
+            },
+            blue: {
+                backgroundColor: '#863272'
+            },
+            orange: {
+                backgroundColor: '#863272'
             },
         },
     },

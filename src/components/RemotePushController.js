@@ -10,7 +10,7 @@ const RemotePushController = () => {
                 AsyncStorage.getItem('firebaseToken').then(value => {
                     if (value === null) {
                         AsyncStorage.setItem('firebaseToken', token.token);
-                    } 
+                    }
                 });
             },
 // (required) Called when a remote or local notification is opened or received

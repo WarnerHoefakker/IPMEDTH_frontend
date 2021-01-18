@@ -195,7 +195,7 @@ export default function LC5(props) {
                         id="Path_40"
                         data-name="Path 40"
                         transform="translate(138.213 387.238)"
-                        fill="rgba(41,47,110,0.18)"
+                        fill="#EDEDED"
                     >
                         <Path
                             d="M 21.5 21.5 L 0.5 21.5 L 0.5 0.5 L 21.5 0.5 L 21.5 21.5 Z"
@@ -211,7 +211,7 @@ export default function LC5(props) {
                         id="Path_39"
                         data-name="Path 39"
                         transform="translate(203.213 387.238)"
-                        fill="rgba(41,47,110,0.18)"
+                        fill="#EDEDED"
                     >
                         <Path
                             d="M 22.5 21.5 L 0.5 21.5 L 0.5 0.5 L 22.5 0.5 L 22.5 21.5 Z"
@@ -227,7 +227,7 @@ export default function LC5(props) {
                         id="Path_43"
                         data-name="Path 43"
                         transform="translate(116.213 433.238)"
-                        fill="rgba(41,47,110,0.18)"
+                        fill="#EDEDED"
                     >
                         <Path
                             d="M 131.5 58.5 L 0.5 58.5 L 0.5 0.5 L 131.5 0.5 L 131.5 58.5 Z"
@@ -243,7 +243,7 @@ export default function LC5(props) {
                         id="Path_38"
                         data-name="Path 38"
                         transform="translate(58.291 433.238)"
-                        fill="#d7d8e4"
+                        fill="#EDEDED"
                     >
                         <Path
                             d="M 30.5 29.5 L 0.4999990463256836 29.5 L 0.4999990463256836 0.5 L 30.5 0.5 L 30.5 29.5 Z"

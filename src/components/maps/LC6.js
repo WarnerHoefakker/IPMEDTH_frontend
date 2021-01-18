@@ -7,9 +7,9 @@ export default function LC6(props) {
     //{props.state && props.state['LC6014'] ? colors[props.state['LC6014']] : "#e4f8e4"}
 
     const colors = {
-        green: '#E4F8E4',
-        orange: '#ADF0AD',
-        red: '#78D076'
+        green: '#c3f3f5',
+        orange: '#9CE0E0',
+        red: '#5EBCBC'
     };
 
     return (
@@ -39,7 +39,7 @@ export default function LC6(props) {
                     </G>
                     <G id="lc6010" transform="translate(27.438 458.426)">
                         <G id="achtergrond"
-                           fill={props.state && props.state['LC6010'] ? colors[props.state['LC6010']] : "#e4f8e4"}>
+                           fill={props.state && props.state['LC6010'] ? colors[props.state['LC6010']] : colors.green}>
                             <Path
                                 d="M 58.27495956420898 33.06567764282227 L 0.4999997913837433 33.06567764282227 L 0.4999997913837433 0.4999969005584717 L 58.27495956420898 0.4999969005584717 L 58.27495956420898 33.06567764282227 Z"
                                 stroke="none"
@@ -64,7 +64,7 @@ export default function LC6(props) {
                     </G>
                     <G id="lc6005" transform="translate(84.854 433.238)">
                         <G id="achtergrond-2" data-name="achtergrond"
-                           fill={props.state && props.state['LC6005'] ? colors[props.state['LC6005']] : "#e4f8e4"}>
+                           fill={props.state && props.state['LC6005'] ? colors[props.state['LC6005']] : colors.green}>
                             <Path
                                 d="M 31.93756484985352 59.25341796875 L 0.5000043511390686 59.25341796875 L 0.5000043511390686 0.4999989867210388 L 31.93756484985352 0.4999989867210388 L 31.93756484985352 59.25341796875 Z"
                                 stroke="none"
@@ -93,7 +93,7 @@ export default function LC6(props) {
                             id="achtergrond-3"
                             data-name="achtergrond"
                             transform="translate(-0.418 0.384)"
-                            fill={props.state && props.state['LC6044'] ? colors[props.state['LC6044']] : "#e4f8e4"}
+                            fill={props.state && props.state['LC6044'] ? colors[props.state['LC6044']] : colors.green}
                             stroke="#2c2c2c"
                             strokeWidth={1}
                         >
@@ -115,7 +115,7 @@ export default function LC6(props) {
                     </G>
                     <G id="lc6024" transform="translate(26.854 358.604)">
                         <G id="achtergrond-4" data-name="achtergrond"
-                           fill={props.state && props.state['LC6024'] ? colors[props.state['LC6024']] : "#e4f8e4"}>
+                           fill={props.state && props.state['LC6024'] ? colors[props.state['LC6024']] : colors.green}>
                             <Path
                                 d="M 89.5 48.15635299682617 L 0.5 48.15635299682617 L 0.5 0.5 L 89.5 0.5 L 89.5 48.15635299682617 Z"
                                 stroke="none"
@@ -144,7 +144,7 @@ export default function LC6(props) {
                             id="achtergrond-5"
                             data-name="achtergrond"
                             transform="translate(0.271)"
-                            fill={props.state && props.state['LC6050'] ? colors[props.state['LC6050']] : "#e4f8e4"}
+                            fill={props.state && props.state['LC6050'] ? colors[props.state['LC6050']] : colors.green}
                         >
                             <Path
                                 d="M 89.5 48.15635299682617 L 0.5 48.15635299682617 L 0.5 0.5 L 89.5 0.5 L 89.5 48.15635299682617 Z"
@@ -171,7 +171,7 @@ export default function LC6(props) {
                     </G>
                     <G id="lc6025" transform="translate(163.854 310.009)">
                         <G id="achtergrond-6" data-name="achtergrond"
-                           fill={props.state && props.state['LC6025'] ? colors[props.state['LC6025']] : "#e4f8e4"}>
+                           fill={props.state && props.state['LC6025'] ? colors[props.state['LC6025']] : colors.green}>
                             <Path
                                 d="M 35.76123428344727 62.48291397094727 L 0.5000052452087402 62.48291397094727 L 0.5000052452087402 0.5000050663948059 L 35.76123428344727 0.5000050663948059 L 35.76123428344727 62.48291397094727 Z"
                                 stroke="none"
@@ -197,7 +197,7 @@ export default function LC6(props) {
                     </G>
                     <G id="lc6060" transform="translate(278.438 433.238)">
                         <G id="achtergrond-7" data-name="achtergrond"
-                           fill={props.state && props.state['LC6060'] ? colors[props.state['LC6060']] : "#e4f8e4"}>
+                           fill={props.state && props.state['LC6060'] ? colors[props.state['LC6060']] : colors.green}>
                             <Path
                                 d="M 58.27495956420898 58.5 L 0.4999997913837433 58.5 L 0.4999997913837433 0.5 L 58.27495956420898 0.5 L 58.27495956420898 58.5 Z"
                                 stroke="none"
@@ -223,7 +223,7 @@ export default function LC6(props) {
                     </G>
                     <G id="lc6064" transform="translate(246.854 433.238)">
                         <G id="achtergrond-8" data-name="achtergrond"
-                           fill={props.state && props.state['LC6064'] ? colors[props.state['LC6064']] : "#e4f8e4"}>
+                           fill={props.state && props.state['LC6064'] ? colors[props.state['LC6064']] : colors.green}>
                             <Path
                                 d="M 31.93756484985352 58.5 L 0.5000043511390686 58.5 L 0.5000043511390686 0.5 L 31.93756484985352 0.5 L 31.93756484985352 58.5 Z"
                                 stroke="none"
@@ -251,7 +251,7 @@ export default function LC6(props) {
                         id="Path_40"
                         data-name="Path 40"
                         transform="translate(138.213 387.238)"
-                        fill="#e2ece3"
+                        fill="#EDEDED"
                     >
                         <Path
                             d="M 21.5 21.5 L 0.5 21.5 L 0.5 0.5 L 21.5 0.5 L 21.5 21.5 Z"
@@ -267,7 +267,7 @@ export default function LC6(props) {
                         id="Path_39"
                         data-name="Path 39"
                         transform="translate(203.213 387.238)"
-                        fill="#e2ece3"
+                        fill="#EDEDED"
                     >
                         <Path
                             d="M 22.5 21.5 L 0.5 21.5 L 0.5 0.5 L 22.5 0.5 L 22.5 21.5 Z"
@@ -283,7 +283,7 @@ export default function LC6(props) {
                         id="Path_43"
                         data-name="Path 43"
                         transform="translate(116.213 433.238)"
-                        fill="#e2ece3"
+                        fill="#EDEDED"
                     >
                         <Path
                             d="M 131.5 58.5 L 0.5 58.5 L 0.5 0.5 L 131.5 0.5 L 131.5 58.5 Z"
@@ -299,7 +299,7 @@ export default function LC6(props) {
                         id="Path_38"
                         data-name="Path 38"
                         transform="translate(58.291 433.238)"
-                        fill="#e2ece3"
+                        fill="#EDEDED"
                     >
                         <Path
                             d="M 27.02734184265137 25.63769721984863 L 0.500001847743988 25.63769721984863 L 0.500001847743988 0.4999976456165314 L 27.02734184265137 0.4999976456165314 L 27.02734184265137 25.63769721984863 Z"
@@ -315,7 +315,7 @@ export default function LC6(props) {
                         id="Path_46"
                         data-name="Path 46"
                         transform="translate(278.291 433.238)"
-                        fill="#e2ece3"
+                        fill="#EDEDED"
                     >
                         <Path
                             d="M 17.35644340515137 22.25561714172363 L 0.5000026822090149 22.25561714172363 L 0.5000026822090149 0.499997615814209 L 17.35644340515137 0.499997615814209 L 17.35644340515137 22.25561714172363 Z"

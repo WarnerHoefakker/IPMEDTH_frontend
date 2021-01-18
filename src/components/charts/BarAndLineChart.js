@@ -43,13 +43,14 @@ const BarAndLineChart = ({barData, barMax, barMin, lineData, lineMax, lineMin, x
                     barRatio={0.9}
                     cornerRadius={4}
                     key={0}
+                    // domain={{ y: [ 0, barMax] }}
                 />
 
                 <VictoryLine
                     data={lineData}
                     x="timestamp"
                     y={(datum) => datum.co2Value / lineMax}
-                    style={chartStyles.lineStyle}
+                    style={chartStyles.lineStyle[color || 'purple']}
                     animate={{
                         duration: 300,
                         onLoad: {duration: 300}
@@ -66,7 +67,7 @@ const BarAndLineChart = ({barData, barMax, barMin, lineData, lineMax, lineMin, x
                 </View>
 
                 <View style={styles.legendItem}>
-                    <View style={[styles.legendItemColorLine, styles.legendItemSymbol]}/>
+                    <View style={[chartStyles.legendStyle.legendItemColorLine[color], styles.legendItemSymbol]}/>
                     <Text style={globalStyles.text}>CO2</Text>
                 </View>
             </View>

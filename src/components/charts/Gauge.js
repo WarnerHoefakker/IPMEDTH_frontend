@@ -4,19 +4,19 @@ import RNSpeedometer from 'react-native-speedometer';
 import globalStyles from "../../assets/style/globalStyle";
 
 const Gauge = ({color, value, min, max, showLabel, labelValue, labelMax, size}) => {
-    const colors = {
-        orange: ['#f4d9c6', '#f2b385', '#f48e43'],
-        blue: ['#cbe2eb', '#8ebfd2', '#579fbd'],
-        green: ['#e4f8e4', '#c4efc3', '#94e393'],
-        purple: ['#d9dbf3', '#b3b8e7', '#848cd9']
-    };
-
     // const colors = {
     //     orange: ['#FFD0F6', '#F5A5E5', '#E877D3'],
-    //     blue: ['#C4D4FF', '#829BE2', '#4566BF'],
-    //     green: ['#c3f3f5', '#9CE0E0', '#5EBCBC'],
+    //     blue: ['#cbe2eb', '#8ebfd2', '#579fbd'],
+    //     green: ['#e4f8e4', '#c4efc3', '#94e393'],
     //     purple: ['#d9dbf3', '#b3b8e7', '#848cd9']
     // };
+
+    const colors = {
+        orange: ['#FFD0F6', '#F5A5E5', '#E877D3'],
+        blue: ['#C4D4FF', '#829BE2', '#4566BF'],
+        green: ['#c3f3f5', '#9CE0E0', '#5EBCBC'],
+        purple: ['#d9dbf3', '#b3b8e7', '#848cd9']
+    };
 
     let valueLabel = <></>;
 

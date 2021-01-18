@@ -33,7 +33,7 @@ export default function Maps() {
 
     const levelColors = {
         LC4: {
-            backgroundColor: '#F48E43',
+            backgroundColor: '#E877D3',
             textColor: '#FFF'
         },
         LC5: {
@@ -41,11 +41,11 @@ export default function Maps() {
             textColor: '#FFF'
         },
         LC6: {
-            backgroundColor: '#94e393',
-            textColor: '#383838'
+            backgroundColor: '#5EBCBC',
+            textColor: '#FFF'
         },
         LC7: {
-            backgroundColor: '#579fbd',
+            backgroundColor: '#4566BF',
             textColor: '#FFF'
         }
     };

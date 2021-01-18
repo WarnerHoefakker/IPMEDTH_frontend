@@ -7,9 +7,9 @@ export default function LC7(props) {
     //{props.state && props.state['LC7014'] ? colors[props.state['LC7014']] : "#cbe2eb"}
 
     const colors = {
-        green: '#CBE2EB',
-        orange: '#8EBFD2',
-        red: '#579FBD'
+        green: '#C4D4FF',
+        orange: '#829BE2',
+        red: '#4566BF'
     };
 
     return (
@@ -39,7 +39,7 @@ export default function LC7(props) {
                     </G>
                     <G id="lc7006" transform="translate(58.438 433.238)">
                         <G id="achtergrond"
-                           fill={props.state && props.state['LC7006'] ? colors[props.state['LC7006']] : "#cbe2eb"}>
+                           fill={props.state && props.state['LC7006'] ? colors[props.state['LC7006']] : colors.green}>
                             <Path
                                 d="M 58.27495956420898 59.25341796875 L 0.4999997913837433 59.25341796875 L 0.4999997913837433 0.4999989867210388 L 58.27495956420898 0.4999989867210388 L 58.27495956420898 59.25341796875 Z"
                                 stroke="none"
@@ -64,7 +64,7 @@ export default function LC7(props) {
                     </G>
                     <G id="lc7010" transform="translate(26.854 433.238)">
                         <G id="achtergrond-2" data-name="achtergrond"
-                           fill={props.state && props.state['LC7010'] ? colors[props.state['LC7010']] : "#cbe2eb"}>
+                           fill={props.state && props.state['LC7010'] ? colors[props.state['LC7010']] : colors.green}>
                             <Path
                                 d="M 31.93756484985352 59.25341796875 L 0.5000043511390686 59.25341796875 L 0.5000043511390686 0.4999989867210388 L 31.93756484985352 0.4999989867210388 L 31.93756484985352 59.25341796875 Z"
                                 stroke="none"
@@ -93,7 +93,7 @@ export default function LC7(props) {
                             id="achtergrond-3"
                             data-name="achtergrond"
                             transform="translate(-0.418 0.384)"
-                            fill={props.state && props.state['LC7044'] ? colors[props.state['LC7044']] : "#cbe2eb"}
+                            fill={props.state && props.state['LC7044'] ? colors[props.state['LC7044']] : colors.green}
                             stroke="#2c2c2c"
                             strokeWidth={1}
                         >
@@ -118,7 +118,7 @@ export default function LC7(props) {
                             id="achtergrond-4"
                             data-name="achtergrond"
                             transform="translate(0.271)"
-                            fill={props.state && props.state['LC7050'] ? colors[props.state['LC7050']] : "#cbe2eb"}
+                            fill={props.state && props.state['LC7050'] ? colors[props.state['LC7050']] : colors.green}
                         >
                             <Path
                                 d="M 89.5 48.15635299682617 L 0.5 48.15635299682617 L 0.5 0.5 L 89.5 0.5 L 89.5 48.15635299682617 Z"
@@ -145,7 +145,7 @@ export default function LC7(props) {
                     </G>
                     <G id="lc7025" transform="translate(163.854 310.009)">
                         <G id="achtergrond-5" data-name="achtergrond"
-                           fill={props.state && props.state['LC7025'] ? colors[props.state['LC7025']] : "#cbe2eb"}>
+                           fill={props.state && props.state['LC7025'] ? colors[props.state['LC7025']] : colors.green}>
                             <Path
                                 d="M 35.76123428344727 62.48291397094727 L 0.5000052452087402 62.48291397094727 L 0.5000052452087402 0.5000050663948059 L 35.76123428344727 0.5000050663948059 L 35.76123428344727 62.48291397094727 Z"
                                 stroke="none"
@@ -174,7 +174,7 @@ export default function LC7(props) {
                             id="achtergrond-6"
                             data-name="achtergrond"
                             transform="translate(-1.705)"
-                            fill="#d8e0e3"
+                            fill="#EDEDED"
                         >
                             <Path
                                 d="M 18.64306259155273 26.31640243530273 L 0.5000032186508179 26.31640243530273 L 0.5000032186508179 0.5000030994415283 L 18.64306259155273 0.5000030994415283 L 18.64306259155273 26.31640243530273 Z"
@@ -192,7 +192,7 @@ export default function LC7(props) {
                             id="achtergrond-7"
                             data-name="achtergrond"
                             transform="translate(31.506)"
-                            fill={props.state && props.state['LC7024'] ? colors[props.state['LC7024']] : "#cbe2eb"}
+                            fill={props.state && props.state['LC7024'] ? colors[props.state['LC7024']] : colors.green}
                         >
                             <Path
                                 d="M 57.99365615844727 48.15625381469727 L 0.5000061988830566 48.15625381469727 L 0.5000061988830566 0.5000050067901611 L 57.99365615844727 0.5000050067901611 L 57.99365615844727 48.15625381469727 Z"
@@ -218,7 +218,7 @@ export default function LC7(props) {
                         </Text>
                     </G>
                     <G id="leeg3" transform="translate(87.265 380.238)">
-                        <G id="achtergrond-8" data-name="achtergrond" fill="#d8e0e3">
+                        <G id="achtergrond-8" data-name="achtergrond" fill="#EDEDED">
                             <Path
                                 d="M 16.11108207702637 26.31635475158691 L 0.5000019669532776 26.31635475158691 L 0.5000019669532776 0.5000045299530029 L 16.11108207702637 0.5000045299530029 L 16.11108207702637 26.31635475158691 Z"
                                 stroke="none"
@@ -231,7 +231,7 @@ export default function LC7(props) {
                         </G>
                     </G>
                     <G id="leeg2" transform="translate(58.038 380.238)">
-                        <G id="achtergrond-9" data-name="achtergrond" fill="#d8e0e3">
+                        <G id="achtergrond-9" data-name="achtergrond" fill="#EDEDED">
                             <Path
                                 d="M 29.67480087280273 26.52240371704102 L 0.5000013709068298 26.52240371704102 L 0.5000013709068298 0.5000028014183044 L 29.67480087280273 0.5000028014183044 L 29.67480087280273 26.52240371704102 Z"
                                 stroke="none"
@@ -245,7 +245,7 @@ export default function LC7(props) {
                     </G>
                     <G id="lc7060" transform="translate(278.438 433.238)">
                         <G id="achtergrond-10" data-name="achtergrond"
-                           fill={props.state && props.state['LC7060'] ? colors[props.state['LC7060']] : "#cbe2eb"}>
+                           fill={props.state && props.state['LC7060'] ? colors[props.state['LC7060']] : colors.green}>
                             <Path
                                 d="M 58.27495956420898 59.25341796875 L 0.4999997913837433 59.25341796875 L 0.4999997913837433 0.4999989867210388 L 58.27495956420898 0.4999989867210388 L 58.27495956420898 59.25341796875 Z"
                                 stroke="none"
@@ -271,7 +271,7 @@ export default function LC7(props) {
                     </G>
                     <G id="lc7064" transform="translate(246.854 433.238)">
                         <G id="achtergrond-11" data-name="achtergrond"
-                           fill={props.state && props.state['LC7064'] ? colors[props.state['LC7064']] : "#cbe2eb"}>
+                           fill={props.state && props.state['LC7064'] ? colors[props.state['LC7064']] : colors.green}>
                             <Path
                                 d="M 31.93756484985352 59.25341796875 L 0.5000043511390686 59.25341796875 L 0.5000043511390686 0.4999989867210388 L 31.93756484985352 0.4999989867210388 L 31.93756484985352 59.25341796875 Z"
                                 stroke="none"
@@ -300,7 +300,7 @@ export default function LC7(props) {
                             id="achtergrond-12"
                             data-name="achtergrond"
                             transform="translate(0.271)"
-                            fill="#d8e0e3"
+                            fill="#EDEDED"
                         >
                             <Path
                                 d="M 30.50024032592773 26.5224609375 L 0.5000011324882507 26.5224609375 L 0.5000011324882507 0.5000014305114746 L 30.50024032592773 0.5000014305114746 L 30.50024032592773 26.5224609375 Z"
@@ -315,7 +315,7 @@ export default function LC7(props) {
                     </G>
                     <G id="lc7020" transform="translate(26.854 358.238)">
                         <G id="achtergrond-13" data-name="achtergrond"
-                           fill={props.state && props.state['LC7020'] ? colors[props.state['LC7020']] : "#cbe2eb"}>
+                           fill={props.state && props.state['LC7020'] ? colors[props.state['LC7020']] : colors.green}>
                             <Path
                                 d="M 31.93756484985352 48.5224609375 L 0.5000043511390686 48.5224609375 L 0.5000043511390686 0.5000004768371582 L 31.93756484985352 0.5000004768371582 L 31.93756484985352 48.5224609375 Z"
                                 stroke="none"
@@ -343,7 +343,7 @@ export default function LC7(props) {
                         id="Path_40"
                         data-name="Path 40"
                         transform="translate(138.213 387.238)"
-                        fill="#d8e0e3"
+                        fill="#EDEDED"
                     >
                         <Path
                             d="M 21.5 21.5 L 0.5 21.5 L 0.5 0.5 L 21.5 0.5 L 21.5 21.5 Z"
@@ -359,7 +359,7 @@ export default function LC7(props) {
                         id="Path_39"
                         data-name="Path 39"
                         transform="translate(203.213 387.238)"
-                        fill="#d8e0e3"
+                        fill="#EDEDED"
                     >
                         <Path
                             d="M 22.5 21.5 L 0.5 21.5 L 0.5 0.5 L 22.5 0.5 L 22.5 21.5 Z"
@@ -375,7 +375,7 @@ export default function LC7(props) {
                         id="Path_43"
                         data-name="Path 43"
                         transform="translate(116.213 433.238)"
-                        fill="#d8e0e3"
+                        fill="#EDEDED"
                     >
                         <Path
                             d="M 131.5 58.5 L 0.5 58.5 L 0.5 0.5 L 131.5 0.5 L 131.5 58.5 Z"
@@ -391,7 +391,7 @@ export default function LC7(props) {
                         id="Path_38"
                         data-name="Path 38"
                         transform="translate(58.291 433.238)"
-                        fill="#d8e0e3"
+                        fill="#EDEDED"
                     >
                         <Path
                             d="M 30.5 29.5 L 0.4999990463256836 29.5 L 0.4999990463256836 0.5 L 30.5 0.5 L 30.5 29.5 Z"
@@ -407,7 +407,7 @@ export default function LC7(props) {
                         id="Path_47"
                         data-name="Path 47"
                         transform="translate(278.292 433.238)"
-                        fill="#d8e0e3"
+                        fill="#EDEDED"
                     >
                         <Path
                             d="M 30.5 29.5 L 0.4999990463256836 29.5 L 0.4999990463256836 0.5 L 30.5 0.5 L 30.5 29.5 Z"
