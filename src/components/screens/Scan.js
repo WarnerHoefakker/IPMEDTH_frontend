@@ -35,7 +35,7 @@ class Scan extends React.Component {
             // waar de gebruiker is ingelogd.
             this.saveTag(tag.id)
         });
-        this.getTag();
+        this.getTagFromApi();
     }
 
     componentWillUnmount() {
@@ -57,14 +57,18 @@ class Scan extends React.Component {
         }
     };
 
-    getTag = async () => {
+    getTagFromApi = async () => {
         this.setState({pageLoading: true});
         const guid = await AsyncStorage.getItem('GUID');
         const response = await getTag(guid);
 
-        await AsyncStorage.setItem('TAG', response.tagId);
-        this.setState({tagValue: response.tagId});
+        if(response.tagId !== undefined)
+            await AsyncStorage.setItem('TAG', response.tagId);
+        else
+            await AsyncStorage.setItem('TAG', '');
+
         this.setState({pageLoading: false})
+        this.setState({tagValue: response.tagId});
     };
 
     showSuccesfullyDetectedTagPopUp() {
@@ -87,7 +91,7 @@ class Scan extends React.Component {
                         :
 
                         <View style={styles.pageContent}>
-                            {this.state.tagValue == '' &&
+                            {this.state.tagValue === '' || this.state.tagValue === null || this.state.tagValue === undefined &&
                             <View style={styles.textContainer}>
                                 <Svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -112,7 +116,7 @@ class Scan extends React.Component {
                             </View>
                             }
 
-                            {this.state.tagValue !== '' && this.state.tagValue !== null &&
+                            {this.state.tagValue !== '' && this.state.tagValue !== null && this.state.tagValue !== undefined &&
                             <View style={styles.textContainer}>
                                 <Svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -212,7 +216,8 @@ const styles = StyleSheet.create({
     button:{
         alignSelf: 'center',
         position: 'relative',
-        bottom: 75
+        bottom: 75,
+        marginTop: 20
     },
     scanButton: {
         // flex: 1,
